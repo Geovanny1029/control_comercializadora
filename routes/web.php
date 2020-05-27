@@ -12,5 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('auth.login');
+})->name('login');
+
+//rutas registro
+Route::resource('registro','RegistroController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
