@@ -18,6 +18,84 @@ Route::get('/', function () {
 //rutas registro
 Route::resource('registro','RegistroController');
 
+//rutas usuarios
+Route::resource('user','UserController');
+
+Route::get('userse',[
+			'uses' => 'UserController@view',
+			'as'   => 'user.view'
+]);
+
+Route::post('useru',[
+			'uses' => 'UserController@actualiza',
+			'as'   => 'user.actualiza'
+]);
+
+//rutas aduanas
+Route::resource('aduanas','AduanaController');
+
+Route::get('aduanase',[
+			'uses' => 'AduanaController@view',
+			'as'   => 'aduanas.view'
+]);
+
+Route::post('aduanasu',[
+			'uses' => 'AduanaController@actualiza',
+			'as'   => 'aduanas.actualiza'
+]);
+
+//rutas clientes
+Route::resource('clientes','ClienteController');
+
+Route::get('clientese',[
+			'uses' => 'ClienteController@view',
+			'as'   => 'clientes.view'
+]);
+
+Route::post('clientesu',[
+			'uses' => 'ClienteController@actualiza',
+			'as'   => 'clientes.actualiza'
+]);
+
+//rutas ejecutivos
+Route::resource('ejecutivos','EjecutivoController');
+
+Route::get('ejecutivose',[
+			'uses' => 'EjecutivoController@view',
+			'as'   => 'ejecutivos.view'
+]);
+
+Route::post('ejecutivosu',[
+			'uses' => 'EjecutivoController@actualiza',
+			'as'   => 'ejecutivos.actualiza'
+]);
+
+//rutas estatus
+Route::resource('estatus','EstatusController');
+
+Route::get('estatuse',[
+			'uses' => 'EstatusController@view',
+			'as'   => 'estatus.view'
+]);
+
+Route::post('estatusu',[
+			'uses' => 'EstatusController@actualiza',
+			'as'   => 'estatus.actualiza'
+]);
+
+//rutas razon_social
+Route::resource('razon_social','RazonSocialProveedorController');
+
+Route::get('razon_sociale',[
+			'uses' => 'RazonSocialProveedorController@view',
+			'as'   => 'razon_social.view'
+]);
+
+Route::post('razon_socialu',[
+			'uses' => 'RazonSocialProveedorController@actualiza',
+			'as'   => 'razon_social.actualiza'
+]);
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

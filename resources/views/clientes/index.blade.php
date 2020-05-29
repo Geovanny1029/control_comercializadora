@@ -1,0 +1,44 @@
+@extends('index')
+@section('title','Clientes')
+@section('panel','Lista Clientes')
+@section('content')
+
+        @if(count($errors) > 0)
+            <div class="alert alert-danger" role="alert">
+               @foreach ($errors->all() as $error)
+                  <div>{{ $error }}</div>
+              @endforeach
+            </div>
+        @endif 
+
+
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModalcli">Crear nuevo Cliente</button>
+
+@include('clientes.crear')
+
+<table class="table table-striped" id="tablaclientes">
+  <thead>
+    <th>ID</th>
+    <th>Nombre Cliente</th>
+    <th>Accion</th>
+  </thead>
+  <tbody>
+    @foreach($clientes as $cliente)
+    <tr>
+
+      <td> {{$cliente->id}} </td>
+      <td> {{$cliente->nombre_cliente}} </td>
+      <td>
+
+
+      <button class="btn btn-warning" data-toggle="modal" data-target="#editModala" onclick="fun_edita('{{$cliente->id}}')" id="editara" value="{{route('clientes.view')}}">Editar </button>
+
+      </td>
+    </tr>
+    @endforeach
+  </tbody>
+
+  @include('clientes.edit')
+</table>
+
+@endsection
