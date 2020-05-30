@@ -33,7 +33,7 @@
       <td> {{$user->id}} </td>
       <td> {{$user->nombre}} </td>
       <td> {{$user->user}} </td>
-      <td> {{$user->backub_pass}}</td>
+      <td> {{$user->backup_password}}</td>
       <td>  @if($user->nivel == 1)
       Administador @else Usuario  @endif</td>
       <td> {{$user->email}}</td>
@@ -42,7 +42,7 @@
       <td>
 
 
-      <button class="btn btn-warning" data-toggle="modal" data-target="#editModalU" onclick="fun_editg('{{$user->id}}')" id="editaru" value="{{route('user.view')}}">Editar </button>
+      <button class="btn btn-warning" data-toggle="modal" data-target="#editModalU" onclick="fun_editu('{{$user->id}}')" id="editaru" value="{{route('user.view')}}">Editar </button>
 
       @if($user->estatus == 1)
         <a class="btn btn-danger" onclick="return confirm('¿Seguro que deseas dar de baja este Usuario?')" href="{{route('user.destroy', $user->id)}}">Eliminar</a>

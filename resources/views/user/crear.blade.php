@@ -18,7 +18,7 @@
                </div>
                <div class="form-group col-md-6">
                 {!! Form::label('Nivel', 'Nivel') !!} 
-                {!! Form::select('nivel',['1' => 'Administrador', '2' => 'Supervisor', '3' => 'Usuario'],"Selecciona un nivel",['class' => 'form-control']) !!}
+                {!! Form::select('nivel',['1' => 'Administrador', '2' => 'Usuario'],"Selecciona un nivel",['class' => 'form-control']) !!}
                </div>
               </div>
 

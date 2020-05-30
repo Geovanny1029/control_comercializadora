@@ -31,7 +31,7 @@
       <td>
 
 
-      <button class="btn btn-warning" data-toggle="modal" data-target="#editModala" onclick="fun_edita('{{$cliente->id}}')" id="editara" value="{{route('clientes.view')}}">Editar </button>
+      <button class="btn btn-warning" data-toggle="modal" data-target="#editModalcli" onclick="fun_editcli('{{$cliente->id}}')" id="editacli" value="{{route('clientes.view')}}">Editar </button>
 
       </td>
     </tr>

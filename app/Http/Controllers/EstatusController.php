@@ -13,7 +13,7 @@ class EstatusController extends Controller
 
     public function index()
     {
-        $estatus = Estatus::all()->orderBy('id','ASC')->get();
+        $estatus = Estatus::orderBy('id','ASC')->get();
 
         return view('estatus.index')->with('estatus', $estatus);
     }

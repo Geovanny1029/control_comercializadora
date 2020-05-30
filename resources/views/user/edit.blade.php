@@ -24,7 +24,7 @@
               <div class="row">
                 <div class="form-group col-md-6">
                  {!! Form::label('usuario', 'Usuario') !!} 
-                 {!! Form::text('edit_name',null,['class' => 'form-control','style' => 'text-transform:uppercase;' ,'id' => 'edit_name', 'placeholder' => 'Usuario', 'required' ] ) !!}
+                 {!! Form::text('edit_user',null,['class' => 'form-control','style' => 'text-transform:uppercase;' ,'id' => 'edit_user', 'placeholder' => 'Usuario', 'required' ] ) !!}
                </div>
                <div class="form-group col-md-6">
                 {!! Form::label('password', 'Contraseña') !!}  

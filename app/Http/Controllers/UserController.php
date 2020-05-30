@@ -31,11 +31,11 @@ class UserController extends Controller
     {
         $user = new User($request->all());
         $user->nombre=strtoupper($request->nombre);
-        $user->name=strtoupper($request->name);
+        $user->user=strtoupper($request->user);
         $user->nivel=$request->nivel; 
         $user->email=$request->email;
         $user->estatus=$request->estatus;
-        $user->backub_pass=$request->password;
+        $user->backup_password=$request->password;
         $user->password=bcrypt($request->password);
         $user->save();
 
@@ -53,8 +53,8 @@ class UserController extends Controller
         $data= User::find($id);
         $data->nombre= strtoupper($request->edit_nombre);
         $data->nivel= $request->edit_nivel;
-        $data->name=$request->edit_name;
-        $data->backub_pass=$request->edit_password;
+        $data->user=$request->edit_user;
+        $data->backup_password=$request->edit_password;
         $data->password=bcrypt($request->edit_password);
         $data->email=$request->edit_email;
         $data->estatus=$request->edit_estatus;

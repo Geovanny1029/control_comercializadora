@@ -13,7 +13,7 @@ class AduanaController extends Controller
 
     public function index()
     {
-        $aduanas = Aduana::all();
+        $aduanas = Aduana::orderBy('id','ASC')->get();
 
         return view('aduanas.index')->with('aduanas', $aduanas);
     }

@@ -31,7 +31,7 @@
       <td>
 
 
-      <button class="btn btn-warning" data-toggle="modal" data-target="#editModales" onclick="fun_edita('{{$estate->id}}')" id="editara" value="{{route('estatus.view')}}">Editar </button>
+      <button class="btn btn-warning" data-toggle="modal" data-target="#editModales" onclick="fun_edites('{{$estate->id}}')" id="editaes" value="{{route('estatus.view')}}">Editar </button>
 
       </td>
     </tr>

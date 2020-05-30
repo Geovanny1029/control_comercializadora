@@ -5,45 +5,92 @@ $.ajaxSetup({
 });
 
 //vista editar usuario
-function fun_edit(id)
+function fun_editu(id)
     {
-      var view_url = $("#editar").val();
+      var view_url = $("#editaru").val();
       $.ajax({
         url: view_url,
         type:"GET", 
         data: {"id":id}, 
         success: function(result){
           //console.log(result);
-          $("#edit_usuario").val(result.usuario);
-          $("#edit_password").val(result.backup_pass);
-          $("#edit_Nombre_usuario").val(result.nombres);
-          $("#edit_apellidos").val(result.apellidos);
+          $("#edit_user").val(result.user);
+          $("#edit_password").val(result.backup_password);
+          $("#edit_nombre").val(result.nombre);
+          $("#edit_email").val(result.email);
           $("#edit_nivel").val(result.nivel);
           $("#edit_estatus").val(result.estatus);
-          $("#edit_id").val(result.id);
+          $("#edit_idu").val(result.id);
         }
       });
     }
 
-//vista editar grupo
-function fun_editg(id)
+//vista editar aduana
+function fun_editad(id)
     {
-      var view_url = $("#editarg").val();
+      var view_url = $("#editad").val();
       $.ajax({
         url: view_url,
         type:"GET", 
         data: {"id":id}, 
         success: function(result){
           //console.log(result);
-          $("#edit_Nombre_grupo").val(result.nombre);
-          $("#edit_estatusg").val(result.estatus);
-          $("#edit_idg").val(result.id);
+          $("#edit_nombre_aduana").val(result.nombre_aduana);
+          $("#edit_idad").val(result.id);
         }
       });
     }
 
-//vista editar asignaturas
-function fun_edita(id)
+//vista editar cliente
+function fun_editcli(id)
+    {
+      var view_url = $("#editacli").val();
+      $.ajax({
+        url: view_url,
+        type:"GET", 
+        data: {"id":id}, 
+        success: function(result){
+          //console.log(result);
+          $("#edit_nombre_cliente").val(result.nombre_cliente);
+          $("#edit_idcliente").val(result.id);
+        }
+      });
+    }
+
+//vista editar ejecutivo
+function fun_editeje(id)
+    {
+      var view_url = $("#editaeje").val();
+      $.ajax({
+        url: view_url,
+        type:"GET", 
+        data: {"id":id}, 
+        success: function(result){
+          //console.log(result);
+          $("#edit_nombre_ejecutivo").val(result.nombre_ejecutivo);
+          $("#edit_ideje").val(result.id);
+        }
+      });
+    }
+
+//vista editar estatus
+function fun_edites(id)
+    {
+      var view_url = $("#editaes").val();
+      $.ajax({
+        url: view_url,
+        type:"GET", 
+        data: {"id":id}, 
+        success: function(result){
+          //console.log(result);
+          $("#edit_nombre_estatus").val(result.nombre_estatus);
+          $("#edit_ides").val(result.id);
+        }
+      });
+    }
+
+//vista editar razon
+function fun_editra(id)
     {
       var view_url = $("#editara").val();
       $.ajax({
@@ -52,65 +99,8 @@ function fun_edita(id)
         data: {"id":id}, 
         success: function(result){
           //console.log(result);
-          $("#edit_Nombre_asignatura").val(result.nombre);
-          $("#edit_estatusa").val(result.estatus);
-          $("#edit_ida").val(result.id);
-        }
-      });
-    }
-
-//vista editar Periodos
-function fun_editp(id)
-    {
-      var view_url = $("#editarp").val();
-      $.ajax({
-        url: view_url,
-        type:"GET", 
-        data: {"id":id}, 
-        success: function(result){
-          //console.log(result);
-          $("#edit_Nombre_periodo").val(result.periodo);
-          $("#edit_estatusp").val(result.estatus);
-          $("#edit_idp").val(result.id);
-        }
-      });
-    }
-
-//vista editar relacion
-function fun_editr(id)
-    {
-      var view_url = $("#editarr").val();
-      $.ajax({
-        url: view_url,
-        type:"GET", 
-        data: {"id":id}, 
-        success: function(result){
-          //console.log(result);
-          $("#edit_gruposel").val(result.id_grupo);
-          $("#edit_asignaturasel").val(result.id_asignatura);
-          $("#edit_periodosel").val(result.id_periodo);
-          $("#edit_maestrosel").val(result.id_maestro);
-          $("#edit_alumnosel").val(result.id_alumno);
-          $("#edit_idr").val(result.id);
-        }
-      });
-    }
-
-//vista editar calificaciones alumnos
-function fun_sub(id)
-    {
-      var view_url = $("#editarsub").val();
-      $.ajax({
-        url: view_url,
-        type:"GET", 
-        data: {"id":id}, 
-        success: function(result){
-          //console.log(result);
-          $("#edit_C1").val(result.C1);
-          $("#edit_C2").val(result.C2);
-          $("#edit_C3").val(result.C3);
-          $("#edit_C4").val(result.C4);
-          $("#id_regsub").val(result.id);
+          $("#edit_nombre_razon").val(result.nombre_razon);
+          $("#edit_idrazon").val(result.id);
         }
       });
     }

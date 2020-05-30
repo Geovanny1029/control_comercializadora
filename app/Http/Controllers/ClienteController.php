@@ -13,7 +13,7 @@ class ClienteController extends Controller
 
     public function index()
     {
-        $clientes = Cliente::all()->orderBy('id','ASC')->get();
+        $clientes = Cliente::orderBy('id','ASC')->get();
 
         return view('clientes.index')->with('clientes', $clientes);
     }
@@ -43,7 +43,7 @@ class ClienteController extends Controller
 
     public function actualiza(Request $request){
 
-        $id = $request->edit_idcli;
+        $id = $request->edit_idcliente;
         $data= Cliente::find($id);
         $data->nombre_cliente= strtoupper($request->edit_nombre_cliente);
         $data->save();

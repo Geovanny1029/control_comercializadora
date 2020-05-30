@@ -13,7 +13,7 @@ class EjecutivoController extends Controller
 
     public function index()
     {
-        $ejecutivos = Ejecutivo::all()->orderBy('id','ASC')->get();
+        $ejecutivos = Ejecutivo::orderBy('id','ASC')->get();
 
         return view('ejecutivos.index')->with('ejecutivos', $ejecutivos);
     }

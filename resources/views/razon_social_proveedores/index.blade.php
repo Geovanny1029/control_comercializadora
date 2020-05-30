@@ -12,7 +12,7 @@
         @endif 
 
 
-<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModalra">Crear nueva Razon social</button>
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModalra"> Crear nueva Razon social </button>
 
 @include('razon_social_proveedores.crear')
 
@@ -27,11 +27,11 @@
     <tr>
 
       <td> {{$razon->id}} </td>
-      <td> {{$razon->nombre_razon_social}} </td>
+      <td> {{$razon->nombre_razon}} </td>
       <td>
 
 
-      <button class="btn btn-warning" data-toggle="modal" data-target="#editModala" onclick="fun_edita('{{$razon->id}}')" id="editara" value="{{route('razon_social.view')}}">Editar </button>
+      <button class="btn btn-warning" data-toggle="modal" data-target="#editModalra" onclick="fun_editra('{{$razon->id}}')" id="editara" value="{{route('razon_social.view')}}">Editar </button>
 
       </td>
     </tr>

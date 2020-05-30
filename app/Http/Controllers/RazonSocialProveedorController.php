@@ -13,9 +13,9 @@ class RazonSocialProveedorController extends Controller
 
     public function index()
     {
-        $razon_social = Razon_social_proveedor::all()->orderBy('id','ASC')->get();
+        $razon_social = Razon_social_proveedor::orderBy('id','ASC')->get();
 
-        return view('razon_social.index')->with('razon_social', $razon_social);
+        return view('Razon_social_proveedores.index')->with('razon_social', $razon_social);
     }
 
     public function view(Request $request){
