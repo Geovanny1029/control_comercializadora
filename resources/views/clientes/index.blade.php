@@ -16,29 +16,14 @@
 
 @include('clientes.crear')
 
-<table class="table table-striped" id="tablaclientes">
-  <thead>
-    <th>ID</th>
-    <th>Nombre Cliente</th>
-    <th>Accion</th>
-  </thead>
-  <tbody>
-    @foreach($clientes as $cliente)
-    <tr>
-
-      <td> {{$cliente->id}} </td>
-      <td> {{$cliente->nombre_cliente}} </td>
-      <td>
-
-
-      <button class="btn btn-warning" data-toggle="modal" data-target="#editModalcli" onclick="fun_editcli('{{$cliente->id}}')" id="editacli" value="{{route('clientes.view')}}">Editar </button>
-
-      </td>
-    </tr>
-    @endforeach
-  </tbody>
-
-  @include('clientes.edit')
-</table>
+ <table class="table table-striped   datatable" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>nombre_cliente</th>
+                                <th>estatus</th>
+                            </tr>
+                        </thead>
+                    </table>
 
 @endsection

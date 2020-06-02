@@ -4,6 +4,29 @@ $.ajaxSetup({
           }
 });
 
+$(document).ready(function() {
+    $('.datatable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "http://localhost:8000/datatable/getdata",
+        columns: [
+            {data: 'id', name: 'id'},
+            {data: 'nombre_cliente', name: 'nombre_cliente'},
+
+        {
+    
+          "createdCell": function(td,cell,d,row,col){
+            if (d.status == 1) {
+              $(td).attr('class','btn-success');
+            }else{
+              $(td).attr('class','btn-danger');
+            }
+          }
+        }             
+          
+        ]
+    });
+});
 //vista editar usuario
 function fun_editu(id)
     {

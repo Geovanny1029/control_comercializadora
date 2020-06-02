@@ -11,7 +11,6 @@ class Razon_social_proveedor extends Model
 	protected $fillable= [
    		'id',
    		'nombre_razon',
-   		'ruta razon',
    		'created_at',
    		'updated_at',   
    	];

@@ -13,7 +13,6 @@
 
  <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
 
   <!-- Bootstrap CSS -->
   <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
@@ -24,20 +23,14 @@
   <link href="{{asset('css/elegant-icons-style.css')}}" rel="stylesheet" />
   <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet" />
 
-  <!-- owl carousel -->
-  <link rel="stylesheet" href="{{asset('css/owl.carousel.css')}}" type="text/css">
-  <link href="{{asset('css/jquery-jvectormap-1.2.2.css')}}" rel="stylesheet">
+  
   <!-- Custom styles -->
   <link href="{{asset('css/widgets.css')}}" rel="stylesheet">
   <link rel="stylesheet" href="{{asset('css/style.css')}}" >
   <link href="{{asset('css/style-responsive.css')}}" rel="stylesheet" />
-  <link href="{{asset('css/xcharts.min.css')}}" rel=" stylesheet">
   <link href="{{asset('css/jquery-ui-1.10.4.min.css')}}" rel="stylesheet">
-  <link href="{{ URL::asset('css/lity.css')}}" rel="stylesheet">
+  <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
 
-  <link href="{{ URL::asset('css/select2.min.css')}}" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-   <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
  
   <!-- =======================================================
     Theme Name: NiceAdmin
@@ -201,44 +194,22 @@
   <!-- container section start -->
 
   <!-- javascripts -->
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
   <script src="{{ URL::asset('js/jquery.js')}}"></script>
   <script src="{{ URL::asset('js/metodos.js')}}"></script>
-  <script src="{{ URL::asset('js/jquery-ui-1.10.4.min.js')}}"></script>
-  <script src="{{ URL::asset('js/jquery-1.8.3.min.js')}}"></script>
-  <script src="{{ URL::asset('js/select2.min.js')}}"></script>
-  <script type="text/javascript" src="{{ URL::asset('js/jquery-ui-1.9.2.custom.min.js')}}"></script>
+<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
   <!-- bootstrap -->
   <script src="{{ URL::asset('js/bootstrap.min.js')}}"></script>
   <!-- nice scroll -->
   <script src="{{ URL::asset('js/jquery.scrollTo.min.js')}}"></script>
   <script src="{{ URL::asset('js/jquery.nicescroll.js')}}" type="text/javascript"></script>
-  <!-- charts scripts -->
-  <script src="assets/jquery-knob/js/jquery.knob.js"></script>
-  <script src="{{ URL::asset('js/jquery.sparkline.js')}}" type="text/javascript"></script>
-  <script src="{{ URL::asset('js/owl.carousel.js')}}"></script>
- 
-    <!--script for this page only-->
-    <script src="{{ URL::asset('js/jquery.rateit.min.js')}}"></script>
-    <!-- custom select -->
-    <script src="{{ URL::asset('js/jquery.customSelect.min.js')}}"></script>
-    <script src="assets/chart-master/Chart.js"></script>
 
+ 
     <!--custome script for all page-->
     <script src="js/scripts.js"></script>
     <!-- custom script for this page-->
-    <script src="{{ URL::asset('js/jquery-jvectormap-1.2.2.min.js')}}"></script>
-    <script src="{{ URL::asset('js/jquery-jvectormap-world-mill-en.js')}}"></script>
-    <script src="{{ URL::asset('js/xcharts.min.js')}}"></script>
     <script src="{{ URL::asset('js/jquery.autosize.min.js')}}"></script>
-    <script src="{{ URL::asset('js/jquery.placeholder.min.js')}}"></script>
-    <script src="{{ URL::asset('js/gdp-data.js')}}"></script>
-    <script src="{{ URL::asset('js/morris.min.js')}}"></script>
-    <script src="{{ URL::asset('js/sparklines.js')}}"></script>
-    <script src="{{ URL::asset('js/charts.js')}}"></script>
-    <script src="{{ URL::asset('js/lity.js')}}"></script>
-    <script src="{{ URL::asset('js/jquery.slimscroll.min.js')}}"></script>
+
     <script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
   
 
@@ -268,13 +239,6 @@
   @endif
 </script>
 
-<script type="text/javascript">
-        $(document).ready(function() {
-        $("#aerolinea").select2();
-         $("#agente").select2();
-        });
-
-</script>
 
 </body>
 

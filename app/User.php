@@ -18,6 +18,11 @@ class User extends Authenticatable
         'user','nombre','backup_password','estatus', 'email', 'password',
     ];
 
+        public function registros(){
+
+        return $this->hasMany('App\Registro'); 
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *

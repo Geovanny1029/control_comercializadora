@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Redirect;
 use App\Cliente;
+use Yajra\Datatables\Facades\Datatables;
 
 class ClienteController extends Controller
 {
@@ -54,5 +57,15 @@ class ClienteController extends Controller
         );        
 
         return back()->with($notification);
-    }   
+    }  
+
+    public function datatable()
+    {
+        return view('clientes.index');
+    }
+
+    public function getPosts()
+    {
+         return \DataTables::of(Cliente::query())->make(true);
+    } 
 }

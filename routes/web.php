@@ -18,6 +18,11 @@ Route::get('/', function () {
 //rutas registro
 Route::resource('registro','RegistroController');
 
+Route::post('registrosu',[
+			'uses' => 'RegistroController@actualiza',
+			'as'   => 'registro.actualiza'
+]);
+
 //rutas usuarios
 Route::resource('user','UserController');
 
@@ -82,6 +87,11 @@ Route::post('estatusu',[
 			'uses' => 'EstatusController@actualiza',
 			'as'   => 'estatus.actualiza'
 ]);
+
+Route::get('datatable', 'ClienteController@datatable');
+Route::get('datatable/getdata', 'ClienteController@getPosts')->name('datatable/getdata');
+
+
 
 //rutas razon_social
 Route::resource('razon_social','RazonSocialProveedorController');

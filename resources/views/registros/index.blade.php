@@ -3,22 +3,30 @@
 @section('panel','Lista de guias')
 @section('content')
 
-<button type="button" class="btn btn-info" data-toggle="modal" data-target="#addModal">Crear nuevo Registro</button>
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#addModalr">Crear nuevo Registro</button>
 
-
-
-<table class="display compact" style="width: 100%" id="tablaregistros">
+@include('registros.crear')
+<table class="table table-striped" id="tablaregistros">
   <thead>
     <th>ID</th>
-    <th>Aerolinea</th>
-    <th>Guia</th>
-    <th>Fecha_asignacion</th>
-    <th>Agente</th>
-    <th>Factura SCI</th>
-    <th>Periodo Cass</th>
-    <th>Referencia SCI</th>
+    <th>Nombre grupo</th>
     <th>Accion</th>
   </thead>
+  <tbody>
+    @foreach($registros as $registro)
+    <tr>
+
+      <td> {{$registro->id}} </td>
+      <td> {{$registro->nombre_aerolinea}} </td>
+      <td>
+
+      </td>
+    </tr>
+    @endforeach
+  </tbody>
+
+</table>
+
   
 
 
