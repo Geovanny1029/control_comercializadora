@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 28-05-2020 a las 07:04:57
--- Versión del servidor: 10.1.31-MariaDB
--- Versión de PHP: 7.2.4
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 03-06-2020 a las 05:29:47
+-- Versión del servidor: 10.1.35-MariaDB
+-- Versión de PHP: 7.2.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -35,6 +35,13 @@ CREATE TABLE `aduanas` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
+--
+-- Volcado de datos para la tabla `aduanas`
+--
+
+INSERT INTO `aduanas` (`id`, `nombre_aduana`, `created_at`, `updated_at`) VALUES
+(1, 'PROGRESO', '2020-06-01 23:07:54', '2020-06-01 23:07:54');
+
 -- --------------------------------------------------------
 
 --
@@ -44,9 +51,18 @@ CREATE TABLE `aduanas` (
 CREATE TABLE `clientes` (
   `id` int(2) UNSIGNED NOT NULL,
   `nombre_cliente` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+  `estatus` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `clientes`
+--
+
+INSERT INTO `clientes` (`id`, `nombre_cliente`, `estatus`, `created_at`, `updated_at`) VALUES
+(1, 'seadrill obreron', 1, '2020-06-02 15:15:20', '0000-00-00 00:00:00'),
+(2, 'COTEMAR', 1, '2020-06-02 15:15:22', '2020-06-02 10:51:46');
 
 -- --------------------------------------------------------
 
@@ -115,7 +131,6 @@ CREATE TABLE `password_resets` (
 CREATE TABLE `proveedor_externo` (
   `id` int(2) NOT NULL,
   `nombre_proveedor` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
-  `ruta_proveedor` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
@@ -129,10 +144,16 @@ CREATE TABLE `proveedor_externo` (
 CREATE TABLE `razon_social_datos_fac` (
   `id` int(2) NOT NULL,
   `nombre_razon` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
-  `ruta_razon` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `razon_social_datos_fac`
+--
+
+INSERT INTO `razon_social_datos_fac` (`id`, `nombre_razon`, `created_at`, `updated_at`) VALUES
+(1, 'SEADRILL', '2020-06-02 00:31:15', '2020-06-02 00:31:15');
 
 -- --------------------------------------------------------
 
@@ -145,10 +166,12 @@ CREATE TABLE `registros` (
   `no_operacion` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `id_cliente` int(30) NOT NULL,
   `id_razon_datos_fac` int(30) NOT NULL,
+  `ruta_razonsocial` varchar(100) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `contacto_facturas_pagos` varchar(100) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `forma_pago` int(2) DEFAULT NULL,
   `pagamos_mercancia` int(2) DEFAULT NULL,
   `id_proveedor` int(30) NOT NULL,
+  `ruta_proveedor` varchar(100) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `valor_factura_ext` int(30) NOT NULL,
   `ruta_factura_ext` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `se_emite_factura` int(2) NOT NULL,
@@ -178,6 +201,7 @@ CREATE TABLE `registros` (
   `ruta_costeo` varchar(100) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `cierre` int(2) DEFAULT NULL,
   `fecha_cierre` date DEFAULT NULL,
+  `id_user` int(20) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
@@ -282,13 +306,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `aduanas`
 --
 ALTER TABLE `aduanas`
-  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(2) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(2) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `ejecutivos`
@@ -318,7 +342,7 @@ ALTER TABLE `proveedor_externo`
 -- AUTO_INCREMENT de la tabla `razon_social_datos_fac`
 --
 ALTER TABLE `razon_social_datos_fac`
-  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `registros`

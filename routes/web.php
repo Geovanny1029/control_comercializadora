@@ -49,6 +49,19 @@ Route::post('aduanasu',[
 			'as'   => 'aduanas.actualiza'
 ]);
 
+//rutas proveedor externo
+Route::resource('proveedores','ProveedorExternoController');
+
+Route::get('proveedorese',[
+			'uses' => 'ProveedorExternoController@view',
+			'as'   => 'proveedores.view'
+]);
+
+Route::post('proveedoresu',[
+			'uses' => 'ProveedorExternoController@actualiza',
+			'as'   => 'proveedores.actualiza'
+]);
+
 //rutas clientes
 Route::resource('clientes','ClienteController');
 

@@ -127,3 +127,20 @@ function fun_editra(id)
         }
       });
     }
+
+//vista editar proveedor
+function fun_editapro(id)
+    {
+      var view_url = $("#editapro").val();
+      $.ajax({
+        url: view_url,
+        type:"GET", 
+        data: {"id":id}, 
+        success: function(result){
+          //console.log(result);
+          $("#edit_nombre_proveedor").val(result.nombre_proveedor);
+          $("#edit_idprov").val(result.id);
+        }
+      });
+    }
+    

@@ -85,4 +85,9 @@ class Registro extends Model
 
       return $this->belongsTo('App\User','id_usuario'); 
     }
+
+    public function proveedores(){
+
+      return $this->belongsTo('App\Proveedor_externo','id_proveedor'); 
+    }
 }

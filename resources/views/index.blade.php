@@ -22,7 +22,7 @@
   <!-- font icon -->
   <link href="{{asset('css/elegant-icons-style.css')}}" rel="stylesheet" />
   <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet" />
-
+ <link href="{{ URL::asset('css/select2.min.css')}}" rel="stylesheet">
   
   <!-- Custom styles -->
   <link href="{{asset('css/widgets.css')}}" rel="stylesheet">
@@ -139,7 +139,8 @@
               <li><a class="" href="{{route('clientes.index')}}">Clientes</a></li>              
               <li><a class="" href="{{route('ejecutivos.index')}}">Ejecutivos</a></li>
               <li><a class="" href="{{route('estatus.index')}}">Estatus</a></li>              
-              <li><a class="" href="{{route('razon_social.index')}}">Razon Social Proveedores</a></li>
+              <li><a class="" href="{{route('razon_social.index')}}">Razon Social Prov</a></li>
+              <li><a class="" href="{{route('proveedores.index')}}">Proveedor Ext</a></li>
             </ul>
           </li>
           @else
@@ -197,6 +198,7 @@
   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
   <script src="{{ URL::asset('js/jquery.js')}}"></script>
   <script src="{{ URL::asset('js/metodos.js')}}"></script>
+  <script src="{{ URL::asset('js/select2.min.js')}}"></script>
 <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
   <!-- bootstrap -->
   <script src="{{ URL::asset('js/bootstrap.min.js')}}"></script>
@@ -238,7 +240,15 @@
     }
   @endif
 </script>
+<script type="text/javascript">
+        $(document).ready(function() {
+        $("#clientes").select2();
+        $("#razon").select2();
+        $("#proveedores").select2();
+       
+        });
 
+</script>
 
 </body>
 

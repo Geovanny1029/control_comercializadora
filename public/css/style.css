@@ -9908,5 +9908,7 @@ span.customSelect.changed {
 	display:block;
 }
 
+.modal-open .select2-container--open { z-index: 999999 !important; width:100% !important; }
 
+.modal-open .select2-container--default { width:100% !important; }
 
