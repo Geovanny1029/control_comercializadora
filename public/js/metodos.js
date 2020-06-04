@@ -143,4 +143,37 @@ function fun_editapro(id)
         }
       });
     }
+
+    function modal(id){
+
+      var view_url = "http://localhost:8000/registroe"
+
+      $.ajax({
+        url: view_url,
+        type:"GET", 
+        data: {"id":id}, 
+        success: function(result){
+          //console.log(result);
+
+          $("#id_registro").val(result.id);
+          if(result.ruta_razon == null){
+            $("#razz").css("color", "red");
+          }else{
+
+          }
+
+          if(result.contacto_facturas_pagos == null){
+            $("#contact").css("color", "red");
+          }else{
+            $("#edit_contacto_facturas_pagos").val(result.contacto_facturas_pagos);
+          }
+        }
+      });
+
+        $('#editModalr').modal({
+        keyboard: true,
+        backdrop: "static"
+    });
+
+};
     

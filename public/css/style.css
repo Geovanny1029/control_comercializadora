@@ -9912,3 +9912,6 @@ span.customSelect.changed {
 
 .modal-open .select2-container--default { width:100% !important; }
 
+.table-hover tbody tr:hover td {
+    background: yellow;
+}

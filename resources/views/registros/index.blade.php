@@ -6,21 +6,22 @@
 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addModalr">Crear nuevo Registro</button>
 
 @include('registros.crear')
-<table class="table table-striped" id="tablaregistros">
+@include('registros.edit')
+<table class="table table-hover table-striped" id="tablaregistros">
   <thead>
-    <th>ID</th>
-    <th>Nombre grupo</th>
-    <th>Accion</th>
+    <th>Num Operacion</th>
+    <th>Cliente</th>
+    <th>Razon Social</th>
+    <th>Forma de pago</th>
   </thead>
   <tbody>
     @foreach($registros as $registro)
-    <tr>
+    <tr onclick="modal('{{$registro->id}}')" value="{{route('registro.view')}}" id="edit{{$registro->id}}">
 
-      <td> {{$registro->id}} </td>
-      <td> {{$registro->nombre_aerolinea}} </td>
-      <td>
-
-      </td>
+      <td> {{$registro->no_operacion}} </td>
+      <td> {{$registro->id_cliente}} </td>
+      <td> {{$registro->id_razon_datos_fac}} </td>
+      <td> {{$registro->forma_pago}} </td>
     </tr>
     @endforeach
   </tbody>

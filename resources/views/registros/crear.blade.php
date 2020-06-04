@@ -156,7 +156,7 @@
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Fecha Deposito Cliente</span>
-                        <input type="date" name="echa_deposito_cliente" class="form-control" placeholder="Fecha Deposito">
+                        <input type="date" name="fecha_deposito_cliente" class="form-control" placeholder="Fecha Deposito">
                     </div>
                </div>                  
                <div class="form-group col-md-3">

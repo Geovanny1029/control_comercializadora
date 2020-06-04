@@ -23,6 +23,11 @@ Route::post('registrosu',[
 			'as'   => 'registro.actualiza'
 ]);
 
+Route::get('registroe',[
+			'uses' => 'RegistroController@view',
+			'as'   => 'registro.view'
+]);
+
 //rutas usuarios
 Route::resource('user','UserController');
 
