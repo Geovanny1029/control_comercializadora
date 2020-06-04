@@ -49,26 +49,26 @@
               <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Forma Pago</span>
-                        {!! Form::select('forma_pago',["1"=>"Efectivo","2"=>"Transferencia"],null,['class' => 'form-control','id'=>'Forma Pago']) !!}
+                       <span class="input-group-addon" id="forma">Forma Pago</span>
+                        {!! Form::select('edit_forma_pago',["1"=>"Efectivo","2"=>"Transferencia"],null,['class' => 'form-control','id'=>'edit_forma_pago']) !!}
                     </div>
                </div> 
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Pagamos Mercancia?</span>
-                        {!! Form::select('pagamos_mercancia',["1"=>"Si","2"=>"No"],null,['class' => 'form-control','id'=>'pagamos_mercancia']) !!}
+                        {!! Form::select('edit_pagamos_mercancia',["1"=>"Si","2"=>"No"],null,['class' => 'form-control','id'=>'edit_pagamos_mercancia']) !!}
                     </div>
                </div> 
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Proveedor Ext</span>
-                        {!! Form::select('id_proveedor',$proveedores,null,['class' => 'form-control','id'=>'proveedores']) !!}
+                        {!! Form::select('edit_id_proveedor',$proveedores,null,['class' => 'form-control','id'=>'edit_proveedores']) !!}
                     </div>
                </div> 
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Ruta Proveedor</span>
-                        <input type="file" name="ruta_proveedor" class="form-control" placeholder="Proveedor">
+                       <span class="input-group-addon" id="rutpro">Ruta Proveedor</span>
+                        <input type="file" name="edit_ruta_proveedor" class="form-control" placeholder="Proveedor" id="edit_ruta_proveedor">
                     </div>
                </div>                                            
               </div>
@@ -76,26 +76,26 @@
               <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Valor Fact Ext $</span>
-                        <input type="number" name="valor_factura_ext" class="form-control" placeholder="$">
+                       <span class="input-group-addon" id="valfac" >Valor Fact Ext $</span>
+                        <input type="number" name="edit_valor_factura_ext" class="form-control" id="edit_valor_factura_ext" placeholder="$">
                     </div>
                </div> 
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Ruta Fact</span>
-                        <input type="file" name="ruta_factura_ext" class="form-control" placeholder="Ruta">
+                       <span class="input-group-addon" id="rutafact">Ruta Fact</span>
+                        <input type="file" name="edit_ruta_factura_ext" id="edit_ruta_factura_ext" class="form-control" placeholder="Ruta">
                     </div>
                </div>                  
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Se Emite Factura?</span>
-                        {!! Form::select('se_emite_factura',["1"=>"Si","2"=>"No"],null,['class' => 'form-control','id'=>'se_emite_factura']) !!}
+                        {!! Form::select('edit_se_emite_factura',["1"=>"Si","2"=>"No"],null,['class' => 'form-control','id'=>'edit_se_emite_factura']) !!}
                     </div>
                </div> 
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Se Factura valor Mercancia?</span>
-                        {!! Form::select('se_factura_valor_mercancia',["1"=>"Si","2"=>"No"],null,['class' => 'form-control','id'=>'se_factura_valor_mercancia']) !!}
+                        {!! Form::select('edit_se_factura_valor_mercancia',["1"=>"Si","2"=>"No"],null,['class' => 'form-control','id'=>'edit_se_factura_valor_mercancia']) !!}
                     </div>
                </div>                                           
               </div>                             
@@ -104,25 +104,25 @@
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Aduana</span>
-                        {!! Form::select('id_aduana',$aduanas,null,['class' => 'form-control','id'=>'aduanas']) !!}
+                        {!! Form::select('edit_id_aduana',$aduanas,null,['class' => 'form-control','id'=>'edit_aduanas']) !!}
                     </div>
                </div> 
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Ejecutivo</span>
-                        {!! Form::select('id_ejecutivo',$ejecutivos,null,['class' => 'form-control','id'=>'ejecutivos']) !!}
+                        {!! Form::select('edit_id_ejecutivo',$ejecutivos,null,['class' => 'form-control','id'=>'edit_ejecutivos']) !!}
                     </div>
                </div>                 
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Estatus</span>
-                        {!! Form::select('id_estatus',$estatus,null,['class' => 'form-control','id'=>'estatus']) !!}
+                        {!! Form::select('edit_id_estatus',$estatus,null,['class' => 'form-control','id'=>'edit_estatus']) !!}
                     </div>
                </div>
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Descripcion Ope</span>
-                        <input type="text" name="descripcion_operacion" class="form-control" placeholder="descripcion_operacion">
+                       <span class="input-group-addon" id="descope">Descripcion Ope</span>
+                        <input type="text" name="edit_descripcion_operacion" id="edit_descripcion_operacion" class="form-control" placeholder="descripcion_operacion">
                     </div>
                </div>                                         
               </div>
@@ -130,26 +130,26 @@
               <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Eta</span>
-                        <input type="date" name="eta" class="form-control" placeholder="Eta">
+                       <span class="input-group-addon" id="feceta" >Eta</span>
+                        <input type="date" name="edit_eta" id="edit_eta" class="form-control" placeholder="Eta">
                     </div>
                </div>  
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Fecha Despacho</span>
-                        <input type="date" name="fecha_despacho" class="form-control" placeholder="Eta">
+                       <span class="input-group-addon" id="fecdesp" >Fecha Despacho</span>
+                        <input type="date" name="edit_fecha_despacho" id="edit_fecha_despacho" class="form-control" placeholder="Eta">
                     </div>
                </div>                
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Cotizacion Cliente $</span>
-                        <input type="number" name="cotizacion_cliente_mxp" class="form-control" placeholder="$">
+                       <span class="input-group-addon" id="cotcli" >Cotizacion Cliente $</span>
+                        <input type="number" name="edit_cotizacion_cliente_mxp" id="edit_cotizacion_cliente_mxp" class="form-control" placeholder="$">
                     </div>
                </div>
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Ruta Cotizacion</span>
-                        <input type="file" name="ruta_cotizacion_cliente" class="form-control" placeholder="ruta">
+                       <span class="input-group-addon" id="rutcot" >Ruta Cotizacion</span>
+                        <input type="file" name="edit_ruta_cotizacion_cliente" id="edit_ruta_cotizacion_cliente" class="form-control" placeholder="ruta">
                     </div>
                </div>                                          
               </div>  
@@ -158,26 +158,26 @@
               <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Observaciones</span>
-                        <input type="text" name="observaciones" class="form-control" placeholder="observaciones">
+                       <span class="input-group-addon" id="obs" >Observaciones</span>
+                        <input type="text" name="edit_observaciones" id="edit_observaciones" class="form-control" placeholder="observaciones">
                     </div>
                </div> 
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Fecha Deposito Cliente</span>
-                        <input type="date" name="fecha_deposito_cliente" class="form-control" placeholder="Fecha Deposito">
+                       <span class="input-group-addon" id="fecdep" >Fecha Deposito Cliente</span>
+                        <input type="date" name="edit_fecha_deposito_cliente" id="edit_fecha_deposito_cliente" class="form-control" placeholder="Fecha Deposito">
                     </div>
                </div>                  
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Importe deposito cliente $</span>
-                        <input type="number" name="importe_deposito_cliente" class="form-control" placeholder="$">
+                       <span class="input-group-addon" id="impodep" >Importe deposito cliente $</span>
+                        <input type="number" name="edit_importe_deposito_cliente" id="edit_importe_deposito_cliente" class="form-control" placeholder="$">
                     </div>
                </div>
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Ruta Deposito</span>
-                        <input type="file" name="ruta_importe_deposito_cliente" class="form-control" placeholder="ruta">
+                       <span class="input-group-addon" id="rutdepo" >Ruta Deposito</span>
+                        <input type="file" name="edit_ruta_importe_deposito_cliente" id="edit_ruta_importe_deposito_cliente" class="form-control" placeholder="ruta">
                     </div>
                </div>                                         
               </div> 
@@ -185,26 +185,26 @@
               <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Referencia</span>
-                        <input type="text" name="referencia" class="form-control" placeholder="Referencia">
+                       <span class="input-group-addon" id="refer">Referencia</span>
+                        <input type="text" name="edit_referencia" id="edit_referencia" class="form-control" placeholder="Referencia">
                     </div>
                </div>
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >No Pedimento</span>
-                        <input type="text" name="no_pedimento" class="form-control" placeholder="Pedimento">
+                       <span class="input-group-addon" id="pedi">No Pedimento</span>
+                        <input type="text" name="edit_no_pedimento" id="edit_no_pedimento" class="form-control" placeholder="Pedimento">
                     </div>
                </div>                 
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Ruta Pedimento</span>
-                        <input type="file" name="ruta_pedimento" class="form-control" placeholder="ruta">
+                       <span class="input-group-addon" id="rutpedi" >Ruta Pedimento</span>
+                        <input type="file" name="edit_ruta_pedimento" id="edit_ruta_pedimento" class="form-control" placeholder="ruta">
                     </div>
                </div>
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Importe CG $</span>
-                        <input type="number" name="importe_cg" class="form-control" placeholder="$">
+                       <span class="input-group-addon" id="impcg" >Importe CG $</span>
+                        <input type="number" name="edit_importe_cg" id="edit_importe_cg" class="form-control" placeholder="$">
                     </div>
                </div>                                          
               </div>  
@@ -212,8 +212,8 @@
               <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Fecha CG</span>
-                        <input type="date" name="fecha_cg" class="form-control" placeholder="Fecha CG">
+                       <span class="input-group-addon" id="feccg" >Fecha CG</span>
+                        <input type="date" name="edit_fecha_cg" id="edit_fecha_cg" class="form-control" placeholder="Fecha CG">
                     </div>
                </div> 
                <div class="form-group col-md-3">
