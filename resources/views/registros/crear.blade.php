@@ -9,7 +9,7 @@
             <h4 class="modal-title">Agregar Registro</h4>
           </div>
           <div class="modal-body" style=" background-color: #ffffff;">
-              {!! Form::open(['route' => 'registro.store', 'method' => 'POST']) !!}
+              {!! Form::open(['route' => 'registro.store', 'method' => 'POST','files'=>true]) !!}
               <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
@@ -155,7 +155,7 @@
                </div> 
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Fecha Deposito Cliente</span>
+                       <span class="input-group-addon" >Fecha Depo</span>
                         <input type="date" name="fecha_deposito_cliente" class="form-control" placeholder="Fecha Deposito">
                     </div>
                </div>                  
@@ -261,7 +261,8 @@
                         <input type="date" name="fecha_cierre" class="form-control" placeholder="Fecha Cierre">
                     </div>
                </div>                                                               
-              </div>                                                           <div class="row">
+              </div>                                                           
+              <div class="row">
                 <div class="form-group col-md-2">
                  {!! Form::submit('Registrar',[ 'class' => 'btn btn-primary']) !!} 
                 </div>

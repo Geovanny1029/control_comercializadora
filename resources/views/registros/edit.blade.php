@@ -10,7 +10,7 @@
             <h4 class="modal-title">Acompletar Registro Registro</h4>
           </div>
           <div class="modal-body" style=" background-color: #ffffff;">
-              {!! Form::open(['route' => 'registro.actualiza', 'method' => 'POST']) !!}
+              {!! Form::open(['route' => 'registro.actualiza', 'method' => 'POST','files'=>true]) !!}
               <div class="row">
                 <div class="form-group col-md-2">
                     <div class="input-group">
@@ -35,7 +35,10 @@
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" id="razz" >Ruta Razon</span>
-                        <input type="file" name="edit_ruta_razonsocial" class="form-control" id="edit_ruta_razonsocial" placeholder="ruta razonsocial">
+                        <input type="file" name="edit_ruta_razonsocial" class="form-control" id="edit_ruta_razonsocial" placeholder="ruta razonsocial" style="display: inline-block;">
+                        <div id="showrut" style="display: none;" class="form-control btn btn-primary" data-lity>
+                         VER PDF
+                        </div>
                     </div>
                </div>  
                <div class="form-group col-md-3">
@@ -164,7 +167,7 @@
                </div> 
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" id="fecdep" >Fecha Deposito Cliente</span>
+                       <span class="input-group-addon" id="fecdep" >Fecha Depo.</span>
                         <input type="date" name="edit_fecha_deposito_cliente" id="edit_fecha_deposito_cliente" class="form-control" placeholder="Fecha Deposito">
                     </div>
                </div>                  
@@ -218,20 +221,20 @@
                </div> 
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Folio CG</span>
-                        <input type="text" name="folio_cg" class="form-control" placeholder="Folio">
+                       <span class="input-group-addon" id="foliocg">Folio CG</span>
+                        <input type="text" name="edit_folio_cg" id="edit_folio_cg" class="form-control" placeholder="Folio">
                     </div>
                </div>                
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Ruta Folio</span>
-                        <input type="file" name="ruta_folio_cg" class="form-control" placeholder="ruta">
+                       <span class="input-group-addon" id="rutfol">Ruta Folio</span>
+                        <input type="file" name="edit_ruta_folio_cg" id="edit_ruta_folio_cg" class="form-control" placeholder="ruta">
                     </div>
                </div>
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Importe Facturado Cliente $</span>
-                        <input type="number" name="importe_facturado_cliente" class="form-control" placeholder="$">
+                       <span class="input-group-addon" id="imporfac">Importe Facturado Cliente $</span>
+                        <input type="number" name="edit_importe_facturado_cliente" id="edit_importe_facturado_cliente" class="form-control" placeholder="$">
                     </div>
                </div>                                          
               </div> 
@@ -239,20 +242,20 @@
               <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Ruta Facturado</span>
-                        <input type="file" name="ruta_facturado_cliente" class="form-control" placeholder="ruta">
+                       <span class="input-group-addon" id="rutfaccli" >Ruta Facturado</span>
+                        <input type="file" name="edit_ruta_facturado_cliente" id="edit_ruta_facturado_cliente" class="form-control" placeholder="ruta">
                     </div>
                </div>
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Costeo Total $</span>
-                        <input type="number" name="costeo_total" class="form-control" placeholder="$">
+                       <span class="input-group-addon" id="costotal">Costeo Total $</span>
+                        <input type="number" name="edit_costeo_total" id="edit_costeo_total" class="form-control" placeholder="$">
                     </div>
                </div>                 
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Ruta costeo</span>
-                        <input type="file" name="ruta_costeo" class="form-control" placeholder="ruta">
+                       <span class="input-group-addon" id="rutcos" >Ruta costeo</span>
+                        <input type="file" name="edit_ruta_costeo" id="edit_ruta_costeo" class="form-control" placeholder="ruta">
                     </div>
                </div>                                        
               </div>    
@@ -260,17 +263,24 @@
               <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Cierre $</span>
-                        <input type="number" name="cierre" class="form-control" placeholder="$">
+                       <span class="input-group-addon" id="cierr">Cierre $</span>
+                        <input type="number" name="edit_cierre" id="edit_cierre" class="form-control" placeholder="$">
                     </div>
                </div>                 
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Fecha Cierre</span>
-                        <input type="date" name="fecha_cierre" class="form-control" placeholder="Fecha Cierre">
+                       <span class="input-group-addon" id="feccierre" >Fecha Cierre</span>
+                        <input type="date" name="edit_fecha_cierre" id="edit_fecha_cierre" class="form-control" placeholder="Fecha Cierre">
                     </div>
-               </div>                                                               
-              </div>                                                           <div class="row">
+               </div>
+               <div class="form-group col-md-4">
+                    <div class="input-group">
+                       <span class="input-group-addon" id="usercap">Usuario Captura</span>
+                        <input type="text" name="edit_user" id="edit_user" class="form-control" placeholder="Folio">
+                    </div>
+               </div>                                                                                
+              </div>                                                           
+              <div class="row">
                 <div class="form-group col-md-2">
                  {!! Form::submit('Registrar',[ 'class' => 'btn btn-primary']) !!} 
                   <input type="hidden" id="edit_id_registro" name="edit_id_registro">

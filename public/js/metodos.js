@@ -154,173 +154,247 @@ function fun_editapro(id)
         data: {"id":id}, 
         success: function(result){
           console.log(result);
-
-          $("#id_registro").val(result.id);
+          $('#edit_id_registro').val(result.info.id);
+          $("#id_registro").val(result.info.id);
           $('#id_registro').attr('readonly', true);
-          $('#edit_id_cliente').val(result.id_cliente);
-          $('#edit_id_razon_datos_fac').val(result.id_razon_datos_fac);
+          $('#edit_id_cliente').val(result.cliente.id);
+          $('#edit_id_cliente').attr('readonly', true);
+          $('#edit_id_razon_datos_fac').val(result.info.id_razon_datos_fac);
+          $('#edit_id_razon_datos_fac').attr('readonly', true);
           
-          if(result.ruta_razonsocial == "" || result.ruta_razonsocial == null){
-            $('#edit_ruta_razonsocial').val(result.ruta_razonsocial);
+          if(result.info.ruta_razonsocial == "" || result.info.ruta_razonsocial == null){
+            $('#edit_ruta_razonsocial').val(result.info.ruta_razonsocial);
+            $('#edit_ruta_razonsocial').css("display",'inline-block');
+             $('#showrut').css("display",'none');
             $("#razz").css("color", "red");
           }else{
-            $('#edit_ruta_razonsocial').val(result.ruta_razonsocial);
+            $('#edit_ruta_razonsocial').css("display",'none');
+            $('#showrut').css("display",'inline-block');
+             $('#showrut').attr("href", "/razon_social/"+result.info.ruta_razonsocial);
             $("#razz").css("color", "gray");
           }
 
-          if(result.contacto_facturas_pagos == "" || result.contacto_facturas_pagos == null ){
-            $("#edit_contacto_facturas_pagos").val(result.contacto_facturas_pagos);
+          if(result.info.contacto_facturas_pagos == "" || result.info.contacto_facturas_pagos == null ){
+            $("#edit_contacto_facturas_pagos").val(result.info.contacto_facturas_pagos);
             $("#contact").css("color", "red");
+            $('#edit_contacto_facturas_pagos').attr('readonly', false);
           }else{
-            $("#edit_contacto_facturas_pagos").val(result.contacto_facturas_pagos);
+            $("#edit_contacto_facturas_pagos").val(result.info.contacto_facturas_pagos);
+            $('#edit_contacto_facturas_pagos').attr('readonly', true);
             $("#contact").css("color", "gray"); 
           }
 
-          $('#edit_forma_pago').val(result.forma_pago);
-          $('#edit_pagamos_mercancia').val(result.pagamos_mercancia);
-          $('#edit_proveedores').val(result.id_proveedor);
+          $('#edit_forma_pago').val(result.info.forma_pago);
+          $('#edit_pagamos_mercancia').val(result.info.pagamos_mercancia);
+          $('#edit_proveedores').val(result.info.id_proveedor);
 
-          if(result.ruta_proveedor == "" || result.ruta_proveedor == null ){
-            $('#edit_ruta_proveedor').val(result.ruta_proveedor);
+          if(result.info.ruta_proveedor == "" || result.info.ruta_proveedor == null ){
+            $('#edit_ruta_proveedor').val(result.info.ruta_proveedor);
             $("#rutpro").css("color", "red");
           }else{
-            $('#edit_ruta_proveedor').val(result.ruta_proveedor);
+            $('#edit_ruta_proveedor').val(result.info.ruta_proveedor);
             $("#rutpro").css("color", "gray");
           }
 
-          if(result.valor_factura_ext == "" || result.valor_factura_ext == null ){
-            $('#edit_valor_factura_ext').val(result.valor_factura_ext);
+          if(result.info.valor_factura_ext == "" || result.info.valor_factura_ext == null ){
+            $('#edit_valor_factura_ext').val(result.info.valor_factura_ext);
             $("#valfac").css("color", "red");
           }else{
-            $('#edit_valor_factura_ext').val(result.valor_factura_ext);
+            $('#edit_valor_factura_ext').val(result.info.valor_factura_ext);
             $("#valfac").css("color", "gray");
           }
 
-          if(result.ruta_factura_ext == "" || result.ruta_factura_ext == null){
-            $('#edit_ruta_factura_ext').val(result.ruta_factura_ext);
+          if(result.info.ruta_factura_ext == "" || result.info.ruta_factura_ext == null){
+            $('#edit_ruta_factura_ext').val(result.info.ruta_factura_ext);
             $("#rutafact").css("color", "red");
           }else{
-            $('#edit_ruta_factura_ext').val(result.ruta_factura_ext);
+            $('#edit_ruta_factura_ext').val(result.info.ruta_factura_ext);
             $("#rutafact").css("color", "gray");
           }
 
-          $('#edit_se_emite_factura').val(result.se_emite_factura);
-          $('#edit_se_factura_valor_mercancia').val(result.se_factura_valor_mercancia);
-          $('#edit_aduanas').val(result.id_aduana);
-          $('#edit_ejecutivos').val(result.id_ejecutivo);
-          $('#edit_estatus').val(result.id_estatus);
+          $('#edit_se_emite_factura').val(result.info.se_emite_factura);
+          $('#edit_se_factura_valor_mercancia').val(result.info.se_factura_valor_mercancia);
+          $('#edit_aduanas').val(result.info.id_aduana);
+          $('#edit_ejecutivos').val(result.info.id_ejecutivo);
+          $('#edit_estatus').val(result.info.id_estatus);
 
-          if(result.descripcion_operacion== "" || result.descripcion_operacion== null){
-            $('#edit_descripcion_operacion').val(result.descripcion_operacion);
+          if(result.info.descripcion_operacion== "" || result.info.descripcion_operacion== null){
+            $('#edit_descripcion_operacion').val(result.info.descripcion_operacion);
             $("#descope").css("color", "red");
           }else{
-            $('#edit_descripcion_operacion').val(result.descripcion_operacion);
+            $('#edit_descripcion_operacion').val(result.info.descripcion_operacion);
             $("#descope").css("color", "gray");
           }
 
-          if(result.eta== "" || result.eta== null){
-            $('#edit_eta').val(result.eta);
+          if(result.info.eta== "" || result.info.eta== null){
+            $('#edit_eta').val(result.info.eta);
             $("#feceta").css("color", "red");
           }else{
-            $('#edit_eta').val(result.eta);
+            $('#edit_eta').val(result.info.eta);
             $("#feceta").css("color", "gray");
           }
 
-          if(result.fecha_despacho== "" || result.fecha_despacho== null){
-            $('#edit_fecha_despacho').val(result.fecha_despacho);
+          if(result.info.fecha_despacho== "" || result.info.fecha_despacho== null){
+            $('#edit_fecha_despacho').val(result.info.fecha_despacho);
             $("#fecdesp").css("color", "red");
           }else{
-            $('#edit_fecha_despacho').val(result.fecha_despacho);
+            $('#edit_fecha_despacho').val(result.info.fecha_despacho);
             $("#fecdesp").css("color", "gray");
           }
 
-          if(result.cotizacion_cliente_mxp == "" || result.cotizacion_cliente_mxp == null){
-            $('#edit_cotizacion_cliente_mxp').val(result.cotizacion_cliente_mxp);
+          if(result.info.cotizacion_cliente_mxp == "" || result.info.cotizacion_cliente_mxp == null){
+            $('#edit_cotizacion_cliente_mxp').val(result.info.cotizacion_cliente_mxp);
             $("#cotcli").css("color", "red");
           }else{
-            $('#edit_cotizacion_cliente_mxp').val(result.cotizacion_cliente_mxp);
+            $('#edit_cotizacion_cliente_mxp').val(result.info.cotizacion_cliente_mxp);
             $("#cotcli").css("color", "gray");
           }
 
-          if(result.ruta_cotizacion_cliente == "" || result.ruta_cotizacion_cliente == null){
-            $('#edit_ruta_cotizacion_cliente').val(result.ruta_cotizacion_cliente);
+          if(result.info.ruta_cotizacion_cliente == "" || result.info.ruta_cotizacion_cliente == null){
+            $('#edit_ruta_cotizacion_cliente').val(result.info.ruta_cotizacion_cliente);
             $("#rutcot").css("color", "red");
           }else{
-            $('#edit_ruta_cotizacion_cliente').val(result.ruta_cotizacion_cliente);
+            $('#edit_ruta_cotizacion_cliente').val(result.info.ruta_cotizacion_cliente);
             $("#rutcot").css("color", "gray");
           }
 
-          if(result.observaciones == "" || result.observaciones == null){
-            $('#edit_observaciones').val(result.observaciones);
+          if(result.info.observaciones == "" || result.info.observaciones == null){
+            $('#edit_observaciones').val(result.info.observaciones);
             $("#obs").css("color", "red");
           }else{
-            $('#edit_observaciones').val(result.observaciones);
+            $('#edit_observaciones').val(result.info.observaciones);
             $("#obs").css("color", "gray");
           }
 
-          if(result.fecha_deposito_cliente == "" || result.fecha_deposito_cliente == null){
-            $('#edit_fecha_deposito_cliente').val(result.fecha_deposito_cliente);
+          if(result.info.fecha_deposito_cliente == "" || result.info.fecha_deposito_cliente == null){
+            $('#edit_fecha_deposito_cliente').val(result.info.fecha_deposito_cliente);
             $("#fecdep").css("color", "red");
           }else{
-            $('#edit_fecha_deposito_cliente').val(result.fecha_deposito_cliente);
+            $('#edit_fecha_deposito_cliente').val(result.info.fecha_deposito_cliente);
             $("#fecdep").css("color", "gray");
           }
 
-          if(result.importe_deposito_cliente == "" || result.importe_deposito_cliente == null){
-            $('#edit_importe_deposito_cliente').val(result.importe_deposito_cliente);
+          if(result.info.importe_deposito_cliente == "" || result.info.importe_deposito_cliente == null){
+            $('#edit_importe_deposito_cliente').val(result.info.importe_deposito_cliente);
             $("#impodep").css("color", "red");
           }else{
-            $('#edit_importe_deposito_cliente').val(result.importe_deposito_cliente);
+            $('#edit_importe_deposito_cliente').val(result.info.importe_deposito_cliente);
             $("#impodep").css("color", "gray");
           }
 
-          if(result.ruta_importe_deposito_cliente == "" || result.ruta_importe_deposito_cliente == null){
-            $('#edit_ruta_importe_deposito_cliente').val(result.ruta_importe_deposito_cliente);
+          if(result.info.ruta_importe_deposito_cliente == "" || result.info.ruta_importe_deposito_cliente == null){
+            $('#edit_ruta_importe_deposito_cliente').val(result.info.ruta_importe_deposito_cliente);
             $("#rutdepo").css("color", "red");
           }else{
-            $('#edit_ruta_importe_deposito_cliente').val(result.ruta_importe_deposito_cliente);
+            $('#edit_ruta_importe_deposito_cliente').val(result.info.ruta_importe_deposito_cliente);
             $("#rutdepo").css("color", "gray");
           }
 
-          if(result.referencia == "" || result.referencia == null){
-            $('#edit_referencia').val(result.referencia);
+          if(result.info.referencia == "" || result.info.referencia == null){
+            $('#edit_referencia').val(result.info.referencia);
             $("#refer").css("color", "red");
           }else{
-            $('#edit_referencia').val(result.referencia);
+            $('#edit_referencia').val(result.info.referencia);
             $("#refer").css("color", "gray");
           }
 
-          if(result.no_pedimento == "" || result.no_pedimento == null){
-            $('#edit_no_pedimento').val(result.no_pedimento);
+          if(result.info.no_pedimento == "" || result.info.no_pedimento == null){
+            $('#edit_no_pedimento').val(result.info.no_pedimento);
             $("#refer").css("color", "red");
           }else{
-            $('#edit_no_pedimento').val(result.no_pedimento);
+            $('#edit_no_pedimento').val(result.info.no_pedimento);
             $("#refer").css("color", "gray");
           } 
 
-          if(result.ruta_pedimento == "" || result.ruta_pedimento == null){
-            $('#edit_ruta_pedimento').val(result.ruta_pedimento);
+          if(result.info.ruta_pedimento == "" || result.info.ruta_pedimento == null){
+            $('#edit_ruta_pedimento').val(result.info.ruta_pedimento);
             $("#rutpedi").css("color", "red");
           }else{
-            $('#edit_ruta_pedimento').val(result.ruta_pedimento);
+            $('#edit_ruta_pedimento').val(result.info.ruta_pedimento);
             $("#rutpedi").css("color", "gray");
           } 
 
-          if(result.importe_cg == "" || result.importe_cg == null){
-            $('#edit_importe_cg').val(result.importe_cg);
+          if(result.info.importe_cg == "" || result.info.importe_cg == null){
+            $('#edit_importe_cg').val(result.info.importe_cg);
             $("#impcg").css("color", "red");
           }else{
-            $('#edit_importe_cg').val(result.importe_cg);
+            $('#edit_importe_cg').val(result.info.importe_cg);
             $("#impcg").css("color", "gray");
           } 
 
-          if(result.fecha_cg == "" || result.fecha_cg == null){
-            $('#edit_fecha_cg').val(result.fecha_cg);
+          if(result.info.fecha_cg == "" || result.info.fecha_cg == null){
+            $('#edit_fecha_cg').val(result.info.fecha_cg);
+            $("#foliocg").css("color", "red");
+          }else{
+            $('#edit_fecha_cg').val(result.info.fecha_cg);
+            $("#foliocg").css("color", "gray");
+          } 
+
+          if(result.info.folio_cg == "" || result.info.folio_cg == null){
+            $('#edit_folio_cg').val(result.info.folio_cg);
             $("#feccg").css("color", "red");
           }else{
-            $('#edit_fecha_cg').val(result.fecha_cg);
+            $('#edit_folio_cg').val(result.info.folio_cg);
             $("#feccg").css("color", "gray");
-          }   
+          }  
+
+          if(result.info.ruta_folio_cg == "" || result.info.ruta_folio_cg == null){
+            $('#edit_ruta_folio_cg').val(result.info.ruta_folio_cg);
+            $("#rutfol").css("color", "red");
+          }else{
+            $('#edit_ruta_folio_cg').val(result.info.ruta_folio_cg);
+            $("#rutfol").css("color", "gray");
+          }  
+
+          if(result.info.importe_facturado_cliente == "" || result.info.importe_facturado_cliente == null){
+            $('#edit_importe_facturado_cliente').val(result.info.importe_facturado_cliente);
+            $("#imporfac").css("color", "red");
+          }else{
+            $('#edit_importe_facturado_cliente').val(result.info.importe_facturado_cliente);
+            $("#imporfac").css("color", "gray");
+          } 
+
+          if(result.info.ruta_facturado_cliente == "" || result.info.ruta_facturado_cliente == null){
+            $('#edit_ruta_facturado_cliente').val(result.info.ruta_facturado_cliente);
+            $("#rutfaccli").css("color", "red");
+          }else{
+            $('#edit_ruta_facturado_cliente').val(result.info.ruta_facturado_cliente);
+            $("#rutfaccli").css("color", "gray");
+          } 
+
+          if(result.info.costeo_total == "" || result.info.costeo_total == null){
+            $('#edit_costeo_total').val(result.info.costeo_total );
+            $("#costotal").css("color", "red");
+          }else{
+            $('#edit_costeo_total').val(result.info.costeo_total );
+            $("#costotal").css("color", "gray");
+          }  
+
+          if(result.info.ruta_costeo == "" || result.info.ruta_costeo == null){
+            $('#edit_ruta_costeo').val(result.info.ruta_costeo );
+            $("#rutcos").css("color", "red");
+          }else{
+            $('#edit_ruta_costeo').val(result.info.ruta_costeo );
+            $("#rutcos").css("color", "gray");
+          }                    
+
+          if(result.info.cierre == "" || result.info.cierre == null){
+            $('#edit_cierre').val(result.info.cierre );
+            $("#cierr").css("color", "red");
+          }else{
+            $('#edit_cierre').val(result.info.cierre);
+            $("#cierr").css("color", "gray");
+          }    
+
+          if(result.info.fecha_cierre == "" || result.info.fecha_cierre == null){
+            $('#edit_fecha_cierre').val(result.info.fecha_cierre );
+            $("#feccierre").css("color", "red");
+          }else{
+            $('#edit_fecha_cierre').val(result.info.fecha_cierre);
+            $("#feccierre").css("color", "gray");
+          }    
+
+          $('#edit_user').val(result.usuario.nombre);          
         }
       });
 

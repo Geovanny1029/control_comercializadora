@@ -13,15 +13,21 @@
     <th>Cliente</th>
     <th>Razon Social</th>
     <th>Forma de pago</th>
+    <th>Cierre</th>
   </thead>
   <tbody>
     @foreach($registros as $registro)
     <tr onclick="modal('{{$registro->id}}')" value="{{route('registro.view')}}" id="edit{{$registro->id}}">
 
       <td> {{$registro->no_operacion}} </td>
-      <td> {{$registro->id_cliente}} </td>
-      <td> {{$registro->id_razon_datos_fac}} </td>
+      <td> {{$registro->cliente->nombre_cliente}} </td>
+      <td> {{$registro->razon_social->nombre_razon}} </td>
       <td> {{$registro->forma_pago}} </td>
+      @if($registro->fecha_cierre == null)
+        <td style="background-color: red; color: white">Pendiente</td>
+      @else
+        <td></td>
+      @endif
     </tr>
     @endforeach
   </tbody>

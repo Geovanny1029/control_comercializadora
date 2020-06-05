@@ -20,6 +20,7 @@
   <link href="{{asset('css/bootstrap-theme.css')}}" rel="stylesheet">
   <!--external css-->
   <!-- font icon -->
+  <link rel="stylesheet" href="{{asset('css/lity.css')}}">
   <link href="{{asset('css/elegant-icons-style.css')}}" rel="stylesheet" />
   <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet" />
  <link href="{{ URL::asset('css/select2.min.css')}}" rel="stylesheet">
@@ -195,6 +196,7 @@
   <!-- container section start -->
 
   <!-- javascripts -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
   <script src="{{ URL::asset('js/jquery.js')}}"></script>
   <script src="{{ URL::asset('js/metodos.js')}}"></script>
@@ -205,7 +207,7 @@
   <!-- nice scroll -->
   <script src="{{ URL::asset('js/jquery.scrollTo.min.js')}}"></script>
   <script src="{{ URL::asset('js/jquery.nicescroll.js')}}" type="text/javascript"></script>
-
+  <script src="{{ URL::asset('js/lity.js')}}"></script>
  
     <!--custome script for all page-->
     <script src="js/scripts.js"></script>
