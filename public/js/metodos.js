@@ -154,6 +154,17 @@ function fun_editapro(id)
         data: {"id":id}, 
         success: function(result){
           console.log(result);
+          $(":input").attr('readonly', true);
+
+          $('input[type=checkbox]').click(function() {
+            if($(this).is(':checked')) {
+              $(":input").attr('readonly', false);
+            } else {
+              $(":input").attr('readonly', true);
+
+            }
+          });
+
           $('#edit_id_registro').val(result.info.id);
           $("#id_registro").val(result.info.id);
           $('#id_registro').attr('readonly', true);
@@ -162,6 +173,7 @@ function fun_editapro(id)
           $('#edit_id_razon_datos_fac').val(result.info.id_razon_datos_fac);
           $('#edit_id_razon_datos_fac').attr('readonly', true);
           
+// metodos js lity href archivos
           if(result.info.ruta_razonsocial == "" || result.info.ruta_razonsocial == null){
             $('#edit_ruta_razonsocial').val(result.info.ruta_razonsocial);
             $('#edit_ruta_razonsocial').css("display",'inline-block');
@@ -174,13 +186,108 @@ function fun_editapro(id)
             $("#razz").css("color", "gray");
           }
 
+          if(result.info.ruta_proveedor == "" || result.info.ruta_proveedor == null){
+            $('#edit_ruta_proveedor').val(result.info.ruta_proveedor);
+            $('#edit_ruta_proveedor').css("display",'inline-block');
+             $('#showprov').css("display",'none');
+            $("#rutpro").css("color", "red");
+          }else{
+            $('#edit_ruta_proveedor').css("display",'none');
+            $('#showprov').css("display",'inline-block');
+             $('#showprov').attr("href", "/proveedores/"+result.info.ruta_proveedor);
+            $("#rutpro").css("color", "gray");
+          }
+
+          if(result.info.ruta_factura_ext == "" || result.info.ruta_factura_ext == null){
+            $('#edit_ruta_factura_ext').val(result.info.ruta_factura_ext);
+            $('#edit_ruta_factura_ext').css("display",'inline-block');
+             $('#showfacext').css("display",'none');
+            $("#rutafact").css("color", "red");
+          }else{
+            $('#edit_ruta_factura_ext').css("display",'none');
+            $('#showfacext').css("display",'inline-block');
+             $('#showfacext').attr("href", "/facturasext/"+result.info.ruta_factura_ext);
+            $("#rutafact").css("color", "gray");
+          }
+
+          if(result.info.ruta_cotizacion_cliente == "" || result.info.ruta_cotizacion_cliente == null){
+            $('#edit_ruta_cotizacion_cliente').val(result.info.ruta_cotizacion_cliente);
+            $('#edit_ruta_cotizacion_cliente').css("display",'inline-block');
+             $('#showcot').css("display",'none');
+            $("#rutcot").css("color", "red");
+          }else{
+            $('#edit_ruta_cotizacion_cliente').css("display",'none');
+            $('#showcot').css("display",'inline-block');
+             $('#showcot').attr("href", "/cotizaciones/"+result.info.ruta_cotizacion_cliente);
+            $("#rutcot").css("color", "gray");
+          }
+
+          if(result.info.ruta_importe_deposito_cliente == "" || result.info.ruta_importe_deposito_cliente == null){
+            $('#edit_ruta_importe_deposito_cliente').val(result.info.ruta_importe_deposito_cliente);
+            $('#edit_ruta_importe_deposito_cliente').css("display",'inline-block');
+             $('#showdep').css("display",'none');
+            $("#rutdepo").css("color", "red");
+          }else{
+            $('#edit_ruta_importe_deposito_cliente').css("display",'none');
+            $('#showdep').css("display",'inline-block');
+             $('#showdep').attr("href", "/depositos_cliente/"+result.info.ruta_importe_deposito_cliente);
+            $("#rutdepo").css("color", "gray");
+          }
+
+          if(result.info.ruta_pedimento == "" || result.info.ruta_pedimento == null){
+            $('#edit_ruta_pedimento').val(result.info.ruta_pedimento);
+            $('#edit_ruta_pedimento').css("display",'inline-block');
+             $('#showped').css("display",'none');
+            $("#rutpedi").css("color", "red");
+          }else{
+            $('#edit_ruta_pedimento').css("display",'none');
+            $('#showped').css("display",'inline-block');
+             $('#showped').attr("href", "/pedimentos/"+result.info.ruta_pedimento);
+            $("#rutpedi").css("color", "gray");
+          }
+
+          if(result.info.ruta_folio_cg == "" || result.info.ruta_folio_cg == null){
+            $('#edit_ruta_folio_cg').val(result.info.ruta_folio_cg);
+            $('#edit_ruta_folio_cg').css("display",'inline-block');
+             $('#showfol').css("display",'none');
+            $("#rutfol").css("color", "red");
+          }else{
+            $('#edit_ruta_folio_cg').css("display",'none');
+            $('#showfol').css("display",'inline-block');
+             $('#showfol').attr("href", "/folios_cg/"+result.info.ruta_folio_cg);
+            $("#rutfol").css("color", "gray");
+          }
+
+          if(result.info.ruta_facturado_cliente == "" || result.info.ruta_facturado_cliente == null){
+            $('#edit_ruta_facturado_cliente').val(result.info.ruta_facturado_cliente);
+            $('#edit_ruta_facturado_cliente').css("display",'inline-block');
+             $('#showfac').css("display",'none');
+            $("#rutfaccli").css("color", "red");
+          }else{
+            $('#edit_ruta_facturado_cliente').css("display",'none');
+            $('#showfac').css("display",'inline-block');
+             $('#showfac').attr("href", "/importes_facturados/"+result.info.ruta_facturado_cliente);
+            $("#rutfaccli").css("color", "gray");
+          }
+
+          if(result.info.ruta_costeo == "" || result.info.ruta_costeo == null){
+            $('#edit_ruta_costeo').val(result.info.ruta_costeo);
+            $('#edit_ruta_costeo').css("display",'inline-block');
+             $('#showcost').css("display",'none');
+            $("#rutcos").css("color", "red");
+          }else{
+            $('#edit_ruta_costeo').css("display",'none');
+            $('#showcost').css("display",'inline-block');
+             $('#showcost').attr("href", "/costeos_totales/"+result.info.ruta_costeo);
+            $("#rutcos").css("color", "gray");
+          }
+
+// fin metodos js lity href archivos
           if(result.info.contacto_facturas_pagos == "" || result.info.contacto_facturas_pagos == null ){
             $("#edit_contacto_facturas_pagos").val(result.info.contacto_facturas_pagos);
             $("#contact").css("color", "red");
-            $('#edit_contacto_facturas_pagos').attr('readonly', false);
           }else{
             $("#edit_contacto_facturas_pagos").val(result.info.contacto_facturas_pagos);
-            $('#edit_contacto_facturas_pagos').attr('readonly', true);
             $("#contact").css("color", "gray"); 
           }
 
@@ -188,13 +295,6 @@ function fun_editapro(id)
           $('#edit_pagamos_mercancia').val(result.info.pagamos_mercancia);
           $('#edit_proveedores').val(result.info.id_proveedor);
 
-          if(result.info.ruta_proveedor == "" || result.info.ruta_proveedor == null ){
-            $('#edit_ruta_proveedor').val(result.info.ruta_proveedor);
-            $("#rutpro").css("color", "red");
-          }else{
-            $('#edit_ruta_proveedor').val(result.info.ruta_proveedor);
-            $("#rutpro").css("color", "gray");
-          }
 
           if(result.info.valor_factura_ext == "" || result.info.valor_factura_ext == null ){
             $('#edit_valor_factura_ext').val(result.info.valor_factura_ext);
@@ -204,13 +304,6 @@ function fun_editapro(id)
             $("#valfac").css("color", "gray");
           }
 
-          if(result.info.ruta_factura_ext == "" || result.info.ruta_factura_ext == null){
-            $('#edit_ruta_factura_ext').val(result.info.ruta_factura_ext);
-            $("#rutafact").css("color", "red");
-          }else{
-            $('#edit_ruta_factura_ext').val(result.info.ruta_factura_ext);
-            $("#rutafact").css("color", "gray");
-          }
 
           $('#edit_se_emite_factura').val(result.info.se_emite_factura);
           $('#edit_se_factura_valor_mercancia').val(result.info.se_factura_valor_mercancia);
@@ -250,14 +343,6 @@ function fun_editapro(id)
             $("#cotcli").css("color", "gray");
           }
 
-          if(result.info.ruta_cotizacion_cliente == "" || result.info.ruta_cotizacion_cliente == null){
-            $('#edit_ruta_cotizacion_cliente').val(result.info.ruta_cotizacion_cliente);
-            $("#rutcot").css("color", "red");
-          }else{
-            $('#edit_ruta_cotizacion_cliente').val(result.info.ruta_cotizacion_cliente);
-            $("#rutcot").css("color", "gray");
-          }
-
           if(result.info.observaciones == "" || result.info.observaciones == null){
             $('#edit_observaciones').val(result.info.observaciones);
             $("#obs").css("color", "red");
@@ -282,13 +367,6 @@ function fun_editapro(id)
             $("#impodep").css("color", "gray");
           }
 
-          if(result.info.ruta_importe_deposito_cliente == "" || result.info.ruta_importe_deposito_cliente == null){
-            $('#edit_ruta_importe_deposito_cliente').val(result.info.ruta_importe_deposito_cliente);
-            $("#rutdepo").css("color", "red");
-          }else{
-            $('#edit_ruta_importe_deposito_cliente').val(result.info.ruta_importe_deposito_cliente);
-            $("#rutdepo").css("color", "gray");
-          }
 
           if(result.info.referencia == "" || result.info.referencia == null){
             $('#edit_referencia').val(result.info.referencia);
@@ -306,13 +384,6 @@ function fun_editapro(id)
             $("#refer").css("color", "gray");
           } 
 
-          if(result.info.ruta_pedimento == "" || result.info.ruta_pedimento == null){
-            $('#edit_ruta_pedimento').val(result.info.ruta_pedimento);
-            $("#rutpedi").css("color", "red");
-          }else{
-            $('#edit_ruta_pedimento').val(result.info.ruta_pedimento);
-            $("#rutpedi").css("color", "gray");
-          } 
 
           if(result.info.importe_cg == "" || result.info.importe_cg == null){
             $('#edit_importe_cg').val(result.info.importe_cg);
@@ -332,19 +403,12 @@ function fun_editapro(id)
 
           if(result.info.folio_cg == "" || result.info.folio_cg == null){
             $('#edit_folio_cg').val(result.info.folio_cg);
-            $("#feccg").css("color", "red");
+            $("#foliocg").css("color", "red");
           }else{
             $('#edit_folio_cg').val(result.info.folio_cg);
-            $("#feccg").css("color", "gray");
+            $("#foliocg").css("color", "gray");
           }  
-
-          if(result.info.ruta_folio_cg == "" || result.info.ruta_folio_cg == null){
-            $('#edit_ruta_folio_cg').val(result.info.ruta_folio_cg);
-            $("#rutfol").css("color", "red");
-          }else{
-            $('#edit_ruta_folio_cg').val(result.info.ruta_folio_cg);
-            $("#rutfol").css("color", "gray");
-          }  
+ 
 
           if(result.info.importe_facturado_cliente == "" || result.info.importe_facturado_cliente == null){
             $('#edit_importe_facturado_cliente').val(result.info.importe_facturado_cliente);
@@ -354,13 +418,6 @@ function fun_editapro(id)
             $("#imporfac").css("color", "gray");
           } 
 
-          if(result.info.ruta_facturado_cliente == "" || result.info.ruta_facturado_cliente == null){
-            $('#edit_ruta_facturado_cliente').val(result.info.ruta_facturado_cliente);
-            $("#rutfaccli").css("color", "red");
-          }else{
-            $('#edit_ruta_facturado_cliente').val(result.info.ruta_facturado_cliente);
-            $("#rutfaccli").css("color", "gray");
-          } 
 
           if(result.info.costeo_total == "" || result.info.costeo_total == null){
             $('#edit_costeo_total').val(result.info.costeo_total );
@@ -369,14 +426,7 @@ function fun_editapro(id)
             $('#edit_costeo_total').val(result.info.costeo_total );
             $("#costotal").css("color", "gray");
           }  
-
-          if(result.info.ruta_costeo == "" || result.info.ruta_costeo == null){
-            $('#edit_ruta_costeo').val(result.info.ruta_costeo );
-            $("#rutcos").css("color", "red");
-          }else{
-            $('#edit_ruta_costeo').val(result.info.ruta_costeo );
-            $("#rutcos").css("color", "gray");
-          }                    
+                   
 
           if(result.info.cierre == "" || result.info.cierre == null){
             $('#edit_cierre').val(result.info.cierre );

@@ -15,7 +15,7 @@
 
 @include('user.crear')
 
-<table class="table table-striped" id="tablausuarios">
+<table class="table table-striped" id="tablausuarios" cellspacing="0" width="100%">
   <thead>
     <th>ID</th>
     <th>Nombre </th>

@@ -3,11 +3,12 @@
 @section('panel','Lista de guias')
 @section('content')
 
-<button type="button" class="btn btn-info" data-toggle="modal" data-target="#addModalr">Crear nuevo Registro</button>
-
+<!--
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#addModalr">Crear nuevo Registro</button><br>
+-->
 @include('registros.crear')
 @include('registros.edit')
-<table class="table table-hover table-striped" id="tablaregistros">
+<table class="table table-hover table-striped" id="tablaregistros" ellspacing="0" width="100%">
   <thead>
     <th>Num Operacion</th>
     <th>Cliente</th>

@@ -30,7 +30,9 @@
   <link rel="stylesheet" href="{{asset('css/style.css')}}" >
   <link href="{{asset('css/style-responsive.css')}}" rel="stylesheet" />
   <link href="{{asset('css/jquery-ui-1.10.4.min.css')}}" rel="stylesheet">
-  <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
+  <link href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/buttons/1.5.0/css/buttons.dataTables.min.css">
 
  
   <!-- =======================================================
@@ -142,6 +144,7 @@
               <li><a class="" href="{{route('estatus.index')}}">Estatus</a></li>              
               <li><a class="" href="{{route('razon_social.index')}}">Razon Social Prov</a></li>
               <li><a class="" href="{{route('proveedores.index')}}">Proveedor Ext</a></li>
+              <li><a class="" href="{{route('proveedores.index')}}">Registros Cerrados</a></li>
             </ul>
           </li>
           @else
@@ -201,7 +204,6 @@
   <script src="{{ URL::asset('js/jquery.js')}}"></script>
   <script src="{{ URL::asset('js/metodos.js')}}"></script>
   <script src="{{ URL::asset('js/select2.min.js')}}"></script>
-<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
   <!-- bootstrap -->
   <script src="{{ URL::asset('js/bootstrap.min.js')}}"></script>
   <!-- nice scroll -->
@@ -214,8 +216,20 @@
     <!-- custom script for this page-->
     <script src="{{ URL::asset('js/jquery.autosize.min.js')}}"></script>
 
-    <script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-  
+    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+  <script  src="//cdn.datatables.net/buttons/1.5.0/js/dataTables.buttons.min.js"></script>
+
+ <script  src="//cdn.datatables.net/buttons/1.5.0/js/buttons.flash.min.js"></script>
+
+ <script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+ <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+
+ <script src="//cdn.datatables.net/buttons/1.5.0/js/buttons.html5.min.js"></script>
+<script src="//cdn.datatables.net/buttons/1.5.0/js/buttons.print.min.js"></script>
+
+<script src="//cdn.datatables.net/buttons/1.5.0/js/buttons.colVis.min.js"></script>
 
 
 
@@ -250,6 +264,76 @@
        
         });
 
+</script>
+
+<script>
+  $(document).ready( function () {
+   var table =  $('#tablaregistros').DataTable({
+  "language": {
+  "sProcessing":     "Procesando...",
+  "sLengthMenu":     "Mostrar _MENU_ registros",
+  "sZeroRecords":    "No se encontraron resultados",
+  "sEmptyTable":     "Ningún dato disponible en esta tabla",
+  "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+  "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+  "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+  "sInfoPostFix":    "",
+  "sSearch":         "Buscar:",
+  "sUrl":            "",
+  "sInfoThousands":  ",",
+  "sLoadingRecords": "Cargando...",
+  "oPaginate": {
+    "sFirst":    "Primero",
+    "sLast":     "Último",
+    "sNext":     "Siguiente",
+    "sPrevious": "Anterior"
+  },
+  "oAria": {
+    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+  }
+     },
+     order: [[ 0, "asc" ]],
+     dom: "Bfrtip",
+        buttons: [
+            {
+              text: 'Crear Nuevo Registro',
+              action: function () {
+              $("#addModalr").modal("show");
+              },
+            },
+            {
+                extend: 'colvis',
+                text: 'Selecciona Columnas',
+                collectionLayout: 'fixed two-column',
+                postfixButtons: [ 'colvisRestore' ]
+               
+            },           
+            {
+                extend: 'excel',
+                text: 'Exp Excel',
+                exportOptions: {
+                    columns: ':visible'
+                },
+                filename: 'Reporte_Registros',
+                title: 'Reporte Registros TT'
+            }
+
+
+        ],
+        columnDefs: [ {
+
+            visible: false
+                      }            
+                      ]
+   });
+
+  table.button(0).nodes().css('background', '#4cd964');
+
+   table.buttons().container()
+        .appendTo( '#tablaregistros_wrapper .col-sm-2:eq(0)' );
+  });
+    
 </script>
 
 </body>

@@ -32,7 +32,7 @@
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Contacto Facturas Pagos</span>
-                        <input type="text" name="contacto_facturas_pagos" class="form-control" placeholder="Username">
+                        <input type="text" style="text-transform:uppercase;" name="contacto_facturas_pagos" class="form-control" placeholder="Username">
                     </div>
                </div>                                           
               </div>
@@ -113,7 +113,7 @@
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Descripcion Ope</span>
-                        <input type="text" name="descripcion_operacion" class="form-control" placeholder="descripcion_operacion">
+                        <input type="text" style="text-transform:uppercase;" name="descripcion_operacion" class="form-control" placeholder="descripcion_operacion">
                     </div>
                </div>                                         
               </div>
@@ -150,7 +150,7 @@
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Observaciones</span>
-                        <input type="text" name="observaciones" class="form-control" placeholder="observaciones">
+                        <input type="text" style="text-transform:uppercase;" name="observaciones" class="form-control" placeholder="observaciones">
                     </div>
                </div> 
                <div class="form-group col-md-3">
@@ -177,13 +177,13 @@
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Referencia</span>
-                        <input type="text" name="referencia" class="form-control" placeholder="Referencia">
+                        <input type="text" style="text-transform:uppercase;" name="referencia" class="form-control" placeholder="Referencia">
                     </div>
                </div>
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >No Pedimento</span>
-                        <input type="text" name="no_pedimento" class="form-control" placeholder="Pedimento">
+                        <input type="text" style="text-transform:uppercase;" name="no_pedimento" class="form-control" placeholder="Pedimento">
                     </div>
                </div>                 
                <div class="form-group col-md-3">
@@ -210,7 +210,7 @@
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Folio CG</span>
-                        <input type="text" name="folio_cg" class="form-control" placeholder="Folio">
+                        <input type="text" style="text-transform:uppercase;" name="folio_cg" class="form-control" placeholder="Folio">
                     </div>
                </div>                
                <div class="form-group col-md-3">
