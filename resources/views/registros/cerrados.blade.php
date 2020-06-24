@@ -1,14 +1,13 @@
 @extends('index')
 @section('title','Registros')
-@section('panel','Lista de Registros')
+@section('panel','Lista de Registros cerradas')
 @section('content')
 
 <!--
 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addModalr">Crear nuevo Registro</button><br>
 -->
-@include('registros.crear')
 @include('registros.edit')
-<table class="table table-hover table-striped" id="tablaregistros" cellspacing="0" width="100%">
+<table class="table table-hover table-striped" id="tablaregistroscerrados" cellspacing="0" width="100%">
   <thead>
     <th>Num Operacion</th>
     <th>Cliente</th>
@@ -18,20 +17,14 @@
   </thead>
   <tbody>
     @foreach($registros as $registro)
-    <tr onclick="modal('{{$registro->id}}','1')" value="{{route('registro.view')}}" id="edit{{$registro->id}}">
+    <tr  onclick="modal('{{$registro->id}}','2')" value="{{route('registro.view')}}" id="edit{{$registro->id}}">
 
       <td> {{$registro->no_operacion}} </td>
       <td> {{$registro->cliente->nombre_cliente}} </td>
       <td> {{$registro->clienter->nombre_cliente}} </td>
-      <td> 
-       @if($registro->forma_pago == 1)
-       Efectivo
-       @else
-       Transferencia
-       @endif
-      </td>
-      @if($registro->fecha_cierre == null)
-        <td style="background-color: red; color: white">Pendiente</td>
+      <td> {{$registro->forma_pago}} </td>
+      @if($registro->fecha_cierre != null)
+        <td style="background-color: green; color: white">{{$registro->fecha_cierre}}</td>
       @else
         <td></td>
       @endif

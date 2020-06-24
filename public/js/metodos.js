@@ -144,19 +144,23 @@ function fun_editapro(id)
       });
     }
 
-    function modal(id){
+    function modal(id,cerr){
 
       var view_url = "http://localhost:8000/registroe"
-
+      var tipo =  cerr;
       $.ajax({
         url: view_url,
         type:"GET", 
         data: {"id":id}, 
         success: function(result){
           console.log(result);
-          $(":input").attr('readonly', true);
+          if(tipo == 1){
+            $("#check").css("display",'inline-block');
+            $("#buttonreg").css("display",'inline-block');
+            $(":input").attr('readonly', true);
+            $('input[type=checkbox]').prop('checked', false);
 
-          $('input[type=checkbox]').click(function() {
+            $('input[type=checkbox]').click(function() {
             if($(this).is(':checked')) {
               $(":input").attr('readonly', false);
             } else {
@@ -164,6 +168,12 @@ function fun_editapro(id)
 
             }
           });
+          }else{
+            $(":input").attr('readonly', true);
+            $("#check").css("display",'none');
+            $("#buttonreg").css("display",'none');
+          }
+
 
           $('#edit_id_registro').val(result.info.id);
           $("#id_registro").val(result.info.id);
@@ -448,6 +458,22 @@ function fun_editapro(id)
         }
       });
 
+       $("#edit_fecha_cierre").on("change",function(){
+        var revisa =  $('#edit_observaciones').val();
+        if(revisa == "" || revisa == null){
+          alert("Debes acompletar los campos para fecha de cierre");
+           $('#edit_fecha_cierre').val(""); 
+        }else{
+          
+        }
+           
+        
+          
+        // var otro=$('#edit_id_registro').val(result.info.id);
+        // var valorSelect=$(this).val()//obtenemos el valor seleccionado en una variable
+        // console.log( valorSelect+otro)
+      })
+
         $('#editModalr').modal({
         keyboard: true,
         backdrop: "static"
@@ -455,3 +481,7 @@ function fun_editapro(id)
 
 };
     
+function cierre(){
+  alert('fecha de cierre');
+   $('#edit_fecha_cierre').val("");     
+}

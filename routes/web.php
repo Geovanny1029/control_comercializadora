@@ -28,6 +28,11 @@ Route::get('registroe',[
 			'as'   => 'registro.view'
 ]);
 
+
+Route::get('registroscerrados',[
+			'uses' => 'RegistroController@cerrados',
+			'as'   => 'registro.cerrados'
+]);
 //rutas usuarios
 Route::resource('user','UserController');
 
@@ -67,12 +72,34 @@ Route::post('proveedoresu',[
 			'as'   => 'proveedores.actualiza'
 ]);
 
+
+Route::post('/proveedorsearch',[
+			'uses' => 'ProveedorExternoController@proveedorsearch',
+			'as'   => 'proveedores.search'
+]);
+
+// tiempo real tramitadores prg
+Route::post('/proveedorajax',[  //tiempo real inicio
+	'uses' => 'ProveedorExternoController@timereal',
+	'as'   =>  'proveedores.timereal']);
+
+
 //rutas clientes
 Route::resource('clientes','ClienteController');
+
+// tiempo real tramitadores prg
+Route::post('/clienteajax',[  //tiempo real inicio
+	'uses' => 'ClienteController@timereal',
+	'as'   =>  'clientes.timereal']);
 
 Route::get('clientese',[
 			'uses' => 'ClienteController@view',
 			'as'   => 'clientes.view'
+]);
+
+Route::post('/clientessearch',[
+			'uses' => 'ClienteController@searchcliente',
+			'as'   => 'clientes.search'
 ]);
 
 Route::post('clientesu',[

@@ -30,6 +30,29 @@ class ClienteController extends Controller
             }
     }
 
+    public function searchcliente(Request $request){
+
+         $search = $request->search;
+
+        if($search == ''){
+         $employees = Cliente::orderby('nombre_cliente','asc')->select('id','nombre_cliente')->limit(8)->get();
+      }else{
+         $employees = Cliente::orderby('nombre_cliente','asc')->select('id','nombre_cliente')->where('nombre_cliente', 'like', '%' .$search . '%')->limit(8)->get();
+      }
+
+      $response = array();
+      foreach($employees as $employee){
+         $response[] = array(
+              "id"=>$employee->id,
+              "text"=>$employee->nombre_cliente
+         );
+      }
+
+      echo json_encode($response);
+      exit;
+
+    }
+
     public function store(Request $request)
     {
         $user = new Cliente($request->all());
@@ -62,6 +85,19 @@ class ClienteController extends Controller
     public function datatable()
     {
         return view('clientes.index');
+    }
+
+    public function timereal(Request $request)
+    {
+         if($request->ajax()){
+            
+            $user = new Cliente();
+            $user->nombre_cliente=strtoupper($request->nombre);
+            $user->save();
+             return response()->json($user);
+         }
+
+
     }
 
     public function getPosts()

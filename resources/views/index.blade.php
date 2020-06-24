@@ -7,6 +7,7 @@
   <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
   <meta name="author" content="GeeksLabs">
   <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="shortcut icon" href="img/favicon.png">
 
   <title>Control comercializadora</title>
@@ -50,7 +51,7 @@
 
     <header class="header dark-bg">
       <div class="toggle-nav">
-        <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
+        <div class="icon-reorder tooltips" data-original-title="Menu de opciones" data-placement="bottom"><i class="icon_menu"></i></div>
       </div>
 
       <!--logo start-->
@@ -142,9 +143,8 @@
               <li><a class="" href="{{route('clientes.index')}}">Clientes</a></li>              
               <li><a class="" href="{{route('ejecutivos.index')}}">Ejecutivos</a></li>
               <li><a class="" href="{{route('estatus.index')}}">Estatus</a></li>              
-              <li><a class="" href="{{route('razon_social.index')}}">Razon Social Prov</a></li>
               <li><a class="" href="{{route('proveedores.index')}}">Proveedor Ext</a></li>
-              <li><a class="" href="{{route('proveedores.index')}}">Registros Cerrados</a></li>
+              <li><a class="" href="{{route('registro.cerrados')}}">Registros Cerrados</a></li>
             </ul>
           </li>
           @else
@@ -258,16 +258,129 @@
 </script>
 <script type="text/javascript">
         $(document).ready(function() {
-        $("#clientes").select2();
-        $("#razon").select2();
-        $("#proveedores").select2();
-       
+
+        //select2 ajax clientes
+        $("#clientes").select2({ 
+          placeholder:"Tecleea 2 o mas letras",
+          minimumInputlength:2,
+          ajax:{
+            url:"/clientessearch",
+            dataType:"json",
+            type:"POST",
+            delay:250,
+            data:function(params){
+              return{
+                search:params.term
+
+              };
+            },
+            processResults:function(response){
+              return{
+                results:response
+              };
+            },
+            cache:true
+          }
+        });
+
+
+        //select2 ajax Razon social
+        $("#razon").select2({ 
+          placeholder:"Tecleea 2 o mas letras",
+          minimumInputlength:2,
+          ajax:{
+            url:"/clientessearch",
+            dataType:"json",
+            type:"POST",
+            delay:250,
+            data:function(params){
+              return{
+                search:params.term
+
+              };
+            },
+            processResults:function(response){
+              return{
+                results:response
+              };
+            },
+            cache:true
+          }
+        });
+
+        //select2 ajax proveedores
+        $("#proveedores").select2({ 
+          placeholder:"Tecleea 2 o mas letras",
+          minimumInputlength:2,
+          ajax:{
+            url:"/proveedorsearch",
+            dataType:"json",
+            type:"POST",
+            delay:250,
+            data:function(params){
+              return{
+                search:params.term
+
+              };
+            },
+            processResults:function(response){
+              return{
+                results:response
+              };
+            },
+            cache:true
+          }
+        });
+
+    //agregar en el catalo clientes un nuevo registro con ajax
+    $("#btn-add-state").on("click", function(){
+      var newStateVal = $("#newstate").val();
+      if(newStateVal == "" || newStateVal == null){
+        alert("Debe llenar el campo para dar de alta un nuevo Cliente");
+       }else{
+          var state = "nombre="+newStateVal;
+          $.ajax({
+            url: "/clienteajax",
+            type:"POST", 
+            data: state, 
+            success: function(result){
+              alert("Se dio de alta el cliente: "+newStateVal+" en el catalogo");
+            }
+          });
+       }
+
+ 
+    }); 
+
+    //agregar en el catalo clientes un nuevo registro con ajax
+    $("#btn-add-prov").on("click", function(){
+      var newStateprov = $("#newprov").val();
+      if(newStateprov == "" || newStateprov == null){
+        alert("Debe llenar el campo para dar de alta un nuevo Proveedor");
+      }else{
+        var state = "nombrep="+newStateprov;
+        $.ajax({
+        url: "/proveedorajax",
+        type:"POST", 
+        data: state, 
+          success: function(result){
+          alert("Se dio de alta el Proveedor: "+newStateprov+" en el catalogo");
+          $("#newprov").val("");
+
+          }
+        });
+      }
+
+ 
+    }); 
+  
         });
 
 </script>
 
 <script>
   $(document).ready( function () {
+    $('#tablaregistroscerrados').DataTable();
    var table =  $('#tablaregistros').DataTable({
   "language": {
   "sProcessing":     "Procesando...",
@@ -300,6 +413,7 @@
               text: 'Crear Nuevo Registro',
               action: function () {
               $("#addModalr").modal("show");
+               $(":input").attr('readonly', false);
               },
             },
             {

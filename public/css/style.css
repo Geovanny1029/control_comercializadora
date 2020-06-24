@@ -9917,3 +9917,10 @@ span.customSelect.changed {
 }
 
 
+
+
+input:focus {
+border:3px solid #DF4B5D;
+background-color:#F0F8FF;
+margin-right:10px;
+}

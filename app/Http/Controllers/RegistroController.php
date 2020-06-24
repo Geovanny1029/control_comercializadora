@@ -28,22 +28,21 @@ class RegistroController extends Controller
       $registros->each(function($registros){
           $registros->aduana;
           $registros->cliente;
+          $registros->clienter;
           $registros->ejecutivo;
           $registros->estatus;
-          $registros->razon_social;
           $registros->user;
           $registros->proveedores;
       });      
 
     	$clientes = Cliente::orderBY('nombre_cliente','ASC')->pluck('nombre_cliente','id');
-    	$razon = Razon_social_proveedor::orderBy('nombre_razon','ASC')->pluck('nombre_razon','id');
     	$aduanas = Aduana::orderBY('nombre_aduana','ASC')->pluck('nombre_aduana','id');
     	$ejecutivos = Ejecutivo::orderBY('nombre_ejecutivo','ASC')->pluck('nombre_ejecutivo','id');
     	$estatus = Estatus::orderBY('nombre_estatus','ASC')->pluck('nombre_estatus','id');
     	$proveedores = Proveedor_externo::orderBY('nombre_proveedor','ASC')->pluck('nombre_proveedor','id');
 
 
-        return view('registros.index')->with('registros',$registros)->with('clientes',$clientes)->with('razon',$razon)->with('aduanas',$aduanas)->with('ejecutivos',$ejecutivos)->with('estatus',$estatus)->with('proveedores',$proveedores);
+        return view('registros.index')->with('registros',$registros)->with('clientes',$clientes)->with('aduanas',$aduanas)->with('ejecutivos',$ejecutivos)->with('estatus',$estatus)->with('proveedores',$proveedores);
     }
 
     public function view(Request $request){
@@ -368,5 +367,30 @@ class RegistroController extends Controller
         );        
 
         return back()->with($notification);
+    }
+
+   public function cerrados()
+    {
+
+      $registros = Registro::whereraw('`fecha_cierre` is not null')->get();
+      $registros->each(function($registros){
+          $registros->aduana;
+          $registros->cliente;
+          $registros->clienter;
+          $registros->ejecutivo;
+          $registros->estatus;
+          $registros->razon_social;
+          $registros->user;
+          $registros->proveedores;
+      });      
+
+      $clientes = Cliente::orderBY('nombre_cliente','ASC')->pluck('nombre_cliente','id');
+      $aduanas = Aduana::orderBY('nombre_aduana','ASC')->pluck('nombre_aduana','id');
+      $ejecutivos = Ejecutivo::orderBY('nombre_ejecutivo','ASC')->pluck('nombre_ejecutivo','id');
+      $estatus = Estatus::orderBY('nombre_estatus','ASC')->pluck('nombre_estatus','id');
+      $proveedores = Proveedor_externo::orderBY('nombre_proveedor','ASC')->pluck('nombre_proveedor','id');
+
+
+        return view('registros.cerrados')->with('registros',$registros)->with('clientes',$clientes)->with('aduanas',$aduanas)->with('ejecutivos',$ejecutivos)->with('estatus',$estatus)->with('proveedores',$proveedores);
     }
 }

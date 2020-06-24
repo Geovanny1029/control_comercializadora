@@ -76,9 +76,9 @@ class Registro extends Model
       return $this->belongsTo('App\Estatus','id_estatus'); 
     }
 
-    public function razon_social(){
+    public function clienter(){
 
-      return $this->belongsTo('App\Razon_social_proveedor','id_razon_datos_fac'); 
+      return $this->belongsTo('App\Cliente','id_razon_datos_fac'); 
     }
 
     public function user(){
