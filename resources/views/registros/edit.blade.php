@@ -7,7 +7,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Acompletar Registro Registro</h4>
+            <h4 class="modal-title">Acompletar Registro</h4>
           </div>
           <div class="modal-body" style=" background-color: #ffffff;">
               {!! Form::open(['route' => 'registro.actualiza', 'method' => 'POST','files'=>true]) !!}
@@ -17,7 +17,13 @@
                        <span class="input-group-addon" >Nu registro</span>
                        <input type="text" style="text-transform:uppercase;" name="id_registro" id="id_registro" class="form-control" placeholder="registro">
                     </div> 
-                </div> 
+                </div>
+                <div class="form-group col-md-2">
+                    <div class="input-group">
+                       <span class="input-group-addon" >Folio</span>
+                       <input type="text" style="text-transform:uppercase;" name="folio" id="folio" class="form-control" placeholder="registro">
+                    </div> 
+                </div>                  
                 <div class="form-group col-md-2" style="display: inline-block;" id="check" >
                     <label class="checkbox-inline">
                       <input type="checkbox" id="something" value="">Editar
@@ -29,7 +35,7 @@
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Cliente</span>
-                        {!! Form::select('edit_id_cliente',$clientes,null,['class' => 'form-control','id'=>'edit_id_cliente']) !!}
+                        {!! Form::select('edit_id_cliente',$clientes,null,['class' => 'form-control','id'=>'edit_id_cliente','placeholder'=>'selecciona']) !!}
                     </div>
                </div> 
                <div class="form-group col-md-3">
@@ -42,24 +48,24 @@
                     <div class="input-group">
                        <span class="input-group-addon" id="razz" >Ruta Razon</span>
                         <input type="file" name="edit_ruta_razonsocial" class="form-control" id="edit_ruta_razonsocial" placeholder="ruta razonsocial" style="display: inline-block;">
-                        <div id="showrut" style="display: none;" class="form-control btn btn-primary" data-lity>
+                        <div id="showrut" value="0" style="display: none;" class="form-control btn btn-primary" data-lity>
                          VER PDF
                         </div>
                     </div>
-               </div>  
+               </div> 
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" id="contact" >Contacto Facturas Pagos</span>
-                        <input type="text" style="text-transform:uppercase;" name="edit_contacto_facturas_pagos" class="form-control" placeholder="contact" id="edit_contacto_facturas_pagos">
+                       <span class="input-group-addon" id="forma">Tipo Operacion</span>
+                        {!! Form::select('edit_tipo_operacion',["1"=>"IMPORTACION","2"=>"EXPORTACION"],null,['class' => 'form-control','id'=>'edit_tipo_operacion']) !!}
                     </div>
-               </div>                                           
+               </div>                                                           
               </div>
 
               <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" id="forma">Forma Pago</span>
-                        {!! Form::select('edit_forma_pago',["1"=>"Efectivo","2"=>"Transferencia"],null,['class' => 'form-control','id'=>'edit_forma_pago']) !!}
+                        {!! Form::select('edit_forma_pago',["1"=>"Efectivo","2"=>"Transferencia","3"=>"Cheque"],null,['class' => 'form-control','id'=>'edit_forma_pago']) !!}
                     </div>
                </div> 
                <div class="form-group col-md-3">
@@ -78,7 +84,7 @@
                     <div class="input-group">
                        <span class="input-group-addon" id="rutpro">Ruta Proveedor</span>
                         <input type="file" name="edit_ruta_proveedor" class="form-control" placeholder="Proveedor" id="edit_ruta_proveedor" style="display: inline-block;">
-                        <div id="showprov" style="display: none;" class="form-control btn btn-primary" data-lity>
+                        <div id="showprov" value="0" style="display: none;" class="form-control btn btn-primary" data-lity>
                          VER PDF
                         </div>
                     </div>
@@ -86,6 +92,12 @@
               </div>
 
               <div class="row">
+               <div class="form-group col-md-3">
+                    <div class="input-group">
+                       <span class="input-group-addon" id="contact" >Contacto Facturas Pagos</span>
+                        <input type="text" style="text-transform:uppercase;" name="edit_contacto_facturas_pagos" class="form-control" placeholder="contact" id="edit_contacto_facturas_pagos">
+                    </div>
+               </div>                 
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" id="valfac" >Valor Fact Ext $</span>
@@ -96,7 +108,7 @@
                     <div class="input-group">
                        <span class="input-group-addon" id="rutafact">Ruta Fact</span>
                         <input type="file" name="edit_ruta_factura_ext" id="edit_ruta_factura_ext" class="form-control" placeholder="Ruta" style="display: inline-block;">
-                        <div id="showfacext" style="display: none;" class="form-control btn btn-primary" data-lity>
+                        <div id="showfacext" value="0" style="display: none;" class="form-control btn btn-primary" data-lity>
                          VER PDF
                         </div>
                     </div>
@@ -106,16 +118,16 @@
                        <span class="input-group-addon" >Se Emite Factura?</span>
                         {!! Form::select('edit_se_emite_factura',["1"=>"Si","2"=>"No"],null,['class' => 'form-control','id'=>'edit_se_emite_factura']) !!}
                     </div>
-               </div> 
+               </div>                                           
+              </div>                             
+
+              <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Se Factura valor Mercancia?</span>
                         {!! Form::select('edit_se_factura_valor_mercancia',["1"=>"Si","2"=>"No"],null,['class' => 'form-control','id'=>'edit_se_factura_valor_mercancia']) !!}
                     </div>
-               </div>                                           
-              </div>                             
-
-              <div class="row">
+               </div>                 
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Aduana</span>
@@ -133,16 +145,16 @@
                        <span class="input-group-addon" >Estatus</span>
                         {!! Form::select('edit_id_estatus',$estatus,null,['class' => 'form-control','id'=>'edit_estatus']) !!}
                     </div>
-               </div>
+               </div>                                        
+              </div>
+
+              <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" id="descope">Descripcion Ope</span>
                         <input type="text" style="text-transform:uppercase;" name="edit_descripcion_operacion" id="edit_descripcion_operacion" class="form-control" placeholder="descripcion_operacion">
                     </div>
-               </div>                                         
-              </div>
-
-              <div class="row">
+               </div>                 
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" id="feceta" >Eta</span>
@@ -160,20 +172,20 @@
                        <span class="input-group-addon" id="cotcli" >Cotizacion Cliente $</span>
                         <input type="number" name="edit_cotizacion_cliente_mxp" id="edit_cotizacion_cliente_mxp" class="form-control" placeholder="$">
                     </div>
-               </div>
-               <div class="form-group col-md-3">
-                    <div class="input-group">
-                       <span class="input-group-addon" id="rutcot" >Ruta Cotizacion</span>
-                        <input type="file" name="edit_ruta_cotizacion_cliente" id="edit_ruta_cotizacion_cliente" class="form-control" placeholder="ruta" style="display: inline-block;">
-                        <div id="showcot" style="display: none;" class="form-control btn btn-primary" data-lity>
-                         VER PDF
-                        </div>
-                    </div>
                </div>                                          
               </div>  
 
 
               <div class="row">
+               <div class="form-group col-md-3">
+                    <div class="input-group">
+                       <span class="input-group-addon" id="rutcot" >Ruta Cotizacion</span>
+                        <input type="file" name="edit_ruta_cotizacion_cliente" id="edit_ruta_cotizacion_cliente" class="form-control" placeholder="ruta" style="display: inline-block;">
+                        <div id="showcot" value="0" style="display: none;" class="form-control btn btn-primary" data-lity>
+                         VER PDF
+                        </div>
+                    </div>
+               </div>                
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" id="obs" >Observaciones</span>
@@ -191,19 +203,19 @@
                        <span class="input-group-addon" id="impodep" >Importe deposito cliente $</span>
                         <input type="number" name="edit_importe_deposito_cliente" id="edit_importe_deposito_cliente" class="form-control" placeholder="$">
                     </div>
-               </div>
+               </div>                                        
+              </div> 
+
+              <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" id="rutdepo" >Ruta Deposito</span>
                         <input type="file" name="edit_ruta_importe_deposito_cliente" id="edit_ruta_importe_deposito_cliente" class="form-control" placeholder="ruta" style="display: inline-block;">
-                        <div id="showdep" style="display: none;" class="form-control btn btn-primary" data-lity>
+                        <div id="showdep" value="0" style="display: none;" class="form-control btn btn-primary" data-lity>
                          VER PDF
                         </div>
                     </div>
-               </div>                                         
-              </div> 
-
-              <div class="row">
+               </div>                 
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" id="refer">Referencia</span>
@@ -220,20 +232,20 @@
                     <div class="input-group">
                        <span class="input-group-addon" id="rutpedi" >Ruta Pedimento</span>
                         <input type="file" name="edit_ruta_pedimento" id="edit_ruta_pedimento" class="form-control" placeholder="ruta" style="display: inline-block;">
-                        <div id="showped" style="display: none;" class="form-control btn btn-primary" data-lity>
+                        <div id="showped" value="0" style="display: none;" class="form-control btn btn-primary" data-lity>
                          VER PDF
                         </div>
                     </div>
-               </div>
+               </div>                                         
+              </div>  
+
+              <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" id="impcg" >Importe CG $</span>
                         <input type="number" name="edit_importe_cg" id="edit_importe_cg" class="form-control" placeholder="$">
                     </div>
-               </div>                                          
-              </div>  
-
-              <div class="row">
+               </div>                 
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" id="feccg" >Fecha CG</span>
@@ -250,15 +262,9 @@
                     <div class="input-group">
                        <span class="input-group-addon" id="rutfol">Ruta Folio</span>
                         <input type="file" name="edit_ruta_folio_cg" id="edit_ruta_folio_cg" class="form-control" placeholder="ruta" style="display: inline-block;">
-                        <div id="showfol" style="display: none;" class="form-control btn btn-primary" data-lity>
+                        <div id="showfol" value="0" style="display: none;" class="form-control btn btn-primary" data-lity>
                          VER PDF
                         </div>
-                    </div>
-               </div>
-               <div class="form-group col-md-3">
-                    <div class="input-group">
-                       <span class="input-group-addon" id="imporfac">Importe Facturado Cliente $</span>
-                        <input type="number" name="edit_importe_facturado_cliente" id="edit_importe_facturado_cliente" class="form-control" placeholder="$">
                     </div>
                </div>                                          
               </div> 
@@ -266,9 +272,15 @@
               <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
+                       <span class="input-group-addon" id="imporfac">Importe Facturado Cliente $</span>
+                        <input type="number" name="edit_importe_facturado_cliente" id="edit_importe_facturado_cliente" class="form-control" placeholder="$">
+                    </div>
+               </div>                
+               <div class="form-group col-md-3">
+                    <div class="input-group">
                        <span class="input-group-addon" id="rutfaccli" >Ruta Facturado</span>
                         <input type="file" name="edit_ruta_facturado_cliente" id="edit_ruta_facturado_cliente" class="form-control" placeholder="ruta" style="display: inline-block;">
-                        <div id="showfac" style="display: none;" class="form-control btn btn-primary" data-lity>
+                        <div id="showfac" value="0" style="display: none;" class="form-control btn btn-primary" data-lity>
                          VER PDF
                         </div>
                     </div>
@@ -283,7 +295,7 @@
                     <div class="input-group">
                        <span class="input-group-addon" id="rutcos" >Ruta costeo</span>
                         <input type="file" name="edit_ruta_costeo" id="edit_ruta_costeo" class="form-control" placeholder="ruta" style="display: inline-block;">
-                        <div id="showcost" style="display: none;" class="form-control btn btn-primary" data-lity>
+                        <div id="showcost" value="0" style="display: none;" class="form-control btn btn-success" data-lity>
                          VER PDF
                         </div>
                     </div>

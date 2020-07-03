@@ -15,15 +15,32 @@
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModalcli">Crear nuevo Cliente</button>
 
 @include('clientes.crear')
+@include('clientes.edit')
 
- <table class="table table-striped   datatable" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>id</th>
-                                <th>nombre_cliente</th>
-                                <th>estatus</th>
-                            </tr>
-                        </thead>
-                    </table>
+<table class="table table-striped" id="tablaejecutivos">
+  <thead>
+    <th>ID</th>
+    <th>Nombre Cliente</th>
+    <th>Accion</th>
+  </thead>
+  <tbody>
+    @foreach($clientes as $cliente)
+    <tr>
+
+      <td> {{$cliente->id}} </td>
+      <td> {{$cliente->nombre_cliente}} </td>
+      <td>
+
+
+      <button class="btn btn-warning" data-toggle="modal" data-target="#editModalcli" onclick="fun_editcli('{{$cliente->id}}')" id="editacli" value="{{route('clientes.view')}}">Editar </button>
+
+      </td>
+    </tr>
+    @endforeach
+  </tbody>
+
+</table>
+
+
 
 @endsection

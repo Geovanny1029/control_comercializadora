@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-06-2020 a las 01:15:58
+-- Tiempo de generación: 03-07-2020 a las 16:26:25
 -- Versión del servidor: 10.1.35-MariaDB
 -- Versión de PHP: 7.2.9
 
@@ -35,15 +35,6 @@ CREATE TABLE `aduanas` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
---
--- Volcado de datos para la tabla `aduanas`
---
-
-INSERT INTO `aduanas` (`id`, `nombre_aduana`, `created_at`, `updated_at`) VALUES
-(1, 'PROGRESO', '2020-06-01 23:07:54', '2020-06-01 23:07:54'),
-(2, 'CANCUN', '2020-06-03 21:24:02', '2020-06-03 21:24:02'),
-(3, 'MERIDA', '2020-06-03 21:24:10', '2020-06-03 21:24:10');
-
 -- --------------------------------------------------------
 
 --
@@ -58,29 +49,6 @@ CREATE TABLE `clientes` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
---
--- Volcado de datos para la tabla `clientes`
---
-
-INSERT INTO `clientes` (`id`, `nombre_cliente`, `estatus`, `created_at`, `updated_at`) VALUES
-(1, 'seadrill obreron', 1, '2020-06-02 15:15:20', '0000-00-00 00:00:00'),
-(2, 'COTEMAR', 1, '2020-06-02 15:15:22', '2020-06-02 10:51:46'),
-(3, 'PALACE RESORT', NULL, '2020-06-04 23:41:40', '2020-06-04 23:41:40'),
-(4, 'PROTEINAS Y OLEICOS', NULL, '2020-06-09 22:48:22', '2020-06-09 22:48:22'),
-(5, 'SEAMARITIMA', NULL, '2020-06-09 22:48:34', '2020-06-09 22:48:34'),
-(10, 'POLIJJJ', NULL, '2020-06-24 03:13:11', '2020-06-24 03:13:11'),
-(11, 'POLIDUCTOS', NULL, '2020-06-24 03:14:39', '2020-06-24 03:14:39'),
-(12, 'QWERTY', NULL, '2020-06-24 10:21:08', '2020-06-24 10:21:08'),
-(13, 'DEFASI', NULL, '2020-06-24 10:22:24', '2020-06-24 10:22:24'),
-(14, 'PLAYA HOTEL', NULL, '2020-06-24 10:24:50', '2020-06-24 10:24:50'),
-(15, 'SEADRILL DEFENDER', NULL, '2020-06-24 10:26:24', '2020-06-24 10:26:24'),
-(16, 'COURAGENOS', NULL, '2020-06-24 10:29:51', '2020-06-24 10:29:51'),
-(17, 'KEKEN', NULL, '2020-06-24 10:39:06', '2020-06-24 10:39:06'),
-(18, 'SEADRILL JACK UP', NULL, '2020-06-24 10:50:57', '2020-06-24 10:50:57'),
-(22, 'TOSKAY ENTREPRISE', NULL, '2020-06-24 11:00:27', '2020-06-24 11:00:27'),
-(23, 'SERVICIOS INDUSTRIALES', NULL, '2020-06-24 11:04:46', '2020-06-24 11:04:46'),
-(24, 'GEOVANNY', NULL, '2020-06-24 23:31:04', '2020-06-24 23:31:04');
-
 -- --------------------------------------------------------
 
 --
@@ -93,14 +61,6 @@ CREATE TABLE `ejecutivos` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
-
---
--- Volcado de datos para la tabla `ejecutivos`
---
-
-INSERT INTO `ejecutivos` (`id`, `nombre_ejecutivo`, `created_at`, `updated_at`) VALUES
-(1, 'CAROLINA PORTILLO PIZARRO', '2020-06-03 21:23:43', '2020-06-03 21:23:43'),
-(2, 'ANNEKE SILVA', '2020-06-03 21:23:52', '2020-06-03 21:23:52');
 
 -- --------------------------------------------------------
 
@@ -115,12 +75,18 @@ CREATE TABLE `estatus` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
+-- --------------------------------------------------------
+
 --
--- Volcado de datos para la tabla `estatus`
+-- Estructura de tabla para la tabla `forma_pago`
 --
 
-INSERT INTO `estatus` (`id`, `nombre_estatus`, `created_at`, `updated_at`) VALUES
-(1, 'ESTATUS 1', '2020-06-03 21:23:30', '2020-06-03 21:23:30');
+CREATE TABLE `forma_pago` (
+  `id` int(100) NOT NULL,
+  `nombre_pago` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
 
@@ -167,37 +133,6 @@ CREATE TABLE `proveedor_externo` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
---
--- Volcado de datos para la tabla `proveedor_externo`
---
-
-INSERT INTO `proveedor_externo` (`id`, `nombre_proveedor`, `created_at`, `updated_at`) VALUES
-(1, 'APURA SEADRILL', '2020-06-03 21:23:01', '2020-06-03 21:23:01'),
-(2, 'PROVEEDOR 2', '2020-06-03 21:23:12', '2020-06-03 21:23:12'),
-(3, 'COTEMAR', '2020-06-25 00:50:30', '2020-06-25 00:50:30'),
-(4, 'ENERGY SOLAR', '2020-06-25 00:56:53', '2020-06-25 00:56:53'),
-(5, 'SEADRILL NUEVO', '2020-06-25 00:58:06', '2020-06-25 00:58:06');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `razon_social_datos_fac`
---
-
-CREATE TABLE `razon_social_datos_fac` (
-  `id` int(2) NOT NULL,
-  `nombre_razon` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
-
---
--- Volcado de datos para la tabla `razon_social_datos_fac`
---
-
-INSERT INTO `razon_social_datos_fac` (`id`, `nombre_razon`, `created_at`, `updated_at`) VALUES
-(1, 'SEADRILL', '2020-06-02 00:31:15', '2020-06-02 00:31:15');
-
 -- --------------------------------------------------------
 
 --
@@ -213,6 +148,7 @@ CREATE TABLE `registros` (
   `contacto_facturas_pagos` varchar(100) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `forma_pago` int(2) DEFAULT NULL,
   `pagamos_mercancia` int(2) DEFAULT NULL,
+  `tipo_operacion` int(2) NOT NULL,
   `id_proveedor` int(30) NOT NULL,
   `ruta_proveedor` varchar(100) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `valor_factura_ext` int(30) DEFAULT NULL,
@@ -249,22 +185,6 @@ CREATE TABLE `registros` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
---
--- Volcado de datos para la tabla `registros`
---
-
-INSERT INTO `registros` (`id`, `no_operacion`, `id_cliente`, `id_razon_datos_fac`, `ruta_razonsocial`, `contacto_facturas_pagos`, `forma_pago`, `pagamos_mercancia`, `id_proveedor`, `ruta_proveedor`, `valor_factura_ext`, `ruta_factura_ext`, `se_emite_factura`, `se_factura_valor_mercancia`, `id_aduana`, `id_ejecutivo`, `id_estatus`, `descripcion_operacion`, `eta`, `fecha_despacho`, `cotizacion_cliente_mxp`, `ruta_cotizacion_cliente`, `observaciones`, `fecha_deposito_cliente`, `importe_deposito_cliente`, `ruta_importe_deposito_cliente`, `referencia`, `no_pedimento`, `ruta_pedimento`, `importe_cg`, `fecha_cg`, `folio_cg`, `ruta_folio_cg`, `importe_facturado_cliente`, `ruta_facturado_cliente`, `costeo_total`, `ruta_costeo`, `cierre`, `fecha_cierre`, `id_user`, `created_at`, `updated_at`) VALUES
-(1, 'TT1', 2, 1, NULL, '', 1, 1, 1, NULL, NULL, NULL, 1, 1, 2, 2, 1, '', NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, '', '', NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-06-05 00:08:18', '2020-06-05 00:08:18'),
-(2, 'TT2', 3, 1, 'Razon_TT2_dias_despacho_progreso.pdf', 'PRUEBA', 1, 1, 1, NULL, 2542, NULL, 1, 1, 2, 2, 1, '', NULL, NULL, NULL, NULL, 'EJEMPLO OBSERVACION', NULL, NULL, NULL, '', '', NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-06-23 20:45:23', '2020-06-24 01:45:23'),
-(3, 'TT3', 5, 1, 'Razon_TT3_dias_despacho_cancun.pdf', 'PRUEBA', 1, 1, 1, NULL, NULL, NULL, 1, 1, 2, 2, 1, '', NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, '', '', NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-06-09 22:49:07', '2020-06-09 22:49:07'),
-(4, 'TT4', 5, 1, 'Razon_TT4_dias_despacho_progreso.pdf', '', 2, 2, 1, NULL, NULL, NULL, 1, 1, 2, 2, 1, '', NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, '', '', NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, '2020-06-17', 1, '2020-06-15 21:23:18', '2020-06-16 02:23:18'),
-(5, 'TT5', 5, 1, NULL, '', 2, 2, 1, NULL, NULL, NULL, 1, 1, 2, 2, 1, '', NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, '', '', NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-06-24 01:54:32', '2020-06-24 01:54:32'),
-(6, 'TT6', 2, 1, 'Razon_TT6_dias_despacho_cancun.pdf', '', 1, 1, 1, NULL, 5678, 'facturaext_TT6_dias_despacho_merida.pdf', 2, 1, 2, 2, 1, '', '2020-06-10', '2020-06-17', 6757, 'Cotizacion_TT6_dias_despacho_progreso.pdf', '', '2020-06-25', NULL, NULL, '', '', NULL, 6767, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-06-23 21:00:23', '2020-06-24 02:00:23'),
-(7, 'TT7', 2, 1, NULL, '', 1, 1, 1, NULL, NULL, NULL, 1, 1, 2, 2, 1, '', NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, '', '', NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-06-24 02:30:00', '2020-06-24 02:30:00'),
-(8, 'TT8', 2, 1, NULL, '', 1, 1, 1, NULL, NULL, NULL, 1, 1, 2, 2, 1, '', NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, '', '', NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-06-23 21:31:04', '2020-06-24 02:30:18'),
-(9, 'TT9', 12, 1, NULL, '', 1, 1, 1, NULL, NULL, NULL, 1, 1, 2, 2, 1, '', NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, '', '', NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-06-24 10:21:47', '2020-06-24 10:21:47'),
-(10, 'TT10', 16, 1, NULL, '', 1, 1, 1, NULL, NULL, NULL, 1, 1, 2, 2, 1, '', NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, '', '', NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-06-24 10:30:06', '2020-06-24 10:30:06');
-
 -- --------------------------------------------------------
 
 --
@@ -290,7 +210,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `nombre`, `user`, `email`, `backup_password`, `password`, `estatus`, `nivel`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Administrador Sistema', 'admin', 'geovannyp@aduanaldelvalle.mx', '123456', '$2y$10$o9MAyHFgbUfLueZ4e87rROZRIcEFWkeF8YzdRe6ERDXsZJZObVwOS', 1, 1, 'gCKmCqiJbwK1bNvgIiC1sdEvPKC1BSoSAwpRPcHlF388U87ZaP97Xi6Rnr3U', NULL, NULL);
+(1, 'Administrador Sistema', 'admin', 'geovannyp@aduanaldelvalle.mx', '123456', '$2y$10$o9MAyHFgbUfLueZ4e87rROZRIcEFWkeF8YzdRe6ERDXsZJZObVwOS', 1, 1, 'n6UwoY0fDtIoKyukhIjjbZfawt9yqiEX3H6FbEuIA6KVSoWctIfJz0aHpttc', NULL, NULL),
+(2, 'GEOVANNY PEREZ', 'GEOVANNYP', 'jose_32127@hotmail.com', 'G190190', '$2y$10$wXJf.tyTcgpvGG5TnN6SPuoh8fuFZSnog.MieyPs2bzXwCQW3jqkO', 1, 1, NULL, '2020-06-28 00:18:30', '2020-06-28 00:18:53');
 
 --
 -- Índices para tablas volcadas
@@ -321,6 +242,12 @@ ALTER TABLE `estatus`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `forma_pago`
+--
+ALTER TABLE `forma_pago`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `migrations`
 --
 ALTER TABLE `migrations`
@@ -336,12 +263,6 @@ ALTER TABLE `password_resets`
 -- Indices de la tabla `proveedor_externo`
 --
 ALTER TABLE `proveedor_externo`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `razon_social_datos_fac`
---
-ALTER TABLE `razon_social_datos_fac`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -365,25 +286,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `aduanas`
 --
 ALTER TABLE `aduanas`
-  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(2) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(2) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `ejecutivos`
 --
 ALTER TABLE `ejecutivos`
-  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `estatus`
 --
 ALTER TABLE `estatus`
-  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `forma_pago`
+--
+ALTER TABLE `forma_pago`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
@@ -395,25 +322,19 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT de la tabla `proveedor_externo`
 --
 ALTER TABLE `proveedor_externo`
-  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT de la tabla `razon_social_datos_fac`
---
-ALTER TABLE `razon_social_datos_fac`
-  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `registros`
 --
 ALTER TABLE `registros`
-  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

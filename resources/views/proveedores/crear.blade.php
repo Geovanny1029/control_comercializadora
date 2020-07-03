@@ -9,7 +9,7 @@
             <h4 class="modal-title">Agregar Nuevo Proveedor Externo</h4>
           </div>
           <div class="modal-body">
-              {!! Form::open(['route' => 'proveedores.store', 'method' => 'POST']) !!}
+              {!! Form::open(['route' => 'proveedoresExt.store', 'method' => 'POST']) !!}
 
               <div class="row">
                 <div class="form-group col-md-6">

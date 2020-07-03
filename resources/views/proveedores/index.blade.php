@@ -31,7 +31,7 @@
       <td>
 
 
-      <button class="btn btn-warning" data-toggle="modal" data-target="#editModalpro" onclick="fun_editapro('{{$proveedor->id}}')" id="editapro" value="{{route('proveedores.view')}}">Editar </button>
+      <button class="btn btn-warning" data-toggle="modal" data-target="#editModalpro" onclick="fun_editapro('{{$proveedor->id}}')" id="editapro" value="{{route('proveedoresExt.view')}}">Editar </button>
 
       </td>
     </tr>

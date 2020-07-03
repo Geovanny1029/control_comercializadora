@@ -9,19 +9,13 @@
             <h4 class="modal-title">Editar Nombre Proveedor</h4>
           </div>
           <div class="modal-body">
-              {!! Form::open(['route' => 'proveedores.actualiza', 'method' => 'POST']) !!}
+              {!! Form::open(['route' => 'proveedoresExt.actualiza', 'method' => 'POST']) !!}
               <div class="row">
                 <div class="form-group col-md-6">
                  {!! Form::label('edit_proveedor', 'Nombre Proveedor') !!} 
                  {!! Form::text('edit_nombre_proveedor',null,['class' => 'form-control','style' => 'text-transform:uppercase;' , 'placeholder' => 'Nombre Proveedor','id' => 'edit_nombre_proveedor','required' ] ) !!}
                </div>
 
-               <div class="form-group col-md-3">
-                    <div class="input-group">
-                       <span class="input-group-addon" style="background-color: red; color:white;">cliente</span>
-                        <input type="text" class="form-control" placeholder="Username">
-                    </div>
-               </div> 
 
               </div>
 

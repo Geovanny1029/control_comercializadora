@@ -47,20 +47,20 @@
                        <span class="input-group-addon" >+</span>
                         <input type="file" name="ruta_razonsocial" class="form-control" placeholder="Username">
                     </div>
-               </div>  
+               </div> 
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Contacto Facturas Pagos</span>
-                        <input type="text" style="text-transform:uppercase;" name="contacto_facturas_pagos" class="form-control" placeholder="Username">
+                       <span class="input-group-addon" >Tipo Operacion</span>
+                        {!! Form::select('tipo_operacion',["1"=>"IMPORTACION","2"=>"EXPORTACION"],null,['class' => 'form-control','id'=>'Tipo operacion']) !!}
                     </div>
-               </div>                                           
+               </div>                                                           
               </div><br>
 
               <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Forma Pago</span>
-                        {!! Form::select('forma_pago',["1"=>"Efectivo","2"=>"Transferencia"],null,['class' => 'form-control','id'=>'Forma Pago']) !!}
+                        {!! Form::select('forma_pago',$pagos,[""=>'Selecciona una opcion'],['class' => 'form-control','id'=>'Forma Pago']) !!}
                     </div>
                </div> 
                <div class="form-group col-md-3">
@@ -86,6 +86,12 @@
               <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
+                       <span class="input-group-addon" >Contacto Facturas Pagos</span>
+                        <input type="text" style="text-transform:uppercase;" name="contacto_facturas_pagos" class="form-control" placeholder="Username" required="required">
+                    </div>
+               </div>                 
+               <div class="form-group col-md-3">
+                    <div class="input-group">
                        <span class="input-group-addon" >Valor Fact Ext $</span>
                         <input type="number" name="valor_factura_ext" class="form-control" placeholder="$">
                     </div>
@@ -101,16 +107,16 @@
                        <span class="input-group-addon" >Se Emite Factura?</span>
                         {!! Form::select('se_emite_factura',["1"=>"Si","2"=>"No"],null,['class' => 'form-control','id'=>'se_emite_factura']) !!}
                     </div>
-               </div> 
+               </div>                                            
+              </div> <br>                            
+
+              <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Se Factura valor Mercancia?</span>
                         {!! Form::select('se_factura_valor_mercancia',["1"=>"Si","2"=>"No"],null,['class' => 'form-control','id'=>'se_factura_valor_mercancia']) !!}
                     </div>
-               </div>                                           
-              </div> <br>                            
-
-              <div class="row">
+               </div>                
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Aduana</span>
@@ -128,16 +134,16 @@
                        <span class="input-group-addon" >Estatus</span>
                         {!! Form::select('id_estatus',$estatus,null,['class' => 'form-control','id'=>'estatus']) !!}
                     </div>
-               </div>
+               </div>                                         
+              </div><br>
+
+              <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Descripcion Ope</span>
                         <input type="text" style="text-transform:uppercase;" name="descripcion_operacion" class="form-control" placeholder="descripcion_operacion">
                     </div>
-               </div>                                         
-              </div><br>
-
-              <div class="row">
+               </div>                
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Eta</span>
@@ -155,17 +161,17 @@
                        <span class="input-group-addon" >Cotizacion Cliente $</span>
                         <input type="number" name="cotizacion_cliente_mxp" class="form-control" placeholder="$">
                     </div>
-               </div>
+               </div>                                         
+              </div>  <br>
+
+
+              <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Ruta Cotizacion</span>
                         <input type="file" name="ruta_cotizacion_cliente" class="form-control" placeholder="ruta">
                     </div>
-               </div>                                          
-              </div>  <br>
-
-
-              <div class="row">
+               </div>                 
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Observaciones</span>
@@ -183,16 +189,16 @@
                        <span class="input-group-addon" >Importe deposito cliente $</span>
                         <input type="number" name="importe_deposito_cliente" class="form-control" placeholder="$">
                     </div>
-               </div>
+               </div>                                         
+              </div> <br>
+
+              <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Ruta Deposito</span>
                         <input type="file" name="ruta_importe_deposito_cliente" class="form-control" placeholder="ruta">
                     </div>
-               </div>                                         
-              </div> <br>
-
-              <div class="row">
+               </div>                
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Referencia</span>
@@ -210,16 +216,16 @@
                        <span class="input-group-addon" >Ruta Pedimento</span>
                         <input type="file" name="ruta_pedimento" class="form-control" placeholder="ruta">
                     </div>
-               </div>
+               </div>                                          
+              </div> <br> 
+
+              <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Importe CG $</span>
                         <input type="number" name="importe_cg" class="form-control" placeholder="$">
                     </div>
-               </div>                                          
-              </div> <br> 
-
-              <div class="row">
+               </div>                
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Fecha CG</span>
@@ -237,16 +243,16 @@
                        <span class="input-group-addon" >Ruta Folio</span>
                         <input type="file" name="ruta_folio_cg" class="form-control" placeholder="ruta">
                     </div>
-               </div>
+               </div>                                         
+              </div> <br>
+
+              <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Importe Facturado Cliente $</span>
                         <input type="number" name="importe_facturado_cliente" class="form-control" placeholder="$">
                     </div>
-               </div>                                          
-              </div> <br>
-
-              <div class="row">
+               </div>                 
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Ruta Facturado</span>
@@ -258,16 +264,16 @@
                        <span class="input-group-addon" >Costeo Total $</span>
                         <input type="number" name="costeo_total" class="form-control" placeholder="$">
                     </div>
-               </div>                 
+               </div>                                                        
+              </div> <br>   
+
+              <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Ruta costeo</span>
                         <input type="file" name="ruta_costeo" class="form-control" placeholder="ruta">
                     </div>
-               </div>                                        
-              </div> <br>   
-
-              <div class="row">
+               </div>                 
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Cierre $</span>

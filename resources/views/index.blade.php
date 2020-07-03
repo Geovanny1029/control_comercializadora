@@ -10,7 +10,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="shortcut icon" href="img/favicon.png">
 
-  <title>Control comercializadora</title>
+  <title>Control Dombart</title>
 
  <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 
@@ -55,7 +55,7 @@
       </div>
 
       <!--logo start-->
-      <a href="/" class="logo">Control <span class="lite">Comercializadora</span></a>
+      <a href="/" class="logo"><img src="/img/logo.jpg" alt=""/>Control <span class="lite">Dombart</span></a>
       <!--logo end-->
 
 {{--       <div class="nav search-row" id="top_menu">
@@ -142,9 +142,11 @@
               <li><a class="" href="{{route('aduanas.index')}}">Aduanas</a></li>             
               <li><a class="" href="{{route('clientes.index')}}">Clientes</a></li>              
               <li><a class="" href="{{route('ejecutivos.index')}}">Ejecutivos</a></li>
-              <li><a class="" href="{{route('estatus.index')}}">Estatus</a></li>              
-              <li><a class="" href="{{route('proveedores.index')}}">Proveedor Ext</a></li>
+              <li><a class="" href="{{route('estatus.index')}}">Estatus</a></li>
+              <li><a class="" href="{{route('formapago.index')}}">Formas de Pago</a></li>              
+              <li><a class="" href="{{route('proveedoresExt.index')}}">Proveedor Ext</a></li>
               <li><a class="" href="{{route('registro.cerrados')}}">Registros Cerrados</a></li>
+              <li><a class="" href="{{route('registro.export')}}">Exportar Registros</a></li>
             </ul>
           </li>
           @else
@@ -264,7 +266,7 @@
           placeholder:"Tecleea 2 o mas letras",
           minimumInputlength:2,
           ajax:{
-            url:"/clientessearch",
+            url:"/control_comercializadora/public/clientessearch",
             dataType:"json",
             type:"POST",
             delay:250,
@@ -289,7 +291,7 @@
           placeholder:"Tecleea 2 o mas letras",
           minimumInputlength:2,
           ajax:{
-            url:"/clientessearch",
+            url:"/control_comercializadora/public/clientessearch",
             dataType:"json",
             type:"POST",
             delay:250,
@@ -313,7 +315,7 @@
           placeholder:"Tecleea 2 o mas letras",
           minimumInputlength:2,
           ajax:{
-            url:"/proveedorsearch",
+            url:"/control_comercializadora/public/proveedorsearch",
             dataType:"json",
             type:"POST",
             delay:250,
@@ -340,7 +342,7 @@
        }else{
           var state = "nombre="+newStateVal;
           $.ajax({
-            url: "/clienteajax",
+            url: "/control_comercializadora/public/clienteajax",
             type:"POST", 
             data: state, 
             success: function(result){
@@ -360,7 +362,7 @@
       }else{
         var state = "nombrep="+newStateprov;
         $.ajax({
-        url: "/proveedorajax",
+        url: "/control_comercializadora/public/proveedorajax",
         type:"POST", 
         data: state, 
           success: function(result){
@@ -436,7 +438,7 @@
 
         ],
         columnDefs: [ {
-
+            targets: [-2,-3,-4,-5,-7,-8,-9,-10,-11,-12,-13,-14,-15,-16,-17,-18,-19,-20,-21,-22,-23,-24],
             visible: false
                       }            
                       ]

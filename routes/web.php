@@ -33,6 +33,23 @@ Route::get('registroscerrados',[
 			'uses' => 'RegistroController@cerrados',
 			'as'   => 'registro.cerrados'
 ]);
+
+
+Route::get('registrosexport',[
+			'uses' => 'RegistroController@vistareportes',
+			'as'   => 'registro.export'
+		]);
+
+
+Route::get('registroexportarpendientes',[
+			'uses' => 'RegistroController@registroexportarpendientes',
+			'as'   => 'registro.exportarPendientes'
+]);
+
+Route::get('registroexportarc',[
+			'uses' => 'RegistroController@registroexportarC',
+			'as'   => 'registro.exportarC'
+]);
 //rutas usuarios
 Route::resource('user','UserController');
 
@@ -60,22 +77,22 @@ Route::post('aduanasu',[
 ]);
 
 //rutas proveedor externo
-Route::resource('proveedores','ProveedorExternoController');
+Route::resource('proveedoresExt','ProveedorExternoController');
 
 Route::get('proveedorese',[
 			'uses' => 'ProveedorExternoController@view',
-			'as'   => 'proveedores.view'
+			'as'   => 'proveedoresExt.view'
 ]);
 
 Route::post('proveedoresu',[
 			'uses' => 'ProveedorExternoController@actualiza',
-			'as'   => 'proveedores.actualiza'
+			'as'   => 'proveedoresExt.actualiza'
 ]);
 
 
 Route::post('/proveedorsearch',[
 			'uses' => 'ProveedorExternoController@proveedorsearch',
-			'as'   => 'proveedores.search'
+			'as'   => 'proveedoresExt.search'
 ]);
 
 // tiempo real tramitadores prg
@@ -135,6 +152,22 @@ Route::post('estatusu',[
 
 Route::get('datatable', 'ClienteController@datatable');
 Route::get('datatable/getdata', 'ClienteController@getPosts')->name('datatable/getdata');
+
+
+//rutas Forma de Pago
+Route::resource('formapago','FormapagoController');
+
+Route::get('formapagoe',[
+			'uses' => 'FormapagoController@view',
+			'as'   => 'formapago.view'
+]);
+
+Route::post('formapagou',[
+			'uses' => 'FormapagoController@actualiza',
+			'as'   => 'formapago.actualiza'
+]);
+
+
 
 
 

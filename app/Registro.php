@@ -17,6 +17,7 @@ class Registro extends Model
       'contacto_facturas_pagos',
       'forma_pago',
       'pagamos_mercancia',
+      'tipo_operacion',
       'id_proveedor',
       'ruta_proveedor',
       'valor_factura_ext',
@@ -83,8 +84,14 @@ class Registro extends Model
 
     public function user(){
 
-      return $this->belongsTo('App\User','id_usuario'); 
+      return $this->belongsTo('App\User','id_user'); 
     }
+
+    public function pago(){
+
+      return $this->belongsTo('App\Forma_pago','forma_pago'); 
+    }
+    
 
     public function proveedores(){
 

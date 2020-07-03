@@ -10,8 +10,11 @@ use App\Aduana;
 use App\Cliente;
 use App\Ejecutivo;
 use App\Estatus;
+use App\Forma_pago;
 use App\Proveedor_externo;
 use App\Razon_social_proveedor;
+use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 use DB;
 
 
@@ -24,6 +27,18 @@ class RegistroController extends Controller
         public function index()
     {
 
+        $hoy = Carbon::now();
+        $today = $hoy->format('Y-m-d');
+        $monthactual = $hoy->format('m');
+        $yearactual = $hoy->format('y');
+        $dayactual = $hoy->format('d');
+        if($dayactual == '01'){
+          $ho = "sii";
+        }else{
+           $ho = "noo";
+        }
+
+
     	$registros = Registro::whereraw('`fecha_cierre` is null')->get();
       $registros->each(function($registros){
           $registros->aduana;
@@ -31,6 +46,7 @@ class RegistroController extends Controller
           $registros->clienter;
           $registros->ejecutivo;
           $registros->estatus;
+          $registros->pago;
           $registros->user;
           $registros->proveedores;
       });      
@@ -39,10 +55,11 @@ class RegistroController extends Controller
     	$aduanas = Aduana::orderBY('nombre_aduana','ASC')->pluck('nombre_aduana','id');
     	$ejecutivos = Ejecutivo::orderBY('nombre_ejecutivo','ASC')->pluck('nombre_ejecutivo','id');
     	$estatus = Estatus::orderBY('nombre_estatus','ASC')->pluck('nombre_estatus','id');
+      $pagos = Forma_pago::orderBY('nombre_pago','ASC')->pluck('nombre_pago','id');
     	$proveedores = Proveedor_externo::orderBY('nombre_proveedor','ASC')->pluck('nombre_proveedor','id');
 
 
-        return view('registros.index')->with('registros',$registros)->with('clientes',$clientes)->with('aduanas',$aduanas)->with('ejecutivos',$ejecutivos)->with('estatus',$estatus)->with('proveedores',$proveedores);
+        return view('registros.index')->with('registros',$registros)->with('clientes',$clientes)->with('aduanas',$aduanas)->with('ejecutivos',$ejecutivos)->with('estatus',$estatus)->with('proveedores',$proveedores)->with('pagos',$pagos);
     }
 
     public function view(Request $request){
@@ -58,15 +75,24 @@ class RegistroController extends Controller
 
 	public function store(Request $request)
     {
-    	$id = DB::table('registros')->orderBy('id', 'DESC')->first();
 
-    	if($id == null){$numero = 1;}else{$numero = $id->id+1; }
+      $hoy = Carbon::now();
+      $today = $hoy->format('Y-m-d');
+      $monthactual = $hoy->format('m');
+      $yearactual = $hoy->format('y'); 
+      $dayactual = $hoy->format('d');     
+    	$id = DB::table('registros')->orderBy('id', 'DESC')->first();
+      $consecutivo = DB::table('registros')->orderBy('id', 'DESC')->first();
+
+      if($consecutivo == null){$numeroc = 1;}else{$numeroc = $consecutivo->id+1;}
+    	if($id == null){$numero = 1;}else{if($dayactual == '01'){$numero = 1;}else{$numero = $id->id+1;}}
+      if($numero == 1 || $numero == 2 || $numero == 3 || $numero == 4 || $numero == 5 || $numero == 6 || $numero == 7 || $numero == 8 || $numero == 9){$numero = '0'.$numero;}
 
 /// obtener nombre y archivos
         if($request->hasFile('ruta_razonsocial')){
             $file = $request->file('ruta_razonsocial');
             $original = $file->getClientOriginalName();
-            $name = "Razon_TT".$numero."_".$original;          
+            $name = "Razon_D".$numero."_".$original;          
             $file->move(public_path().'/razon_social/',$name);
         }else{
             $name = $request->ruta_razonsocial;
@@ -75,7 +101,7 @@ class RegistroController extends Controller
         if($request->hasFile('ruta_proveedor')){
             $file = $request->file('ruta_proveedor');
             $original = $file->getClientOriginalName();
-            $name2 = "Proveedor_TT".$numero."_".$original;          
+            $name2 = "Proveedor_D".$numero."_".$original;          
             $file->move(public_path().'/proveedores/',$name2);
         }else{
             $name2 = $request->ruta_proveedor;
@@ -84,7 +110,7 @@ class RegistroController extends Controller
         if($request->hasFile('ruta_factura_ext')){
             $file = $request->file('ruta_factura_ext');
             $original = $file->getClientOriginalName();
-            $name3 = "facturaext_TT".$numero."_".$original;          
+            $name3 = "facturaext_D".$numero."_".$original;          
             $file->move(public_path().'/facturasext/',$name3);
         }else{
             $name3 = $request->ruta_factura_ext;
@@ -93,7 +119,7 @@ class RegistroController extends Controller
         if($request->hasFile('ruta_cotizacion_cliente')){
             $file = $request->file('ruta_cotizacion_cliente');
             $original = $file->getClientOriginalName();
-            $name4 = "Cotizacion_TT".$numero."_".$original;          
+            $name4 = "Cotizacion_D".$numero."_".$original;          
             $file->move(public_path().'/cotizaciones/',$name4);
         }else{
             $name4 = $request->ruta_cotizacion_cliente;
@@ -102,7 +128,7 @@ class RegistroController extends Controller
         if($request->hasFile('ruta_importe_deposito_cliente')){
             $file = $request->file('ruta_importe_deposito_cliente');
             $original = $file->getClientOriginalName();
-            $name5 = "DepositoC_TT".$numero."_".$original;          
+            $name5 = "DepositoC_D".$numero."_".$original;          
             $file->move(public_path().'/depositos_cliente/',$name5);
         }else{
             $name5 = $request->ruta_importe_deposito_cliente;
@@ -111,7 +137,7 @@ class RegistroController extends Controller
         if($request->hasFile('ruta_pedimento')){
             $file = $request->file('ruta_pedimento');
             $original = $file->getClientOriginalName();
-            $name6 = "Pedimento_TT".$numero."_".$original;          
+            $name6 = "Pedimento_D".$numero."_".$original;          
             $file->move(public_path().'/pedimentos/',$name6);
         }else{
             $name6 = $request->ruta_pedimento;
@@ -120,7 +146,7 @@ class RegistroController extends Controller
         if($request->hasFile('ruta_folio_cg')){
             $file = $request->file('ruta_folio_cg');
             $original = $file->getClientOriginalName();
-            $name7 = "FolioCG_TT".$numero."_".$original;          
+            $name7 = "FolioCG_D".$numero."_".$original;          
             $file->move(public_path().'/folios_cg/',$name7);
         }else{
             $name7 = $request->ruta_folio_cg;
@@ -129,7 +155,7 @@ class RegistroController extends Controller
         if($request->hasFile('ruta_facturado_cliente')){
             $file = $request->file('ruta_facturado_cliente');
             $original = $file->getClientOriginalName();
-            $name8 = "importefac_TT".$numero."_".$original;          
+            $name8 = "importefac_D".$numero."_".$original;          
             $file->move(public_path().'/importes_facturados/',$name8);
         }else{
             $name8 = $request->ruta_facturado_cliente;
@@ -138,22 +164,25 @@ class RegistroController extends Controller
         if($request->hasFile('ruta_costeo')){
             $file = $request->file('ruta_costeo');
             $original = $file->getClientOriginalName();
-            $name9 = "Costeo_TT".$numero."_".$original;          
+            $name9 = "Costeo_D".$numero."_".$original;          
             $file->move(public_path().'/costeos_totales/',$name9);
         }else{
             $name9 = $request->ruta_costeo;
         }
-///// fin request archivos
+///// fin request archivo
+
+
 
         $registro = new Registro($request->all());
-     	  $registro->id =$numero;
-      	$registro->no_operacion = "TT".$numero;
+     	  $registro->id =$numeroc;
+      	$registro->no_operacion = "D".$yearactual. $monthactual.$numero;
       	$registro->id_cliente = $request->id_cliente;
       	$registro->id_razon_datos_fac = $request->id_razon_datos_fac; 
       	$registro->ruta_razonsocial = $name;
       	$registro->contacto_facturas_pagos = strtoupper($request->contacto_facturas_pagos);
       	$registro->forma_pago = $request->forma_pago;
       	$registro->pagamos_mercancia = $request->pagamos_mercancia;
+        $registro->tipo_operacion = $request->tipo_operacion;
       	$registro->id_proveedor = $request->id_proveedor;
       	$registro->ruta_proveedor = $name2;
       	$registro->valor_factura_ext = $request->valor_factura_ext;
@@ -207,7 +236,7 @@ class RegistroController extends Controller
           if($request->hasFile('edit_ruta_razonsocial')){
               $file = $request->file('edit_ruta_razonsocial');
               $original = $file->getClientOriginalName();
-              $name = "Razon_TT".$data->id."_".$original;          
+              $name = "Razon_D".$data->id."_".$original;          
               $file->move(public_path().'/razon_social/',$name);
           }else{
             $name = $request->edit_ruta_razonsocial;
@@ -220,7 +249,7 @@ class RegistroController extends Controller
           if($request->hasFile('edit_ruta_proveedor')){
               $file = $request->file('edit_ruta_proveedor');
               $original = $file->getClientOriginalName();
-              $name2 = "Proveedor_TT".$data->id."_".$original;          
+              $name2 = "Proveedor_D".$data->id."_".$original;          
               $file->move(public_path().'/proveedores/',$name2);
           }else{
             $name2 = $request->edit_ruta_proveedor;
@@ -233,7 +262,7 @@ class RegistroController extends Controller
           if($request->hasFile('edit_ruta_factura_ext')){
               $file = $request->file('edit_ruta_factura_ext');
               $original = $file->getClientOriginalName();
-              $name3 = "facturaext_TT".$data->id."_".$original;          
+              $name3 = "facturaext_D".$data->id."_".$original;          
               $file->move(public_path().'/facturasext/',$name3);
           }else{
             $name3 = $request->edit_ruta_factura_ext;
@@ -246,7 +275,7 @@ class RegistroController extends Controller
           if($request->hasFile('edit_ruta_cotizacion_cliente')){
               $file = $request->file('edit_ruta_cotizacion_cliente');
               $original = $file->getClientOriginalName();
-              $name4 = "Cotizacion_TT".$data->id."_".$original;          
+              $name4 = "Cotizacion_D".$data->id."_".$original;          
               $file->move(public_path().'/cotizaciones/',$name4);
           }else{
             $name4 = $request->edit_ruta_cotizacion_cliente;
@@ -259,7 +288,7 @@ class RegistroController extends Controller
           if($request->hasFile('edit_ruta_importe_deposito_cliente')){
               $file = $request->file('edit_ruta_importe_deposito_cliente');
               $original = $file->getClientOriginalName();
-              $name5 = "DepositoC_TT".$data->id."_".$original;          
+              $name5 = "DepositoC_D".$data->id."_".$original;          
               $file->move(public_path().'/depositos_cliente/',$name5);
           }else{
             $name5 = $request->edit_ruta_importe_deposito_cliente;
@@ -272,7 +301,7 @@ class RegistroController extends Controller
           if($request->hasFile('edit_ruta_pedimento')){
               $file = $request->file('edit_ruta_pedimento');
               $original = $file->getClientOriginalName();
-              $name6 = "Pedimento_TT".$data->id."_".$original;          
+              $name6 = "Pedimento_D".$data->id."_".$original;          
               $file->move(public_path().'/pedimentos/',$name6);
           }else{
             $name6 = $request->edit_ruta_pedimento;
@@ -285,7 +314,7 @@ class RegistroController extends Controller
           if($request->hasFile('edit_ruta_folio_cg')){
               $file = $request->file('edit_ruta_folio_cg');
               $original = $file->getClientOriginalName();
-              $name7 = "FolioCG_TT".$data->id."_".$original;          
+              $name7 = "FolioCG_D".$data->id."_".$original;          
               $file->move(public_path().'/folios_cg/',$name7);
           }else{
             $name7 = $request->edit_ruta_folio_cg;
@@ -298,7 +327,7 @@ class RegistroController extends Controller
           if($request->hasFile('edit_ruta_facturado_cliente')){
               $file = $request->file('edit_ruta_facturado_cliente');
               $original = $file->getClientOriginalName();
-              $name8 = "importefac_TT".$data->id."_".$original;          
+              $name8 = "importefac_D".$data->id."_".$original;          
               $file->move(public_path().'/importes_facturados/',$name8);
           }else{
             $name8 = $request->edit_ruta_facturado_cliente;
@@ -311,7 +340,7 @@ class RegistroController extends Controller
           if($request->hasFile('edit_ruta_costeo')){
               $file = $request->file('edit_ruta_costeo');
               $original = $file->getClientOriginalName();
-              $name9 = "Costeo_TT".$data->id."_".$original;          
+              $name9 = "Costeo_D".$data->id."_".$original;          
               $file->move(public_path().'/costeos_totales/',$name9);
           }else{
             $name9 = $request->edit_ruta_costeo;
@@ -327,6 +356,7 @@ class RegistroController extends Controller
         $data->contacto_facturas_pagos = strtoupper($request->edit_contacto_facturas_pagos);
         $data->forma_pago = $request->edit_forma_pago;
         $data->pagamos_mercancia = $request->edit_pagamos_mercancia;
+        $data->tipo_operacion = $request->edit_tipo_operacion;
         $data->id_proveedor = $request->edit_id_proveedor;
         $data->ruta_proveedor = $name2;
         $data->valor_factura_ext = $request->edit_valor_factura_ext;
@@ -379,6 +409,7 @@ class RegistroController extends Controller
           $registros->clienter;
           $registros->ejecutivo;
           $registros->estatus;
+          $registros->pago;
           $registros->razon_social;
           $registros->user;
           $registros->proveedores;
@@ -388,9 +419,140 @@ class RegistroController extends Controller
       $aduanas = Aduana::orderBY('nombre_aduana','ASC')->pluck('nombre_aduana','id');
       $ejecutivos = Ejecutivo::orderBY('nombre_ejecutivo','ASC')->pluck('nombre_ejecutivo','id');
       $estatus = Estatus::orderBY('nombre_estatus','ASC')->pluck('nombre_estatus','id');
+      $pagos = Forma_pago::orderBY('nombre_pago','ASC')->pluck('nombre_pago','id');
       $proveedores = Proveedor_externo::orderBY('nombre_proveedor','ASC')->pluck('nombre_proveedor','id');
 
 
-        return view('registros.cerrados')->with('registros',$registros)->with('clientes',$clientes)->with('aduanas',$aduanas)->with('ejecutivos',$ejecutivos)->with('estatus',$estatus)->with('proveedores',$proveedores);
+        return view('registros.cerrados')->with('registros',$registros)->with('clientes',$clientes)->with('aduanas',$aduanas)->with('ejecutivos',$ejecutivos)->with('estatus',$estatus)->with('proveedores',$proveedores)->with('pagos',$pagos);
     }
+
+  public function vistareportes(){
+    return view('registros.reportes');
+  }
+
+  public function registroexportarpendientes(){
+    Excel::create('Registros Pendientes', function($excel) {
+            $excel->sheet('Registros Pendientes', function($sheet) {
+                //otra opción -> $products = Product::select('name')->get();
+                $products = Registro::from('registros')->leftjoin('aduanas','aduanas.id','=','registros.id_aduana')->leftjoin('clientes','clientes.id','=','registros.id_cliente')->leftjoin('clientes as clientes2','clientes2.id','=','registros.id_razon_datos_fac')->leftjoin('forma_pago','forma_pago.id','=','registros.forma_pago')->leftjoin('proveedor_externo','proveedor_externo.id','=','registros.id_proveedor')->leftjoin('ejecutivos','ejecutivos.id','=','registros.id_ejecutivo')->leftjoin('users','users.id','=','registros.id_user')->leftjoin('estatus','estatus.id','=','registros.id_estatus')->whereraw('`fecha_cierre` is null')->select(DB::raw('`registros`.id,
+                  `registros`.no_operacion as Folio,
+                  `clientes`.nombre_cliente as Cliente,
+                  `clientes2`.nombre_cliente as Razon_social,
+                  `registros`.contacto_facturas_pagos as Contacto_Facturas,
+                  CASE WHEN `registros`.pagamos_mercancia = 1 THEN "SI"
+                  ELSE "NO" 
+                  END AS pagamos_mercancia,
+                  CASE WHEN `registros`.tipo_operacion = 1 THEN "IMPORTACION"
+                  ELSE "EXPORTACION" 
+                  END AS tipo_operacion,
+                  `proveedor_externo`.nombre_proveedor as Proveedor,
+                  `registros`.valor_factura_ext as Valor_Factura,
+                  CASE WHEN `registros`.se_emite_factura = 1 THEN "SI"
+                  ELSE "NO" 
+                  END AS se_emite_factura,
+                  CASE WHEN `registros`.se_factura_valor_mercancia = 1 THEN "SI"
+                  ELSE "NO" 
+                  END AS se_factura_valor_mercancia,
+                  `aduanas`.nombre_aduana as Aduana,
+                  `ejecutivos`.nombre_ejecutivo as Ejecutivo,
+                  `estatus`.nombre_estatus as Estatus,
+                  `registros`.descripcion_operacion as Descripcion_operacion,
+                  `registros`.eta as Eta,
+                  `registros`.fecha_despacho as fecha_despacho,
+                  `registros`.cotizacion_cliente_mxp as Cotizacion_cliente,
+                  `registros`.observaciones as Observaciones,
+                  `registros`.fecha_deposito_cliente as Fecha_deposito_cliente,
+                  `registros`.importe_deposito_cliente as Importe_deposito_cliente,
+                  `registros`.referencia as Referencia,
+                  `registros`.no_pedimento as Pedimento,
+                  `registros`.importe_cg as Importe_CG,
+                  `registros`.fecha_cg as Fecha_CG,
+                  `registros`.folio_cg as Folio_CG,
+                  `registros`.importe_facturado_cliente as Importe_facturado,
+                  `registros`.costeo_total as Costeo_Total,
+                  `registros`.cierre as Cierre,
+                  `registros`.fecha_cierre as Fecha_Cierre,
+                  `users`.nombre as Usuario_Captura
+                  '))->get();
+
+                $sheet->setColumnFormat(array(
+                    'AD' => '@',
+                    'AE' => '@'
+                ));  
+
+                $sheet->fromArray($products);
+                $sheet->row(1, function($row) {
+                    // call cell manipulation methods
+                    $row->setBackground('#3F3F49');
+                    $row->setFontColor('#ffffff');
+                    $row->setValignment('center');
+                });
+                
+                
+            });
+        })->export('xls');    
+  }
+
+  public function registroexportarC(){
+    Excel::create('Registros Cerrados', function($excel) {
+            $excel->sheet('Registros Cerrados', function($sheet) {
+                //otra opción -> $products = Product::select('name')->get();
+                $products = Registro::from('registros')->leftjoin('aduanas','aduanas.id','=','registros.id_aduana')->leftjoin('clientes','clientes.id','=','registros.id_cliente')->leftjoin('clientes as clientes2','clientes2.id','=','registros.id_razon_datos_fac')->leftjoin('forma_pago','forma_pago.id','=','registros.forma_pago')->leftjoin('proveedor_externo','proveedor_externo.id','=','registros.id_proveedor')->leftjoin('ejecutivos','ejecutivos.id','=','registros.id_ejecutivo')->leftjoin('users','users.id','=','registros.id_user')->leftjoin('estatus','estatus.id','=','registros.id_estatus')->whereraw('`fecha_cierre` is not null')->select(DB::raw('`registros`.id,
+                  `registros`.no_operacion as Folio,
+                  `clientes`.nombre_cliente as Cliente,
+                  `clientes2`.nombre_cliente as Razon_social,
+                  `registros`.contacto_facturas_pagos as Contacto_Facturas,
+                  CASE WHEN `registros`.pagamos_mercancia = 1 THEN "SI"
+                  ELSE "NO" 
+                  END AS pagamos_mercancia,
+                  CASE WHEN `registros`.tipo_operacion = 1 THEN "IMPORTACION"
+                  ELSE "EXPORTACION" 
+                  END AS tipo_operacion,
+                  `proveedor_externo`.nombre_proveedor as Proveedor,
+                  `registros`.valor_factura_ext as Valor_Factura,
+                  CASE WHEN `registros`.se_emite_factura = 1 THEN "SI"
+                  ELSE "NO" 
+                  END AS se_emite_factura,
+                  CASE WHEN `registros`.se_factura_valor_mercancia = 1 THEN "SI"
+                  ELSE "NO" 
+                  END AS se_factura_valor_mercancia,
+                  `aduanas`.nombre_aduana as Aduana,
+                  `ejecutivos`.nombre_ejecutivo as Ejecutivo,
+                  `estatus`.nombre_estatus as Estatus,
+                  `registros`.descripcion_operacion as Descripcion_operacion,
+                  `registros`.eta as Eta,
+                  `registros`.fecha_despacho as fecha_despacho,
+                  `registros`.cotizacion_cliente_mxp as Cotizacion_cliente,
+                  `registros`.observaciones as Observaciones,
+                  `registros`.fecha_deposito_cliente as Fecha_deposito_cliente,
+                  `registros`.importe_deposito_cliente as Importe_deposito_cliente,
+                  `registros`.referencia as Referencia,
+                  `registros`.no_pedimento as Pedimento,
+                  `registros`.importe_cg as Importe_CG,
+                  `registros`.fecha_cg as Fecha_CG,
+                  `registros`.folio_cg as Folio_CG,
+                  `registros`.importe_facturado_cliente as Importe_facturado,
+                  `registros`.costeo_total as Costeo_Total,
+                  `registros`.cierre as Cierre,
+                  `registros`.fecha_cierre as Fecha_Cierre,
+                  `users`.nombre as Usuario_Captura
+                  '))->get();
+
+                $sheet->setColumnFormat(array(
+                    'AD' => '@',
+                    'AE' => '@'
+                ));  
+
+                $sheet->fromArray($products);
+                $sheet->row(1, function($row) {
+                    // call cell manipulation methods
+                    $row->setBackground('#3F3F49');
+                    $row->setFontColor('#ffffff');
+                    $row->setValignment('center');
+                });
+                
+                
+            });
+        })->export('xls');   
+  }
 }

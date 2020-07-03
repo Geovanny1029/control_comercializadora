@@ -112,6 +112,23 @@ function fun_edites(id)
       });
     }
 
+
+//vista editar forma de pago
+function fun_editfp(id)
+    {
+      var view_url = $("#editafp").val();
+      $.ajax({
+        url: view_url,
+        type:"GET", 
+        data: {"id":id}, 
+        success: function(result){
+          //console.log(result);
+          $("#edit_nombre_pago").val(result.nombre_pago);
+          $("#edit_idfp").val(result.id);
+        }
+      });
+    }
+
 //vista editar razon
 function fun_editra(id)
     {
@@ -146,7 +163,7 @@ function fun_editapro(id)
 
     function modal(id,cerr){
 
-      var view_url = "http://localhost:8000/registroe"
+      var view_url = "http://dombart.mx/control_comercializadora/public/registroe"
       var tipo =  cerr;
       $.ajax({
         url: view_url,
@@ -158,13 +175,19 @@ function fun_editapro(id)
             $("#check").css("display",'inline-block');
             $("#buttonreg").css("display",'inline-block');
             $(":input").attr('readonly', true);
+            $('#id_registro').attr('readonly', true);
+            $('#folio').attr('readonly', true);
             $('input[type=checkbox]').prop('checked', false);
 
             $('input[type=checkbox]').click(function() {
             if($(this).is(':checked')) {
               $(":input").attr('readonly', false);
+              $('#id_registro').attr('readonly', true);
+              $('#folio').attr('readonly', true);
             } else {
               $(":input").attr('readonly', true);
+              $('#id_registro').attr('readonly', true);
+              $('#folio').attr('readonly', true);
 
             }
           });
@@ -172,10 +195,13 @@ function fun_editapro(id)
             $(":input").attr('readonly', true);
             $("#check").css("display",'none');
             $("#buttonreg").css("display",'none');
+            $('#id_registro').attr('readonly', true);
+            $('#folio').attr('readonly', true);
           }
 
 
           $('#edit_id_registro').val(result.info.id);
+          $('#folio').val(result.info.no_operacion);
           $("#id_registro").val(result.info.id);
           $('#id_registro').attr('readonly', true);
           $('#edit_id_cliente').val(result.cliente.id);
@@ -192,7 +218,8 @@ function fun_editapro(id)
           }else{
             $('#edit_ruta_razonsocial').css("display",'none');
             $('#showrut').css("display",'inline-block');
-             $('#showrut').attr("href", "/razon_social/"+result.info.ruta_razonsocial);
+            $('#showrut').val('1');
+            $('#showrut').attr("href", "/control_comercializadora/public/razon_social/"+result.info.ruta_razonsocial);
             $("#razz").css("color", "gray");
           }
 
@@ -204,7 +231,8 @@ function fun_editapro(id)
           }else{
             $('#edit_ruta_proveedor').css("display",'none');
             $('#showprov').css("display",'inline-block');
-             $('#showprov').attr("href", "/proveedores/"+result.info.ruta_proveedor);
+            $('#showprov').val('1');
+             $('#showprov').attr("href", "/control_comercializadora/public/proveedores/"+result.info.ruta_proveedor);
             $("#rutpro").css("color", "gray");
           }
 
@@ -216,7 +244,8 @@ function fun_editapro(id)
           }else{
             $('#edit_ruta_factura_ext').css("display",'none');
             $('#showfacext').css("display",'inline-block');
-             $('#showfacext').attr("href", "/facturasext/"+result.info.ruta_factura_ext);
+            $('#showfacext').val('1');
+             $('#showfacext').attr("href", "/control_comercializadora/public/facturasext/"+result.info.ruta_factura_ext);
             $("#rutafact").css("color", "gray");
           }
 
@@ -228,7 +257,8 @@ function fun_editapro(id)
           }else{
             $('#edit_ruta_cotizacion_cliente').css("display",'none');
             $('#showcot').css("display",'inline-block');
-             $('#showcot').attr("href", "/cotizaciones/"+result.info.ruta_cotizacion_cliente);
+            $('#showcot').val('1');
+             $('#showcot').attr("href", "/control_comercializadora/public/cotizaciones/"+result.info.ruta_cotizacion_cliente);
             $("#rutcot").css("color", "gray");
           }
 
@@ -240,7 +270,8 @@ function fun_editapro(id)
           }else{
             $('#edit_ruta_importe_deposito_cliente').css("display",'none');
             $('#showdep').css("display",'inline-block');
-             $('#showdep').attr("href", "/depositos_cliente/"+result.info.ruta_importe_deposito_cliente);
+            $('#showdep').css('1');
+             $('#showdep').attr("href", "/control_comercializadora/public/depositos_cliente/"+result.info.ruta_importe_deposito_cliente);
             $("#rutdepo").css("color", "gray");
           }
 
@@ -252,7 +283,8 @@ function fun_editapro(id)
           }else{
             $('#edit_ruta_pedimento').css("display",'none');
             $('#showped').css("display",'inline-block');
-             $('#showped').attr("href", "/pedimentos/"+result.info.ruta_pedimento);
+            $('#showped').val('1');
+             $('#showped').attr("href", "/control_comercializadora/public/pedimentos/"+result.info.ruta_pedimento);
             $("#rutpedi").css("color", "gray");
           }
 
@@ -264,7 +296,8 @@ function fun_editapro(id)
           }else{
             $('#edit_ruta_folio_cg').css("display",'none');
             $('#showfol').css("display",'inline-block');
-             $('#showfol').attr("href", "/folios_cg/"+result.info.ruta_folio_cg);
+            $('#showfol').val('1');
+             $('#showfol').attr("href", "/control_comercializadora/public/folios_cg/"+result.info.ruta_folio_cg);
             $("#rutfol").css("color", "gray");
           }
 
@@ -276,7 +309,8 @@ function fun_editapro(id)
           }else{
             $('#edit_ruta_facturado_cliente').css("display",'none');
             $('#showfac').css("display",'inline-block');
-             $('#showfac').attr("href", "/importes_facturados/"+result.info.ruta_facturado_cliente);
+            $('#showfac').val('1');
+             $('#showfac').attr("href", "/control_comercializadora/public/importes_facturados/"+result.info.ruta_facturado_cliente);
             $("#rutfaccli").css("color", "gray");
           }
 
@@ -288,7 +322,8 @@ function fun_editapro(id)
           }else{
             $('#edit_ruta_costeo').css("display",'none');
             $('#showcost').css("display",'inline-block');
-             $('#showcost').attr("href", "/costeos_totales/"+result.info.ruta_costeo);
+            $('#showcost').val('1');
+             $('#showcost').attr("href", "/control_comercializadora/public/costeos_totales/"+result.info.ruta_costeo);
             $("#rutcos").css("color", "gray");
           }
 
@@ -303,6 +338,7 @@ function fun_editapro(id)
 
           $('#edit_forma_pago').val(result.info.forma_pago);
           $('#edit_pagamos_mercancia').val(result.info.pagamos_mercancia);
+          $('#edit_tipo_operacion').val(result.info.tipo_operacion);
           $('#edit_proveedores').val(result.info.id_proveedor);
 
 
@@ -388,10 +424,10 @@ function fun_editapro(id)
 
           if(result.info.no_pedimento == "" || result.info.no_pedimento == null){
             $('#edit_no_pedimento').val(result.info.no_pedimento);
-            $("#refer").css("color", "red");
+            $("#pedi").css("color", "red");
           }else{
             $('#edit_no_pedimento').val(result.info.no_pedimento);
-            $("#refer").css("color", "gray");
+            $("#pedi").css("color", "gray");
           } 
 
 
@@ -459,9 +495,15 @@ function fun_editapro(id)
       });
 
        $("#edit_fecha_cierre").on("change",function(){
-        var revisa =  $('#edit_observaciones').val();
-        if(revisa == "" || revisa == null){
-          alert("Debes acompletar los campos para fecha de cierre");
+        var revisa =  $('#edit_costeo_total').val();
+        var revisa2 =  $('#showcost').val();
+        var revisa3 =  $('#edit_importe_facturado_cliente').val();
+        var revisa4 =  $('#showfac').val();
+        var revisa5 =  $('#edit_cierre').val();
+
+
+        if(revisa == "" || revisa == null || revisa2 == 0  || revisa3 == "" || revisa3 == null || revisa4 == 0 || revisa5 == "" || revisa5 == null){
+          alert("Para Cerrar el Registro debes acompletar los campos: \r -Costeo \r -Archivo Costeo \r -Importe factura \r -Archivo Factura \r -Cierre");
            $('#edit_fecha_cierre').val(""); 
         }else{
           
