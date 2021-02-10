@@ -93,7 +93,7 @@
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Valor Fact Ext $</span>
-                        <input type="number" name="valor_factura_ext" class="form-control" placeholder="$">
+                        <input type="number" step="any" name="valor_factura_ext" class="form-control" placeholder="$">
                     </div>
                </div> 
                <div class="form-group col-md-3">
@@ -159,7 +159,7 @@
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Cotizacion Cliente $</span>
-                        <input type="number" name="cotizacion_cliente_mxp" class="form-control" placeholder="$">
+                        <input type="number" step="any" name="cotizacion_cliente_mxp" class="form-control" placeholder="$">
                     </div>
                </div>                                         
               </div>  <br>
@@ -187,7 +187,7 @@
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Importe deposito cliente $</span>
-                        <input type="number" name="importe_deposito_cliente" class="form-control" placeholder="$">
+                        <input type="number" step="any" name="importe_deposito_cliente" class="form-control" placeholder="$">
                     </div>
                </div>                                         
               </div> <br>
@@ -223,7 +223,7 @@
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Importe CG $</span>
-                        <input type="number" name="importe_cg" class="form-control" placeholder="$">
+                        <input type="number" step="any" name="importe_cg" class="form-control" placeholder="$">
                     </div>
                </div>                
                <div class="form-group col-md-3">
@@ -250,7 +250,7 @@
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Importe Facturado Cliente $</span>
-                        <input type="number" name="importe_facturado_cliente" class="form-control" placeholder="$">
+                        <input type="number" step="any" name="importe_facturado_cliente" class="form-control" placeholder="$">
                     </div>
                </div>                 
                <div class="form-group col-md-3">
@@ -262,7 +262,7 @@
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Costeo Total $</span>
-                        <input type="number" name="costeo_total" class="form-control" placeholder="$">
+                        <input type="number" step="any" name="costeo_total" class="form-control" placeholder="$">
                     </div>
                </div>                                                        
               </div> <br>   
@@ -277,7 +277,7 @@
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Cierre $</span>
-                        <input type="number" name="cierre" class="form-control" placeholder="$">
+                        <input type="number" step="any" name="cierre" class="form-control" placeholder="$">
                     </div>
                </div>                 
                <div class="form-group col-md-3">

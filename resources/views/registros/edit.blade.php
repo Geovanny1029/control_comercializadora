@@ -101,7 +101,7 @@
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" id="valfac" >Valor Fact Ext $</span>
-                        <input type="number" name="edit_valor_factura_ext" class="form-control" id="edit_valor_factura_ext" placeholder="$">
+                        <input type="number" step="any" name="edit_valor_factura_ext" class="form-control" id="edit_valor_factura_ext" placeholder="$">
                     </div>
                </div> 
                <div class="form-group col-md-3">
@@ -170,7 +170,7 @@
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" id="cotcli" >Cotizacion Cliente $</span>
-                        <input type="number" name="edit_cotizacion_cliente_mxp" id="edit_cotizacion_cliente_mxp" class="form-control" placeholder="$">
+                        <input type="number" step="any" name="edit_cotizacion_cliente_mxp" id="edit_cotizacion_cliente_mxp" class="form-control" placeholder="$">
                     </div>
                </div>                                          
               </div>  
@@ -201,7 +201,7 @@
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" id="impodep" >Importe deposito cliente $</span>
-                        <input type="number" name="edit_importe_deposito_cliente" id="edit_importe_deposito_cliente" class="form-control" placeholder="$">
+                        <input type="number" step="any" name="edit_importe_deposito_cliente" id="edit_importe_deposito_cliente" class="form-control" placeholder="$">
                     </div>
                </div>                                        
               </div> 
@@ -243,7 +243,7 @@
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" id="impcg" >Importe CG $</span>
-                        <input type="number" name="edit_importe_cg" id="edit_importe_cg" class="form-control" placeholder="$">
+                        <input type="number" step="any" name="edit_importe_cg" id="edit_importe_cg" class="form-control" placeholder="$">
                     </div>
                </div>                 
                <div class="form-group col-md-3">
@@ -273,7 +273,7 @@
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" id="imporfac">Importe Facturado Cliente $</span>
-                        <input type="number" name="edit_importe_facturado_cliente" id="edit_importe_facturado_cliente" class="form-control" placeholder="$">
+                        <input type="number" step="any" name="edit_importe_facturado_cliente" id="edit_importe_facturado_cliente" class="form-control" placeholder="$">
                     </div>
                </div>                
                <div class="form-group col-md-3">
@@ -288,7 +288,7 @@
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" id="costotal">Costeo Total $</span>
-                        <input type="number" name="edit_costeo_total" id="edit_costeo_total" class="form-control" placeholder="$">
+                        <input type="number" step="any" name="edit_costeo_total" id="edit_costeo_total" class="form-control" placeholder="$">
                     </div>
                </div>                 
                <div class="form-group col-md-3">
@@ -306,7 +306,7 @@
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" id="cierr">Cierre $</span>
-                        <input type="number" name="edit_cierre" id="edit_cierre" class="form-control" placeholder="$">
+                        <input type="number" step="any" name="edit_cierre" id="edit_cierre" class="form-control" placeholder="$">
                     </div>
                </div>                 
                <div class="form-group col-md-3">

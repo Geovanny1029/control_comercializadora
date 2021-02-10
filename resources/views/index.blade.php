@@ -266,7 +266,7 @@
           placeholder:"Tecleea 2 o mas letras",
           minimumInputlength:2,
           ajax:{
-            url:"/control_comercializadora/public/clientessearch",
+            url:"/clientessearch",
             dataType:"json",
             type:"POST",
             delay:250,
@@ -291,7 +291,7 @@
           placeholder:"Tecleea 2 o mas letras",
           minimumInputlength:2,
           ajax:{
-            url:"/control_comercializadora/public/clientessearch",
+            url:"/clientessearch",
             dataType:"json",
             type:"POST",
             delay:250,
@@ -315,7 +315,7 @@
           placeholder:"Tecleea 2 o mas letras",
           minimumInputlength:2,
           ajax:{
-            url:"/control_comercializadora/public/proveedorsearch",
+            url:"/proveedorsearch",
             dataType:"json",
             type:"POST",
             delay:250,
@@ -342,7 +342,7 @@
        }else{
           var state = "nombre="+newStateVal;
           $.ajax({
-            url: "/control_comercializadora/public/clienteajax",
+            url: "/clienteajax",
             type:"POST", 
             data: state, 
             success: function(result){
@@ -362,7 +362,7 @@
       }else{
         var state = "nombrep="+newStateprov;
         $.ajax({
-        url: "/control_comercializadora/public/proveedorajax",
+        url: "/proveedorajax",
         type:"POST", 
         data: state, 
           success: function(result){

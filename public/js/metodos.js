@@ -163,7 +163,7 @@ function fun_editapro(id)
 
     function modal(id,cerr){
 
-      var view_url = "http://dombart.mx/control_comercializadora/public/registroe"
+      var view_url = "/registroe"
       var tipo =  cerr;
       $.ajax({
         url: view_url,
@@ -219,7 +219,7 @@ function fun_editapro(id)
             $('#edit_ruta_razonsocial').css("display",'none');
             $('#showrut').css("display",'inline-block');
             $('#showrut').val('1');
-            $('#showrut').attr("href", "/control_comercializadora/public/razon_social/"+result.info.ruta_razonsocial);
+            $('#showrut').attr("href", "/razon_social/"+result.info.ruta_razonsocial);
             $("#razz").css("color", "gray");
           }
 
@@ -232,7 +232,7 @@ function fun_editapro(id)
             $('#edit_ruta_proveedor').css("display",'none');
             $('#showprov').css("display",'inline-block');
             $('#showprov').val('1');
-             $('#showprov').attr("href", "/control_comercializadora/public/proveedores/"+result.info.ruta_proveedor);
+             $('#showprov').attr("href", "/proveedores/"+result.info.ruta_proveedor);
             $("#rutpro").css("color", "gray");
           }
 
@@ -245,7 +245,7 @@ function fun_editapro(id)
             $('#edit_ruta_factura_ext').css("display",'none');
             $('#showfacext').css("display",'inline-block');
             $('#showfacext').val('1');
-             $('#showfacext').attr("href", "/control_comercializadora/public/facturasext/"+result.info.ruta_factura_ext);
+             $('#showfacext').attr("href", "/facturasext/"+result.info.ruta_factura_ext);
             $("#rutafact").css("color", "gray");
           }
 
@@ -258,7 +258,7 @@ function fun_editapro(id)
             $('#edit_ruta_cotizacion_cliente').css("display",'none');
             $('#showcot').css("display",'inline-block');
             $('#showcot').val('1');
-             $('#showcot').attr("href", "/control_comercializadora/public/cotizaciones/"+result.info.ruta_cotizacion_cliente);
+             $('#showcot').attr("href", "/cotizaciones/"+result.info.ruta_cotizacion_cliente);
             $("#rutcot").css("color", "gray");
           }
 
@@ -271,7 +271,7 @@ function fun_editapro(id)
             $('#edit_ruta_importe_deposito_cliente').css("display",'none');
             $('#showdep').css("display",'inline-block');
             $('#showdep').css('1');
-             $('#showdep').attr("href", "/control_comercializadora/public/depositos_cliente/"+result.info.ruta_importe_deposito_cliente);
+             $('#showdep').attr("href", "/depositos_cliente/"+result.info.ruta_importe_deposito_cliente);
             $("#rutdepo").css("color", "gray");
           }
 
@@ -284,7 +284,7 @@ function fun_editapro(id)
             $('#edit_ruta_pedimento').css("display",'none');
             $('#showped').css("display",'inline-block');
             $('#showped').val('1');
-             $('#showped').attr("href", "/control_comercializadora/public/pedimentos/"+result.info.ruta_pedimento);
+             $('#showped').attr("href", "/pedimentos/"+result.info.ruta_pedimento);
             $("#rutpedi").css("color", "gray");
           }
 
@@ -297,7 +297,7 @@ function fun_editapro(id)
             $('#edit_ruta_folio_cg').css("display",'none');
             $('#showfol').css("display",'inline-block');
             $('#showfol').val('1');
-             $('#showfol').attr("href", "/control_comercializadora/public/folios_cg/"+result.info.ruta_folio_cg);
+             $('#showfol').attr("href", "/folios_cg/"+result.info.ruta_folio_cg);
             $("#rutfol").css("color", "gray");
           }
 
@@ -310,7 +310,7 @@ function fun_editapro(id)
             $('#edit_ruta_facturado_cliente').css("display",'none');
             $('#showfac').css("display",'inline-block');
             $('#showfac').val('1');
-             $('#showfac').attr("href", "/control_comercializadora/public/importes_facturados/"+result.info.ruta_facturado_cliente);
+             $('#showfac').attr("href", "/importes_facturados/"+result.info.ruta_facturado_cliente);
             $("#rutfaccli").css("color", "gray");
           }
 
@@ -323,7 +323,7 @@ function fun_editapro(id)
             $('#edit_ruta_costeo').css("display",'none');
             $('#showcost').css("display",'inline-block');
             $('#showcost').val('1');
-             $('#showcost').attr("href", "/control_comercializadora/public/costeos_totales/"+result.info.ruta_costeo);
+             $('#showcost').attr("href", "/costeos_totales/"+result.info.ruta_costeo);
             $("#rutcos").css("color", "gray");
           }
 
