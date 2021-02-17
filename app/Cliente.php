@@ -12,6 +12,8 @@ class Cliente extends Model
    		'id',
    		'nombre_cliente',
    		'estatus',
+   		'direccion_fiscal',
+   		'rfc',
    		'created_at',
    		'updated_at',   
    	];
