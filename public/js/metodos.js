@@ -76,6 +76,8 @@ function fun_editcli(id)
           //console.log(result);
           $("#edit_nombre_cliente").val(result.nombre_cliente);
           $("#edit_idcliente").val(result.id);
+          $("#edit_rfc").val(result.rfc);
+          $("#edit_direccion_fiscal").val(result.direccion_fiscal);
         }
       });
     }

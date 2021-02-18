@@ -12,10 +12,22 @@
               {!! Form::open(['route' => 'clientes.store', 'method' => 'POST']) !!}
 
               <div class="row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-12">
                  {!! Form::label('cliente', 'Nombre Cliente') !!} 
                  {!! Form::text('nombre_cliente',null,['class' => 'form-control','style' => 'text-transform:uppercase;' , 'placeholder' => 'Nombre Cliente', 'required' ] ) !!}
-               </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-12">
+                 {!! Form::label('RFC', 'RFC') !!} 
+                 {!! Form::text('rfc',null,['class' => 'form-control','style' => 'text-transform:uppercase;' , 'placeholder' => 'RFC', 'required' ] ) !!}
+                </div>
+              </div>
+              <div class="row">    
+                <div class="form-group col-md-12">
+                 {!! Form::label('Direccion Fiscal', 'Direccion Fiscal') !!} 
+                 {!! Form::text('direccion_fiscal',null,['class' => 'form-control','style' => 'text-transform:uppercase;' , 'placeholder' => 'Direccion Fiscal', 'required' ] ) !!}
+                </div>                             
               </div>
 
               <div class="row">

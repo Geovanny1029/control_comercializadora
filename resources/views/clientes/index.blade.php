@@ -21,6 +21,8 @@
   <thead>
     <th>ID</th>
     <th>Nombre Cliente</th>
+    <th>RFC</th>
+    <th>Direccion Fiscal</th>
     <th>Accion</th>
   </thead>
   <tbody>
@@ -29,6 +31,8 @@
 
       <td> {{$cliente->id}} </td>
       <td> {{$cliente->nombre_cliente}} </td>
+      <td> {{$cliente->rfc}} </td>
+      <td> {{$cliente->direccion_fiscal}} </td>
       <td>
 
 

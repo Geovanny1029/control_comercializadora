@@ -11,11 +11,22 @@
           <div class="modal-body">
               {!! Form::open(['route' => 'clientes.actualiza', 'method' => 'POST']) !!}
               <div class="row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-12">
                  {!! Form::label('edit_clientes', 'Nombre Cliente') !!} 
                  {!! Form::text('edit_nombre_cliente',null,['class' => 'form-control','style' => 'text-transform:uppercase;' , 'placeholder' => 'Nombre Cliente','id' => 'edit_nombre_cliente','required' ] ) !!}
                </div>
-
+              </div>
+              <div class="row">
+                <div class="form-group col-md-12">
+                 {!! Form::label('RFC', 'RFC') !!} 
+                 {!! Form::text('edit_rfc',null,['class' => 'form-control','style' => 'text-transform:uppercase;' , 'placeholder' => 'RFC','id' => 'edit_rfc', 'required' ] ) !!}
+                </div>
+              </div>
+              <div class="row">      
+                <div class="form-group col-md-12">
+                 {!! Form::label('Direccion Fiscal', 'Direccion Fiscal') !!} 
+                 {!! Form::text('edit_direccion_fiscal',null,['class' => 'form-control','style' => 'text-transform:uppercase;' , 'placeholder' => 'Direccion Fiscal' ,'id' => 'edit_direccion_fiscal', 'required' ] ) !!}
+                </div>   
               </div>
 
               <div class="row">

@@ -57,6 +57,8 @@ class ClienteController extends Controller
     {
         $user = new Cliente($request->all());
         $user->nombre_cliente=strtoupper($request->nombre_cliente);
+        $user->rfc=strtoupper($request->rfc);
+        $user->direccion_fiscal=strtoupper($request->direccion_fiscal);
         $user->save();
 
         $notification = array(
@@ -72,6 +74,8 @@ class ClienteController extends Controller
         $id = $request->edit_idcliente;
         $data= Cliente::find($id);
         $data->nombre_cliente= strtoupper($request->edit_nombre_cliente);
+        $data->rfc= strtoupper($request->edit_rfc);
+        $data->direccion_fiscal= strtoupper($request->edit_direccion_fiscal);
         $data->save();
 
         $notification = array(

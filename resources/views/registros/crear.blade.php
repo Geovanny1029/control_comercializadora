@@ -72,7 +72,7 @@
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Proveedor Ext</span>
-                        {!! Form::select('id_proveedor',$proveedores,null,['class' => 'form-control','id'=>'proveedores']) !!}
+                        {!! Form::select('id_proveedor[]',$proveedores,null,['class' => 'form-control','id'=>'proveedores','multiple'=>'multiple']) !!}
                     </div>
                </div> 
                <div class="form-group col-md-3">
