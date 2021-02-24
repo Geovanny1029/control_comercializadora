@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Registro;
+use App\Registros_Nproveedores;
 use App\Aduana;
 use App\Cliente;
 use App\Ejecutivo;
@@ -173,7 +174,7 @@ class RegistroController extends Controller
 
 
 
-        $registro = new Registro($request->all());
+        $registro = new Registro();
      	  $registro->id =$numeroc;
       	$registro->no_operacion = "D".$yearactual. $monthactual.$numero;
       	$registro->id_cliente = $request->id_cliente;
@@ -183,7 +184,6 @@ class RegistroController extends Controller
       	$registro->forma_pago = $request->forma_pago;
       	$registro->pagamos_mercancia = $request->pagamos_mercancia;
         $registro->tipo_operacion = $request->tipo_operacion;
-      	$registro->id_proveedor = $request->id_proveedor;
       	$registro->ruta_proveedor = $name2;
       	$registro->valor_factura_ext = $request->valor_factura_ext;
       	$registro->ruta_factura_ext = $name3;
@@ -215,6 +215,18 @@ class RegistroController extends Controller
       	$registro->cierre = $request->cierre;
       	$registro->fecha_cierre = $request->fecha_cierre;
         $registro->id_user=Auth::User()->id;
+
+        //guardado de proveedores mas de 1
+        $total = sizeof($request->id_proveedor);
+        $prov = $request->id_proveedor;
+        for($i=0;$i<$total;$i++){
+          $proveedores = new Registros_Nproveedores();
+          $proveedores->id_registro= $registro->id;
+          $proveedores->id_proveedor= $prov[$i];
+          $proveedores->save();
+        }
+        
+
         $registro->save();
 
         $notification = array(
@@ -357,7 +369,6 @@ class RegistroController extends Controller
         $data->forma_pago = $request->edit_forma_pago;
         $data->pagamos_mercancia = $request->edit_pagamos_mercancia;
         $data->tipo_operacion = $request->edit_tipo_operacion;
-        $data->id_proveedor = $request->edit_id_proveedor;
         $data->ruta_proveedor = $name2;
         $data->valor_factura_ext = $request->edit_valor_factura_ext;
         $data->ruta_factura_ext = $name3;
@@ -399,6 +410,28 @@ class RegistroController extends Controller
         return back()->with($notification);
     }
 
+
+    public function registroproveedor(Request $request){
+        if($request->ajax()){
+          /// obtener nombre y archivos
+          $id = $request->id;
+
+          $regprov = Registros_Nproveedores::find($id);
+
+          if($request->hasFile('ruta_proveedor_registro'.$id)){
+            $file = $request->file('ruta_proveedor_registro'.$id);
+            $original = $file->getClientOriginalName();
+
+            $name = "Registro_D".$id."_".$original;          
+            $file->move(public_path().'/proveedores/',$name);
+          }else{
+            $name = null;
+          }
+   
+          $regprov->ruta_pdf=$name;
+          $regprov->save();
+        }      
+    }
    public function cerrados()
     {
 
@@ -554,5 +587,17 @@ class RegistroController extends Controller
                 
             });
         })->export('xls');   
+  }
+
+  public function registroproveedores(Request $request){
+        if($request->ajax()){
+                $id = $request->id;
+                $info = Registros_Nproveedores::where('id_registro',$id)->get();
+                $info->each(function($info){
+                  $info->proveedores;
+                }); 
+                return response()->json($info);
+
+            }    
   }
 }

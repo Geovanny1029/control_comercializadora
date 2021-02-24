@@ -17,6 +17,6 @@ class Proveedor_externo extends Model
 
     public function registros(){
 
-        return $this->hasMany('App\Registro'); 
+        return $this->hasMany('App\Registros_Nproveedores'); 
     }
 }

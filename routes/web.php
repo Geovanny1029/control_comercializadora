@@ -23,6 +23,13 @@ Route::post('registrosu',[
 			'as'   => 'registro.actualiza'
 ]);
 
+
+Route::post('/regiprove/',[
+			'uses' => 'RegistroController@registroproveedor',
+			'as'   => 'registro.regiprove'
+]);
+
+
 Route::get('registroe',[
 			'uses' => 'RegistroController@view',
 			'as'   => 'registro.view'
@@ -112,6 +119,11 @@ Route::post('/clienteajax',[  //tiempo real inicio
 Route::get('clientese',[
 			'uses' => 'ClienteController@view',
 			'as'   => 'clientes.view'
+]);
+
+Route::get('/registroproveedores',[
+			'uses' => 'RegistroController@registroproveedores',
+			'as'   => 'registro.provs'
 ]);
 
 Route::post('/clientessearch',[

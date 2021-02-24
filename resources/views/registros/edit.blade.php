@@ -77,7 +77,9 @@
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Proveedor Ext</span>
-                        {!! Form::select('edit_id_proveedor',$proveedores,null,['class' => 'form-control','id'=>'edit_proveedores']) !!}
+                        <div id="provs" value = ""  class="form-control btn btn-primary" >
+                         VER PROVEEDORES
+                        </div>
                     </div>
                </div> 
                <div class="form-group col-md-3">

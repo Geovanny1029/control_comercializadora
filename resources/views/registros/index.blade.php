@@ -66,7 +66,7 @@
           NO
         @endif
       </td>
-      <td>{{$registro->proveedores->nombre_proveedor}}</td>
+      <td>Cambio</td>
       <td>{{$registro->valor_factura_ext}}</td>
       <td>
         @if($registro->se_emite_factura == 1)
@@ -112,7 +112,7 @@
   </tbody>
 
 </table>
-
+@include('registros.registroproveedores')
   
 
 

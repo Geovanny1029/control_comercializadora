@@ -201,7 +201,7 @@ function fun_editapro(id)
             $('#folio').attr('readonly', true);
           }
 
-
+          $('#provs').attr('onclick','mproveedores('+result.info.id+')');
           $('#edit_id_registro').val(result.info.id);
           $('#folio').val(result.info.no_operacion);
           $("#id_registro").val(result.info.id);
@@ -529,3 +529,62 @@ function cierre(){
   alert('fecha de cierre');
    $('#edit_fecha_cierre').val("");     
 }
+
+function mproveedores(id){
+     $("#registroproveedores").modal('show');
+       $.ajax({
+        url: "/registroproveedores",
+        type:"GET", 
+        data: {"id":id}, 
+        success: function(result){
+          //console.log(result);
+          var tam = result;
+        console.log(result);
+          var html = "<center><h3>Proveedores</h3></center>";
+          for(i=0;i<tam.length;i++){
+            if(result[i].ruta_pdf == null || result[i].ruta_pdf == ""){
+              var pdf = "<input type='file' id='ruta_proveedor_registro"+result[i].id+"' name='ruta_proveedor_registro"+result[i].id+"' class='form-control' placeholder='Username'></div>";
+              var btn = "<input type='hidden' id='idhidenp"+result[i].id+"' name='idhidenp"+result[i].id+"' value='"+result[i].id+"'><div class='btn btn-primary' onclick='guardapr("+result[i].id+")'>Guardar</div></form>";
+            }else{
+              var pdf = "<div class='btn btn-success' data-lity href='/proveedores/"+result[i].ruta_pdf+"'>VER PDF</div>";
+              var btn = "";
+            }
+            html+= "<table class='table table-striped' ><thead><th style='width:50%;>Proveedor</th> <th style='width:25%;>Accion</th></thead><tbody><tr><td>"+result[i].proveedores.nombre_proveedor+"</td> <td>"+pdf+btn+"</td></tr> </tbody></table>";
+           
+          }
+        $("#lista2").html(html);
+        }
+      });
+}
+
+
+function guardapr(id){
+  var d = $('#ruta_proveedor_registro'+id).val();
+  var i = $('#idhidenp'+id).val();  
+  var formData = new FormData(document.getElementById("formuploadajax"));
+  formData.append("id", i);
+  $.ajax({
+        url: "/regiprove/",
+        type: "post",
+        dataType: "html",
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(result){
+            $("#registroproveedores").modal('hide');
+        }
+    })         
+}
+
+$(document).on('keydown', function(event) {
+       if (event.key == "Escape") {
+          $('#addModalr').modal('hide');
+       }
+   });
+
+$(document).on('keydown', function(event) {
+       if (event.key == "Escape") {
+          $('#editModalr').modal('hide');
+       }
+   });
