@@ -564,7 +564,7 @@ function guardapr(id){
   var formData = new FormData(document.getElementById("formuploadajax"));
   formData.append("id", i);
   $.ajax({
-        url: "/regiprove/",
+        url: "/regiprove",
         type: "post",
         dataType: "html",
         data: formData,

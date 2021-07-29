@@ -65,7 +65,7 @@ class ProveedorExternoController extends Controller
         if($search == ''){
          $employees = Proveedor_externo::orderby('nombre_proveedor','asc')->select('id','nombre_proveedor')->limit(8)->get();
       }else{
-         $employees = Proveedor_externo::orderby('nombre_proveedor','asc')->select('id','nombre_proveedor')->where('nombre_cliente', 'like', '%' .$search . '%')->limit(8)->get();
+         $employees = Proveedor_externo::orderby('nombre_proveedor','asc')->select('id','nombre_proveedor')->where('nombre_proveedor', 'like', '%' .$search . '%')->limit(8)->get();
       }
 
       $response = array();

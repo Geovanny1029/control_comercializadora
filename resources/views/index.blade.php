@@ -149,7 +149,24 @@
               <li><a class="" href="{{route('registro.export')}}">Exportar Registros</a></li>
             </ul>
           </li>
-          @else
+          @elseif(Auth::User()->id == 5)
+            <li class="sub-menu">
+              <a href="javascript:;" class="">
+                            <i class="icon_document_alt"></i>
+                            <span>Altas</span>
+                            <span class="menu-arrow arrow_carrot-right"></span>
+                        </a>
+              <ul class="sub">
+                <li><a class="" href="{{route('user.index')}}">Usuarios</a></li>              
+                <li><a class="" href="{{route('aduanas.index')}}">Aduanas</a></li>             
+                <li><a class="" href="{{route('clientes.index')}}">Clientes</a></li>              
+                <li><a class="" href="{{route('ejecutivos.index')}}">Ejecutivos</a></li>
+                <li><a class="" href="{{route('estatus.index')}}">Estatus</a></li>
+                <li><a class="" href="{{route('formapago.index')}}">Formas de Pago</a></li>            
+                <li><a class="" href="{{route('proveedoresExt.index')}}">Proveedor Ext</a></li>
+
+              </ul>
+            </li>
           @endif
 
         </ul>
