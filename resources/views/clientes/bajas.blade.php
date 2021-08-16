@@ -1,6 +1,6 @@
 @extends('index')
-@section('title','Clientes')
-@section('panel','Lista Clientes Activos')
+@section('title','Clientes Bajas')
+@section('panel','Lista Clientes Inactivos')
 @section('content')
 
         @if(count($errors) > 0)
@@ -11,11 +11,6 @@
             </div>
         @endif 
 
-
-<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModalcli">Crear nuevo Cliente</button>
-
-@include('clientes.crear')
-@include('clientes.edit')
 
 <table class="table table-striped" id="tablaejecutivos">
   <thead>
@@ -35,9 +30,8 @@
       <td> {{$cliente->direccion_fiscal}} </td>
       <td style="width: 20%;">
 
-      <button class="btn btn-warning"  data-toggle="modal" data-target="#editModalcli" onclick="fun_editcli('{{$cliente->id}}')" id="editacli" value="{{route('clientes.view')}}">Editar </button>
 
-      <a class="btn btn-danger" onclick="return confirm('¿Seguro que deseas inhabilitar este Cliente?')" href="{{route('clientes.destroy', $cliente->id)}}">Eliminar</a>
+      <a class="btn btn-success" onclick="return confirm('¿Seguro que deseas habilitar este Cliente?')" href="{{route('clientes.habilitar', $cliente->id)}}">Habilitar</a>
 
       </td>
     </tr>

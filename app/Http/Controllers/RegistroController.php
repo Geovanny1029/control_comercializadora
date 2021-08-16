@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Registro;
 use App\Registros_Nproveedores;
+use App\Registros_nadicionales;
+use App\Registros_nvalor_fac;
+use App\Registros_nimpo_depo_cli;
+use App\Registros_nfecha_dep_cli;
 use App\Aduana;
 use App\Cliente;
 use App\Ejecutivo;
@@ -69,7 +73,10 @@ class RegistroController extends Controller
                 $info = Registro::find($id);
                 $usuario = User::find($info->id_user);
                 $cliente = Cliente::find($info->id_cliente);
-                return response()->json(array('info'=>$info,'usuario'=>$usuario,'cliente'=>$cliente));
+                $valfacext = Registros_nvalor_fac::where('id_registro',$id)->get();
+                $fecdepcli = Registros_nfecha_dep_cli::where('id_registro',$id)->get();
+                $impdepcli = Registros_nimpo_depo_cli::where('id_registro',$id)->get();
+                return response()->json(array('info'=>$info,'usuario'=>$usuario,'cliente'=>$cliente,'valfacext'=>$valfacext,'fecdepcli'=>$fecdepcli,'impdepcli'=>$impdepcli));
 
             }
     }
@@ -135,6 +142,7 @@ class RegistroController extends Controller
             $name5 = $request->ruta_importe_deposito_cliente;
         }
 
+//rutas de pedimento 1 al 6
         if($request->hasFile('ruta_pedimento')){
             $file = $request->file('ruta_pedimento');
             $original = $file->getClientOriginalName();
@@ -143,6 +151,53 @@ class RegistroController extends Controller
         }else{
             $name6 = $request->ruta_pedimento;
         }
+
+        if($request->hasFile('ruta_pedimento2')){
+            $file = $request->file('ruta_pedimento2');
+            $original = $file->getClientOriginalName();
+            $name10 = "Pedimento2_D".$numero."_".$original;          
+            $file->move(public_path().'/pedimentos/',$name10);
+        }else{
+            $name10 = $request->ruta_pedimento2;
+        }
+
+        if($request->hasFile('ruta_pedimento3')){
+            $file = $request->file('ruta_pedimento3');
+            $original = $file->getClientOriginalName();
+            $name11 = "Pedimento3_D".$numero."_".$original;          
+            $file->move(public_path().'/pedimentos/',$name11);
+        }else{
+            $name11 = $request->ruta_pedimento3;
+        }
+
+        if($request->hasFile('ruta_pedimento4')){
+            $file = $request->file('ruta_pedimento4');
+            $original = $file->getClientOriginalName();
+            $name12 = "Pedimento4_D".$numero."_".$original;          
+            $file->move(public_path().'/pedimentos/',$name12);
+        }else{
+            $name12 = $request->ruta_pedimento4;
+        }
+
+        if($request->hasFile('ruta_pedimento5')){
+            $file = $request->file('ruta_pedimento5');
+            $original = $file->getClientOriginalName();
+            $name13 = "Pedimento5_D".$numero."_".$original;          
+            $file->move(public_path().'/pedimentos/',$name13);
+        }else{
+            $name13 = $request->ruta_pedimento5;
+        }
+
+        if($request->hasFile('ruta_pedimento6')){
+            $file = $request->file('ruta_pedimento6');
+            $original = $file->getClientOriginalName();
+            $name14 = "Pedimento6_D".$numero."_".$original;          
+            $file->move(public_path().'/pedimentos/',$name14);
+        }else{
+            $name14 = $request->ruta_pedimento6;
+        }
+
+//fin rutas de pedimento
 
         if($request->hasFile('ruta_folio_cg')){
             $file = $request->file('ruta_folio_cg');
@@ -185,7 +240,6 @@ class RegistroController extends Controller
       	$registro->pagamos_mercancia = $request->pagamos_mercancia;
         $registro->tipo_operacion = $request->tipo_operacion;
       	$registro->ruta_proveedor = $name2;
-      	$registro->valor_factura_ext = $request->valor_factura_ext;
       	$registro->ruta_factura_ext = $name3;
       	$registro->se_emite_factura = $request->se_emite_factura;
       	$registro->se_factura_valor_mercancia = $request->se_factura_valor_mercancia;
@@ -198,12 +252,26 @@ class RegistroController extends Controller
       	$registro->cotizacion_cliente_mxp = $request->cotizacion_cliente_mxp;
       	$registro->ruta_cotizacion_cliente = $name4;
       	$registro->observaciones = strtoupper($request->observaciones);
-      	$registro->fecha_deposito_cliente = $request->fecha_deposito_cliente;
-      	$registro->importe_deposito_cliente = $request->importe_deposito_cliente;
       	$registro->ruta_importe_deposito_cliente = $name5;
       	$registro->referencia = strtoupper($request->referencia);
       	$registro->no_pedimento = strtoupper($request->no_pedimento);
+        $registro->no_pedimento2 = strtoupper($request->no_pedimento2);
+        $registro->no_pedimento3 = strtoupper($request->no_pedimento3);
+        $registro->no_pedimento4 = strtoupper($request->no_pedimento4);
+        $registro->no_pedimento5 = strtoupper($request->no_pedimento5);
+        $registro->no_pedimento6 = strtoupper($request->no_pedimento6);
+        $registro->obs_pedimento1 = strtoupper($request->obs_pedimento1);
+        $registro->obs_pedimento2 = strtoupper($request->obs_pedimento2);
+        $registro->obs_pedimento3 = strtoupper($request->obs_pedimento3);
+        $registro->obs_pedimento4 = strtoupper($request->obs_pedimento4);
+        $registro->obs_pedimento5 = strtoupper($request->obs_pedimento5);
+        $registro->obs_pedimento6 = strtoupper($request->obs_pedimento6);
       	$registro->ruta_pedimento = $name6;
+        $registro->ruta_pedimento2 = $name10;
+        $registro->ruta_pedimento3= $name11;
+        $registro->ruta_pedimento4 = $name12;
+        $registro->ruta_pedimento5 = $name13;
+        $registro->ruta_pedimento6 = $name14;
       	$registro->importe_cg = $request->importe_cg;
       	$registro->fecha_cg = $request->fecha_cg;
       	$registro->folio_cg = strtoupper($request->folio_cg);
@@ -225,8 +293,49 @@ class RegistroController extends Controller
           $proveedores->id_proveedor= $prov[$i];
           $proveedores->save();
         }
-        
 
+        //guardado de valor factura extranjero mas de 1
+        if($request->valor_factura_ext[0] == null || $request->valor_factura_ext[0] == "" ){
+
+        }else{
+          $totalvalor_fac = sizeof($request->valor_factura_ext);
+          $valorf = $request->valor_factura_ext;
+          for($j=0;$j<$totalvalor_fac;$j++){
+            $valorfac = new Registros_nvalor_fac();
+            $valorfac->id_registro= $registro->id;
+            $valorfac->valor_factura_ext= $valorf[$j];
+            $valorfac->save();
+          }          
+        }
+
+        //guardado de fecha de deposito mas de 1
+        if($request->fecha_deposito_cliente[0] == null){
+
+        }else{
+          $totalfecha_dep_cli = sizeof($request->fecha_deposito_cliente);
+          $valorfech_dep_cli = $request->fecha_deposito_cliente;
+          for($k=0;$k<$totalfecha_dep_cli;$k++){
+            $valorfecha_dep = new Registros_nfecha_dep_cli();
+            $valorfecha_dep->id_registro= $registro->id;
+            $valorfecha_dep->fecha_deposito_cliente= $valorfech_dep_cli[$k];
+            $valorfecha_dep->save();
+          }
+        }
+
+        //guardado de importe deposito cliente mas de 1
+        if($request->importe_deposito_cliente[0] ==  null){
+
+        }else{
+          $total_dep_cli = sizeof($request->importe_deposito_cliente);
+          $valor_dep_cliente = $request->importe_deposito_cliente;
+          for($l=0;$l<$total_dep_cli;$l++){
+            $valor_dep_cli = new Registros_nimpo_depo_cli();
+            $valor_dep_cli->id_registro= $registro->id;
+            $valor_dep_cli->importe_deposito_cliente= $valor_dep_cliente[$l];
+            $valor_dep_cli->save();
+          } 
+        }
+       
         $registro->save();
 
         $notification = array(
@@ -241,7 +350,6 @@ class RegistroController extends Controller
 
         $id = $request->edit_id_registro;
         $data= Registro::find($id);
-
 
 //// request archivos
         if($data->ruta_razonsocial == null || $data->ruta_razonsocial == "" ){
@@ -309,6 +417,7 @@ class RegistroController extends Controller
             $name5 = $data->ruta_importe_deposito_cliente;
         }
 
+        //rutas file pedimentos del 1 al 6
         if($data->ruta_pedimento == null || $data->ruta_pedimento == "" ){
           if($request->hasFile('edit_ruta_pedimento')){
               $file = $request->file('edit_ruta_pedimento');
@@ -322,6 +431,75 @@ class RegistroController extends Controller
             $name6 = $data->ruta_pedimento;
         }
 
+        if($data->ruta_pedimento2 == null || $data->ruta_pedimento2 == "" ){
+          if($request->hasFile('edit_ruta_pedimento2')){
+              $file = $request->file('edit_ruta_pedimento2');
+              $original = $file->getClientOriginalName();
+              $name10 = "Pedimento2_D".$data->id."_".$original;          
+              $file->move(public_path().'/pedimentos/',$name10);
+          }else{
+            $name10 = $request->edit_ruta_pedimento2;
+          }
+        }else{
+            $name10 = $data->ruta_pedimento2;
+        }
+
+
+        if($data->ruta_pedimento3 == null || $data->ruta_pedimento3 == "" ){
+          if($request->hasFile('edit_ruta_pedimento3')){
+              $file = $request->file('edit_ruta_pedimento3');
+              $original = $file->getClientOriginalName();
+              $name11 = "Pedimento3_D".$data->id."_".$original;          
+              $file->move(public_path().'/pedimentos/',$name11);
+          }else{
+            $name11 = $request->edit_ruta_pedimento3;
+          }
+        }else{
+            $name11 = $data->ruta_pedimento3;
+        }
+
+
+        if($data->ruta_pedimento4 == null || $data->ruta_pedimento4 == "" ){
+          if($request->hasFile('edit_ruta_pedimento4')){
+              $file = $request->file('edit_ruta_pedimento4');
+              $original = $file->getClientOriginalName();
+              $name12 = "Pedimento4_D".$data->id."_".$original;          
+              $file->move(public_path().'/pedimentos/',$name12);
+          }else{
+            $name12 = $request->edit_ruta_pedimento4;
+          }
+        }else{
+            $name12 = $data->ruta_pedimento4;
+        }
+
+
+        if($data->ruta_pedimento5 == null || $data->ruta_pedimento5 == "" ){
+          if($request->hasFile('edit_ruta_pedimento5')){
+              $file = $request->file('edit_ruta_pedimento5');
+              $original = $file->getClientOriginalName();
+              $name13 = "Pedimento5_D".$data->id."_".$original;          
+              $file->move(public_path().'/pedimentos/',$name13);
+          }else{
+            $name13 = $request->edit_ruta_pedimento5;
+          }
+        }else{
+            $name13 = $data->ruta_pedimento5;
+        }
+
+
+        if($data->ruta_pedimento6 == null || $data->ruta_pedimento6 == "" ){
+          if($request->hasFile('edit_ruta_pedimento6')){
+              $file = $request->file('edit_ruta_pedimento6');
+              $original = $file->getClientOriginalName();
+              $name14 = "Pedimento6_D".$data->id."_".$original;          
+              $file->move(public_path().'/pedimentos/',$name14);
+          }else{
+            $name14 = $request->edit_ruta_pedimento6;
+          }
+        }else{
+            $name14 = $data->ruta_pedimento6;
+        }
+        //fin de rutas pedimentos
         if($data->ruta_folio_cg == null || $data->ruta_folio_cg == "" ){
           if($request->hasFile('edit_ruta_folio_cg')){
               $file = $request->file('edit_ruta_folio_cg');
@@ -370,7 +548,6 @@ class RegistroController extends Controller
         $data->pagamos_mercancia = $request->edit_pagamos_mercancia;
         $data->tipo_operacion = $request->edit_tipo_operacion;
         $data->ruta_proveedor = $name2;
-        $data->valor_factura_ext = $request->edit_valor_factura_ext;
         $data->ruta_factura_ext = $name3;
         $data->se_emite_factura = $request->edit_se_emite_factura;
         $data->se_factura_valor_mercancia = $request->edit_se_factura_valor_mercancia;
@@ -383,12 +560,26 @@ class RegistroController extends Controller
         $data->cotizacion_cliente_mxp = $request->edit_cotizacion_cliente_mxp;
         $data->ruta_cotizacion_cliente = $name4;
         $data->observaciones = strtoupper($request->edit_observaciones);
-        $data->fecha_deposito_cliente = $request->edit_fecha_deposito_cliente;
-        $data->importe_deposito_cliente = $request->edit_importe_deposito_cliente;
         $data->ruta_importe_deposito_cliente = $name5;
         $data->referencia = strtoupper($request->edit_referencia);
         $data->no_pedimento = strtoupper($request->edit_no_pedimento);
+        $data->no_pedimento2 = strtoupper($request->edit_no_pedimento2);
+        $data->no_pedimento3 = strtoupper($request->edit_no_pedimento3);
+        $data->no_pedimento4 = strtoupper($request->edit_no_pedimento4);
+        $data->no_pedimento5 = strtoupper($request->edit_no_pedimento5);
+        $data->no_pedimento6 = strtoupper($request->edit_no_pedimento6);
+        $data->obs_pedimento1 = strtoupper($request->edit_obs_pedimento1);
+        $data->obs_pedimento2 = strtoupper($request->edit_obs_pedimento2);
+        $data->obs_pedimento3 = strtoupper($request->edit_obs_pedimento3);
+        $data->obs_pedimento4 = strtoupper($request->edit_obs_pedimento4);
+        $data->obs_pedimento5 = strtoupper($request->edit_obs_pedimento5);
+        $data->obs_pedimento6 = strtoupper($request->edit_obs_pedimento6);
         $data->ruta_pedimento = $name6;
+        $data->ruta_pedimento2 = $name10;
+        $data->ruta_pedimento3 = $name11;
+        $data->ruta_pedimento4 = $name12;
+        $data->ruta_pedimento5 = $name13;
+        $data->ruta_pedimento6 = $name14;
         $data->importe_cg = $request->edit_importe_cg;
         $data->fecha_cg = $request->edit_fecha_cg;
         $data->folio_cg = strtoupper($request->edit_folio_cg);
@@ -402,6 +593,88 @@ class RegistroController extends Controller
         $data->id_user=Auth::User()->id;
         $data->save();        
 
+        /// valor factura ext
+        $numRegval = sizeof(Registros_nvalor_fac::where('id_registro',$id)->get());
+
+        $numReqval = sizeof($request->edit_valor_factura_ext);
+        $dataRegval = Registros_nvalor_fac::where('id_registro',$id)->get();
+
+        //si el numero de registros de la BD es igual al numero de arreglo del request soo actualiza valores
+      if($request->edit_valor_factura_ext[0] == null || $request->edit_valor_factura_ext[0] == ""){
+      }else{
+        if($numRegval == $numReqval){
+          for ($i=0; $i < $numReqval; $i++) { 
+            $numer = Registros_nvalor_fac::find($dataRegval[$i]->id);
+            $numer->valor_factura_ext=$request->edit_valor_factura_ext[$i];
+            $numer->save();
+          }
+        }else{
+          // de lo contrario si son mas valores inserta
+          // $diferencia = $numReqval - $numRegval;
+          for ($j=$numRegval; $j < $numReqval ; $j++) { 
+            $insert = new Registros_nvalor_fac();
+            $insert->id_registro = $id;
+            $insert->valor_factura_ext = $request->edit_valor_factura_ext[$j];
+            $insert->save();
+          }
+        }//fin actualiza valor fac ext
+      }
+        
+
+        /// actualiza fecha deposito cliente
+        $numRegvalfdc = sizeof(Registros_nfecha_dep_cli::where('id_registro',$id)->get());
+
+        $numReqvalfdc = sizeof($request->edit_fecha_deposito_cliente);
+        $dataRegvalfdc = Registros_nfecha_dep_cli::where('id_registro',$id)->get();
+  
+        //si el numero de registros de la BD es igual al numero de arreglo del request soo actualiza valores
+      if($request->edit_fecha_deposito_cliente[0] == null || $request->edit_fecha_deposito_cliente[0] == ""){
+      }else{
+        if($numRegvalfdc == $numReqvalfdc){
+          for ($ifdc=0; $ifdc < $numReqvalfdc; $ifdc++) { 
+            $numerfdc = Registros_nfecha_dep_cli::find($dataRegvalfdc[$ifdc]->id);
+            $numerfdc->fecha_deposito_cliente=$request->edit_fecha_deposito_cliente[$ifdc];
+            $numerfdc->save();
+          }
+        }else{
+          // de lo contrario si son mas valores inserta
+          // $diferencia = $numReqval - $numRegval;
+          for ($jfdc=$numRegvalfdc; $jfdc < $numReqvalfdc ; $jfdc++) { 
+            $insertfdc = new Registros_nfecha_dep_cli();
+            $insertfdc->id_registro = $id;
+            $insertfdc->fecha_deposito_cliente = $request->edit_fecha_deposito_cliente[$jfdc];
+            $insertfdc->save();
+          }
+        }//fin actualiza fecha deposito
+      }
+        
+        /// actualiza importe deposito cliente
+        $numRegvalidc = sizeof(Registros_nimpo_depo_cli::where('id_registro',$id)->get());
+
+        $numReqvalidc = sizeof($request->edit_importe_deposito_cliente);
+        $dataRegvalidc = Registros_nimpo_depo_cli::where('id_registro',$id)->get();
+  
+        //si el numero de registros de la BD es igual al numero de arreglo del request soo actualiza valores
+      if($request->edit_importe_deposito_cliente[0] == null || $request->edit_importe_deposito_cliente[0] == ""){
+      }else{
+        if($numRegvalidc == $numReqvalidc){
+          for ($impdc=0; $impdc < $numReqvalidc; $impdc++) { 
+            $numeridc = Registros_nimpo_depo_cli::find($dataRegvalidc[$impdc]->id);
+            $numeridc->importe_deposito_cliente=$request->edit_importe_deposito_cliente[$impdc];
+            $numeridc->save();
+          }
+        }else{
+          // de lo contrario si son mas valores inserta
+          // $diferencia = $numReqval - $numRegval;
+          for ($jidc=$numRegvalidc; $jidc < $numReqvalidc ; $jidc++) { 
+            $insertidc = new Registros_nimpo_depo_cli();
+            $insertidc->id_registro = $id;
+            $insertidc->importe_deposito_cliente = $request->edit_importe_deposito_cliente[$jidc];
+            $insertidc->save();
+          }
+        }//fin actualiza importe deposito cliente
+      }
+        
         $notification = array(
         'message' => 'El Registro se ha Actualizado Exitosamente', 
         'alert-type' => 'success'
@@ -432,6 +705,168 @@ class RegistroController extends Controller
           $regprov->save();
         }      
     }
+
+
+    public function fileadicional(Request $request){
+        if($request->ajax()){
+          $id = $request->id;
+          $req = $request->ruta_archivo_fac;
+          $reqcot = $request->ruta_archivo_cot;
+          $reqdep = $request->ruta_archivo_dep;
+          $reqcg = $request->ruta_archivo_cg;
+          $reqfac = $request->ruta_archivo_facturado;
+          $reqped = $request->pedimento_adicional;
+          $reqpedfile = $request->ruta_pedimento_adicional;
+
+
+          if($req != null || $req != "" || $reqcot != null || $reqcot != ""  || $reqdep != null || $reqdep != "" || $reqcg != null || $reqcg != "" || $reqfac != null || $reqfac != "" || $reqped[0] != null || $reqped[0] != "" ){
+            
+            //guardado archivos factura
+            if($req != null || $req != ""){
+              $total_ad_fac = sizeof($request->ruta_archivo_fac);
+              $ad_fac = $request->ruta_archivo_fac;
+              for($i=0;$i<$total_ad_fac;$i++){
+                if($request->hasFile('ruta_archivo_fac.'.(string)$i)){
+                $file = $request->file('ruta_archivo_fac.'.(string)$i);
+                $original = $file->getClientOriginalName();
+                $name = "Reg_ad_fac_D".$id."_".$original;          
+                $file->move(public_path().'/adicionales/',$name);
+                  $adiciopnal_fac = new Registros_nadicionales();
+                  $adiciopnal_fac->id_registro= $id;
+                  $adiciopnal_fac->tipo_archivo = 1;
+                  $adiciopnal_fac->ruta_archivo= $name;
+                  $adiciopnal_fac->save();
+                  $info = "Registros guardados correctamente";            
+                }else{
+                   $info = "Error el tipo de archivo no corresponde revisa";
+                }
+              }
+            }//fin guardado factura
+            //guardado archivos cotizacion 
+            if($reqcot != null || $reqcot != ""){
+              $total_ad_cot = sizeof($request->ruta_archivo_cot);
+              $ad_fac = $request->ruta_archivo_cot;
+              for($j=0;$j<$total_ad_cot;$j++){
+                if($request->hasFile('ruta_archivo_cot.'.(string)$j)){
+                $file_cot = $request->file('ruta_archivo_cot.'.(string)$j);
+                $original_cot = $file_cot->getClientOriginalName();
+                $name_cot = "Reg_ad_cot_D".$id."_".$original_cot;          
+                $file_cot->move(public_path().'/adicionales/',$name_cot);
+                  $adiciopnal_cot = new Registros_nadicionales();
+                  $adiciopnal_cot->id_registro= $id;
+                  $adiciopnal_cot->tipo_archivo = 2;
+                  $adiciopnal_cot->ruta_archivo= $name_cot;
+                  $adiciopnal_cot->save();
+                  $info = "Registros guardados correctamente";            
+                }else{
+                   $info = "Error el tipo de archivo no corresponde revisa";
+                }
+              }
+            }//fin guardado cotizacion
+
+            //guardado archivos deposito 
+            if($reqdep != null || $reqdep != ""){
+              $total_ad_dep = sizeof($request->ruta_archivo_dep);
+              $ad_dep = $request->ruta_archivo_dep;
+              for($k=0;$k<$total_ad_dep;$k++){
+                if($request->hasFile('ruta_archivo_dep.'.(string)$k)){
+                $file_dep = $request->file('ruta_archivo_dep.'.(string)$k);
+                $original_dep = $file_dep->getClientOriginalName();
+                $name_dep = "Reg_ad_dep_D".$id."_".$original_dep;          
+                $file_dep->move(public_path().'/adicionales/',$name_dep);
+                  $adiciopnal_dep = new Registros_nadicionales();
+                  $adiciopnal_dep->id_registro= $id;
+                  $adiciopnal_dep->tipo_archivo = 3;
+                  $adiciopnal_dep->ruta_archivo= $name_dep;
+                  $adiciopnal_dep->save();
+                  $info = "Registros guardados correctamente";            
+                }else{
+                   $info = "Error el tipo de archivo no corresponde revisa";
+                }
+              }
+            }//fin guardado deposito
+
+            //guardado archivos cg 
+            if($reqcg != null || $reqcg != ""){
+              $total_ad_cg = sizeof($request->ruta_archivo_cg);
+              $ad_cg = $request->ruta_archivo_cg;
+              for($l=0;$l<$total_ad_cg;$l++){
+                if($request->hasFile('ruta_archivo_cg.'.(string)$l)){
+                $file_cg = $request->file('ruta_archivo_cg.'.(string)$l);
+                $original_cg = $file_cg->getClientOriginalName();
+                $name_cg = "Reg_ad_cg_D".$id."_".$original_cg;          
+                $file_cg->move(public_path().'/adicionales/',$name_cg);
+                  $adiciopnal_cg = new Registros_nadicionales();
+                  $adiciopnal_cg->id_registro= $id;
+                  $adiciopnal_cg->tipo_archivo = 4;
+                  $adiciopnal_cg->ruta_archivo= $name_cg;
+                  $adiciopnal_cg->save();
+                  $info = "Registros guardados correctamente";            
+                }else{
+                   $info = "Error el tipo de archivo no corresponde revisa";
+                }
+              }
+            }//fin guardado cg
+
+              //guardado archivos facturado 
+            if($reqfac != null || $reqfac != ""){
+              $total_ad_facturado = sizeof($request->ruta_archivo_facturado);
+              $ad_facturado = $request->ruta_archivo_facturado;
+              for($m=0;$m<$total_ad_facturado;$m++){
+                if($request->hasFile('ruta_archivo_facturado.'.(string)$m)){
+                $file_facturado = $request->file('ruta_archivo_facturado.'.(string)$m);
+                $original_facturado = $file_facturado->getClientOriginalName();
+                $name_facturado = "Reg_ad_facturado_D".$id."_".$original_facturado;          
+                $file_facturado->move(public_path().'/adicionales/',$name_facturado);
+                  $adiciopnal_facturado = new Registros_nadicionales();
+                  $adiciopnal_facturado->id_registro= $id;
+                  $adiciopnal_facturado->tipo_archivo = 5;
+                  $adiciopnal_facturado->ruta_archivo= $name_facturado;
+                  $adiciopnal_facturado->save();
+                  $info = "Registros guardados correctamente";            
+                }else{
+                   $info = "Error el tipo de archivo no corresponde revisa";
+                }
+              }
+            }//fin guardado facturado
+
+
+            //guardado pedimento y archivo 
+            if(($reqped[0] != null || $reqped[0] != "") && ($reqpedfile!= null || $reqpedfile!= "")){
+              $total_ped = sizeof($request->pedimento_adicional);
+              $ad_pedimento = $request->pedimento_adicional;
+              for($n=0;$n<$total_ped;$n++){
+                if($request->hasFile('ruta_pedimento_adicional.'.(string)$n)){
+                $file_pedimento = $request->file('ruta_pedimento_adicional.'.(string)$n);
+                $original_pedimento = $file_pedimento->getClientOriginalName();
+                $name_pedimento = "Reg_ad_pedimento_D".$id."_".$original_pedimento;          
+                $file_pedimento->move(public_path().'/adicionales/',$name_pedimento);
+                  $adiciopnal_pedimento = new Registros_nadicionales();
+                  $adiciopnal_pedimento->id_registro= $id;
+                  $adiciopnal_pedimento->tipo_archivo = 6;
+                  $adiciopnal_pedimento->pedimento= $ad_pedimento[$n];
+                  $adiciopnal_pedimento->ruta_archivo= $name_pedimento;
+                  $adiciopnal_pedimento->save();
+                  $info = "Registros guardados correctamente";            
+                }else{
+                   $info = "Error el tipo de archivo no corresponde revisa";
+                }
+              }
+            }else if(($reqped[0] == null || $reqped[0] == "") && ($reqpedfile== null || $reqpedfile== "")){
+
+            }else{
+               $info = "Error para capturar el pedimento necesitas guardar el numero y el archivo revisar";
+            }//fin guardado pedimento
+
+          }else{
+            $info = "no se encontro registros";
+          }
+
+          return response()->json($info);
+        }      
+    }
+
+
    public function cerrados()
     {
 
@@ -590,14 +1025,51 @@ class RegistroController extends Controller
   }
 
   public function registroproveedores(Request $request){
-        if($request->ajax()){
-                $id = $request->id;
-                $info = Registros_Nproveedores::where('id_registro',$id)->get();
-                $info->each(function($info){
-                  $info->proveedores;
-                }); 
-                return response()->json($info);
+    if($request->ajax()){
+            $id = $request->id;
+            $info = Registros_Nproveedores::where('id_registro',$id)->get();
+            $info->each(function($info){
+              $info->proveedores;
+            }); 
+            return response()->json($info);
+    }    
+  }
 
-            }    
+
+  public function registroadicional(Request $request){
+    if($request->ajax()){
+      $id = $request->id;
+      $infofac = Registros_nadicionales::where('id_registro',$id)->where('tipo_archivo',1)->get();
+      $infocot = Registros_nadicionales::where('id_registro',$id)->where('tipo_archivo',2)->get();
+      $infodep = Registros_nadicionales::where('id_registro',$id)->where('tipo_archivo',3)->get();
+      $infocg = Registros_nadicionales::where('id_registro',$id)->where('tipo_archivo',4)->get();
+      $infof = Registros_nadicionales::where('id_registro',$id)->where('tipo_archivo',5)->get();
+      $infoped = Registros_nadicionales::where('id_registro',$id)->where('tipo_archivo',6)->get();
+            return response()->json(['infofac'=>$infofac,'infocot'=>$infocot,'infodep'=>$infodep,'infocg'=>$infocg,'infof'=>$infof,'infoped'=>$infoped]);
+    }    
+  }
+
+  public function eliminarvalfac(Request $request){
+    if($request->ajax()){
+       $id = $request->id;
+       $info = Registros_nvalor_fac::destroy($id);
+       return response()->json($info);
+    }
+  }
+
+  public function eliminarvalorfdc(Request $request){
+    if($request->ajax()){
+       $id = $request->id;
+       $info = Registros_nfecha_dep_cli::destroy($id);
+       return response()->json($info);
+    }
+  }
+
+  public function eliminarvaloridc(Request $request){
+    if($request->ajax()){
+       $id = $request->id;
+       $info = Registros_nimpo_depo_cli::destroy($id);
+       return response()->json($info);
+    }
   }
 }

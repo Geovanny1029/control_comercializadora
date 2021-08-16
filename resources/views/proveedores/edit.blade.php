@@ -15,8 +15,18 @@
                  {!! Form::label('edit_proveedor', 'Nombre Proveedor') !!} 
                  {!! Form::text('edit_nombre_proveedor',null,['class' => 'form-control','style' => 'text-transform:uppercase;' , 'placeholder' => 'Nombre Proveedor','id' => 'edit_nombre_proveedor','required' ] ) !!}
                </div>
-
-
+              </div>
+              <div class="row">
+                <div class="form-group col-md-6">
+                 {!! Form::label('edit_tax_id', 'Tax Id') !!} 
+                 {!! Form::text('edit_tax_id',null,['class' => 'form-control','style' => 'text-transform:uppercase;' , 'placeholder' => 'Tax Id','id' => 'edit_tax_id','required' ] ) !!}
+               </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-6">
+                 {!! Form::label('edit_direccion', 'Direccion Fiscal') !!} 
+                 {!! Form::text('edit_direccion_fiscal',null,['class' => 'form-control','style' => 'text-transform:uppercase;' , 'placeholder' => 'Direccion Fiscal','id' => 'edit_direccion_fiscal','required' ] ) !!}
+               </div>
               </div>
 
               <div class="row">

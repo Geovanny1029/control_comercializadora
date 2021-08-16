@@ -10,24 +10,7 @@
           </div>
           <div class="modal-body" style=" background-color: #ffffff;">
               {!! Form::open(['route' => 'registro.store', 'method' => 'POST','files'=>true]) !!}
-              <div class="row"> 
-               <div class="form-group col-md-3">
-                    <div class="input-group">
-                      <input type="text" id="newstate" style="text-transform:uppercase;" name="newstate" placeholder="Nuevo Cliente" class="form-control">
-                      <span class="input-group-btn">
-                        <button class="btn btn-success" id="btn-add-state" type="button">Agregar</button>
-                      </span>
-                    </div>
-               </div>
-               <div class="form-group col-md-3">
-                    <div class="input-group">
-                      <input type="text" id="newprov" style="text-transform:uppercase;" name="newprov" placeholder="Nuevo Proveedor" class="form-control">
-                      <span class="input-group-btn">
-                        <button class="btn btn-success" id="btn-add-prov" type="button">Agregar</button>
-                      </span>
-                    </div>
-               </div>               
-              </div>
+
               <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
@@ -74,13 +57,7 @@
                        <span class="input-group-addon" >Proveedor Ext</span>
                         {!! Form::select('id_proveedor[]',$proveedores,null,['class' => 'form-control','id'=>'proveedores','multiple'=>'multiple']) !!}
                     </div>
-               </div> 
-               <div class="form-group col-md-3">
-                    <div class="input-group">
-                       <span class="input-group-addon" >Ruta Proveedor</span>
-                        <input type="file" name="ruta_proveedor" class="form-control" placeholder="Proveedor">
-                    </div>
-               </div>                                            
+               </div>                                           
               </div><br>
 
               <div class="row">
@@ -92,8 +69,14 @@
                </div>                 
                <div class="form-group col-md-3">
                     <div class="input-group">
+                      <button type="button" name="add" id="add" class="btn btn-primary">+</button>
                        <span class="input-group-addon" >Valor Fact Ext $</span>
-                        <input type="number" step="any" name="valor_factura_ext" class="form-control" placeholder="$">
+                        <input type="number" step="any" name="valor_factura_ext[]" class="form-control" placeholder="$">
+
+                    </div>
+
+                    <div id="addvalorfac">
+                      
                     </div>
                </div> 
                <div class="form-group col-md-3">
@@ -163,31 +146,31 @@
                     </div>
                </div>                                         
               </div>  <br>
-
-
               <div class="row">
-               <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <div class="input-group">
                        <span class="input-group-addon" >Ruta Cotizacion</span>
                         <input type="file" name="ruta_cotizacion_cliente" class="form-control" placeholder="ruta">
                     </div>
-               </div>                 
-               <div class="form-group col-md-3">
+                </div>                 
+                <div class="form-group col-md-4">                    
                     <div class="input-group">
-                       <span class="input-group-addon" >Observaciones</span>
-                        <input type="text" style="text-transform:uppercase;" name="observaciones" class="form-control" placeholder="observaciones">
-                    </div>
-               </div> 
-               <div class="form-group col-md-3">
-                    <div class="input-group">
+                      <button type="button" name="addfd" id="addfd" class="btn btn-primary">+</button>
                        <span class="input-group-addon" >Fecha Depo</span>
-                        <input type="date" name="fecha_deposito_cliente" class="form-control" placeholder="Fecha Deposito">
+                        <input type="date" name="fecha_deposito_cliente[]" class="form-control" placeholder="Fecha Deposito">
                     </div>
-               </div>                  
-               <div class="form-group col-md-3">
+                    <div id="addfecha_depo">
+                      
+                    </div>
+                </div>                  
+               <div class="form-group col-md-4">
                     <div class="input-group">
+                      <button type="button" name="addidc" id="addidc" class="btn btn-primary">+</button>
                        <span class="input-group-addon" >Importe deposito cliente $</span>
-                        <input type="number" step="any" name="importe_deposito_cliente" class="form-control" placeholder="$">
+                        <input type="number" step="any" name="importe_deposito_cliente[]" class="form-control" placeholder="$">
+                    </div>
+                    <div id="addimporte_deposito_cli">
+                      
                     </div>
                </div>                                         
               </div> <br>
@@ -207,18 +190,90 @@
                </div>
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >No Pedimento</span>
-                        <input type="text" style="text-transform:uppercase;" name="no_pedimento" class="form-control" placeholder="Pedimento">
+                       <span class="input-group-addon" >Observaciones</span>
+                        <input type="text" style="text-transform:uppercase;" name="observaciones" class="form-control" placeholder="observaciones">
                     </div>
                </div>                 
+                                          
+              </div> <br> 
+              <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Ruta Pedimento</span>
-                        <input type="file" name="ruta_pedimento" class="form-control" placeholder="ruta">
+                       <span class="input-group-addon" >Pedimento 1</span>
+                        <input type="text" style="text-transform:uppercase;" name="no_pedimento1" class="form-control" placeholder="Pedimento1">
                     </div>
-               </div>                                          
-              </div> <br> 
-
+               </div>  
+               <div class="form-group col-md-2">
+                  <input type="text" style="text-transform:uppercase;" name="obs_pedimento1" class="form-control" placeholder="Observaciones">
+               </div>
+               <div class="form-group col-md-1">
+                    <input type="file" name="ruta_pedimento" class="form-control">
+               </div>  
+               <div class="form-group col-md-3">
+                    <div class="input-group">
+                       <span class="input-group-addon" >Pedimento 4</span>
+                        <input type="text" style="text-transform:uppercase;" name="no_pedimento4" class="form-control" placeholder="Pedimento4">
+                    </div>
+               </div>  
+               <div class="form-group col-md-2">
+                  <input type="text" style="text-transform:uppercase;" name="obs_pedimento4" class="form-control" placeholder="Observaciones">
+               </div>
+               <div class="form-group col-md-1">
+                    <input type="file" name="ruta_pedimento4" class="form-control">
+               </div>                                            
+              </div><br>
+              <div class="row">
+               <div class="form-group col-md-3">
+                    <div class="input-group">
+                       <span class="input-group-addon" > Pedimento 2</span>
+                        <input type="text" style="text-transform:uppercase;" name="no_pedimento2" class="form-control" placeholder="Pedimento2">
+                    </div>
+               </div>  
+               <div class="form-group col-md-2">
+                  <input type="text" style="text-transform:uppercase;" name="obs_pedimento2" class="form-control" placeholder="Observaciones">
+               </div> 
+               <div class="form-group col-md-1">
+                    <input type="file" name="ruta_pedimento2" class="form-control">
+               </div> 
+               <div class="form-group col-md-3">
+                    <div class="input-group">
+                       <span class="input-group-addon" > Pedimento 5</span>
+                        <input type="text" style="text-transform:uppercase;" name="no_pedimento5" class="form-control" placeholder="Pedimento5">
+                    </div>
+               </div>  
+               <div class="form-group col-md-2">
+                  <input type="text" style="text-transform:uppercase;" name="obs_pedimento5" class="form-control" placeholder="Observaciones">
+               </div> 
+               <div class="form-group col-md-1">
+                    <input type="file" name="ruta_pedimento5" class="form-control">
+               </div>                            
+              </div><br>
+              <div class="row">
+               <div class="form-group col-md-3">
+                    <div class="input-group">
+                       <span class="input-group-addon" > Pedimento 3</span>
+                        <input type="text" style="text-transform:uppercase;" name="no_pedimento3" class="form-control" placeholder="Pedimento3">
+                    </div>
+               </div>  
+               <div class="form-group col-md-2">
+                  <input type="text" style="text-transform:uppercase;" name="obs_pedimento3" class="form-control" placeholder="Observaciones">
+               </div>
+               <div class="form-group col-md-1">
+                    <input type="file" name="ruta_pedimento3" class="form-control">
+               </div>  
+               <div class="form-group col-md-3">
+                    <div class="input-group">
+                       <span class="input-group-addon" > Pedimento 6</span>
+                        <input type="text" style="text-transform:uppercase;" name="no_pedimento6" class="form-control" placeholder="Pedimento6">
+                    </div>
+               </div>  
+               <div class="form-group col-md-2">
+                  <input type="text" style="text-transform:uppercase;" name="obs_pedimento6" class="form-control" placeholder="Observaciones">
+               </div>
+               <div class="form-group col-md-1">
+                    <input type="file" name="ruta_pedimento6" class="form-control">
+               </div>                             
+              </div><br>                            
               <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
@@ -264,7 +319,8 @@
                        <span class="input-group-addon" >Costeo Total $</span>
                         <input type="number" step="any" name="costeo_total" class="form-control" placeholder="$">
                     </div>
-               </div>                                                        
+               </div>
+                                                         
               </div> <br>   
 
               <div class="row">

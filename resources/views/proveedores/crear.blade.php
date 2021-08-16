@@ -12,10 +12,22 @@
               {!! Form::open(['route' => 'proveedoresExt.store', 'method' => 'POST']) !!}
 
               <div class="row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-12">
                  {!! Form::label('proveedores', 'Nombre Proveedor') !!} 
                  {!! Form::text('nombre_proveedor',null,['class' => 'form-control','style' => 'text-transform:uppercase;' , 'placeholder' => 'Nombre Proveedor', 'required' ] ) !!}
                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-12">
+                 {!! Form::label('tax_id', 'Tax id') !!} 
+                 {!! Form::text('tax_id',null,['class' => 'form-control','style' => 'text-transform:uppercase;' , 'placeholder' => 'Tax Id', 'required' ] ) !!}
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-12">
+                 {!! Form::label('direccion', 'Direccion Fiscal') !!} 
+                 {!! Form::text('direccion_fiscal',null,['class' => 'form-control','style' => 'text-transform:uppercase;' , 'placeholder' => 'Direccion Fiscal', 'required' ] ) !!}
+                </div>
               </div>
 
               <div class="row">

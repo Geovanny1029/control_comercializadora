@@ -7,6 +7,7 @@
 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addModalr">Crear nuevo Registro</button><br>
 -->
 @include('registros.edit')
+@include('registros.modaladicional')
 <table class="table table-hover table-striped" id="tablaregistroscerrados" cellspacing="0" width="100%">
   <thead>
     <th>Num Operacion</th>

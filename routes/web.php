@@ -30,6 +30,38 @@ Route::post('/regiprove/',[
 ]);
 
 
+Route::post('/fileadicional',[
+			'uses' => 'RegistroController@fileadicional',
+			'as'   => 'registro.fileadicional'
+]);
+
+
+Route::post('/updateprove',[
+			'uses' => 'ProveedorExternoController@updateproveedor',
+			'as'   => 'registro.updateprove'
+]);
+
+//elimina registros ajax de edicion de n registros
+Route::post('/borrarvalorfac',[
+			'uses' => 'RegistroController@eliminarvalfac',
+			'as'   => 'registro.eliminarval'
+]);
+
+Route::post('/borrarvalorfdc',[
+			'uses' => 'RegistroController@eliminarvalorfdc',
+			'as'   => 'registro.eliminarfdc'
+]);
+
+Route::post('/borrarvaloridc',[
+			'uses' => 'RegistroController@eliminarvaloridc',
+			'as'   => 'registro.eliminaridc'
+]);
+
+/// fin de rutas ajas de borrado
+
+
+
+
 Route::get('registroe',[
 			'uses' => 'RegistroController@view',
 			'as'   => 'registro.view'
@@ -102,10 +134,33 @@ Route::post('/proveedorsearch',[
 			'as'   => 'proveedoresExt.search'
 ]);
 
+Route::get('/proveedorbaja',[
+			'uses' => 'ProveedorExternoController@baja',
+			'as'   => 'proveedoresExtbaja.index'
+		]);
+
+Route::get('/getproveedor',[
+			'uses' => 'ProveedorExternoController@getproveedor',
+			'as'   => 'proveedoresExt.getprov'
+		]);
+
+
+Route::get('proveedoresExt/{id}/destroy',[
+			'uses' => 'ProveedorExternoController@destroy',
+			'as'   => 'proveedoresExt.destroy'
+		]);
+
+Route::get('proveedor/{id}/habilitar',[
+			'uses' => 'ProveedorExternoController@habilitar',
+			'as'   => 'proveedoresExt.habilitar'
+		]);
+
 // tiempo real tramitadores prg
 Route::post('/proveedorajax',[  //tiempo real inicio
 	'uses' => 'ProveedorExternoController@timereal',
 	'as'   =>  'proveedores.timereal']);
+
+
 
 
 //rutas clientes
@@ -121,9 +176,19 @@ Route::get('clientese',[
 			'as'   => 'clientes.view'
 ]);
 
+Route::get('/clientesbaja',[
+			'uses' => 'ClienteController@baja',
+			'as'   => 'clientesbaja.index'
+		]);
+
 Route::get('/registroproveedores',[
 			'uses' => 'RegistroController@registroproveedores',
 			'as'   => 'registro.provs'
+]);
+
+Route::get('/registroadicionales',[
+			'uses' => 'RegistroController@registroadicional',
+			'as'   => 'registro.adicional'
 ]);
 
 Route::post('/clientessearch',[
@@ -135,6 +200,17 @@ Route::post('clientesu',[
 			'uses' => 'ClienteController@actualiza',
 			'as'   => 'clientes.actualiza'
 ]);
+
+Route::get('clientes/{id}/destroy',[
+			'uses' => 'ClienteController@destroy',
+			'as'   => 'clientes.destroy'
+		]);
+
+Route::get('clientes/{id}/habilitar',[
+			'uses' => 'ClienteController@habilitar',
+			'as'   => 'clientes.habilitar'
+		]);
+
 
 //rutas ejecutivos
 Route::resource('ejecutivos','EjecutivoController');

@@ -140,11 +140,31 @@
               <li><a class="" href="{{route('user.index')}}">Usuarios</a></li>
               
               <li><a class="" href="{{route('aduanas.index')}}">Aduanas</a></li>             
-              <li><a class="" href="{{route('clientes.index')}}">Clientes</a></li>              
+              <li class="sub-menu">
+                <a href="javascript:;" class="">
+                          <span>Clientes</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+                  <ul class="sub"> 
+                    <li><a class="" href="{{route('clientes.index')}}">Activos</a></li>
+                    <li><a class="" href="{{route('clientesbaja.index')}}">Inactivos</a>
+                    </li>                  
+                  </ul>
+              </li>              
               <li><a class="" href="{{route('ejecutivos.index')}}">Ejecutivos</a></li>
               <li><a class="" href="{{route('estatus.index')}}">Estatus</a></li>
-              <li><a class="" href="{{route('formapago.index')}}">Formas de Pago</a></li>              
-              <li><a class="" href="{{route('proveedoresExt.index')}}">Proveedor Ext</a></li>
+              <li><a class="" href="{{route('formapago.index')}}">Formas de Pago</a></li> 
+              <li class="sub-menu">
+                <a href="javascript:;" class="">
+                          <span>Proveedores Ext</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+                  <ul class="sub"> 
+                    <li><a class="" href="{{route('proveedoresExt.index')}}">Activos</a></li>
+                    <li><a class="" href="{{route('proveedoresExtbaja.index')}}">Inactivos</a>
+                    </li>                  
+                  </ul>
+              </li>             
               <li><a class="" href="{{route('registro.cerrados')}}">Registros Cerrados</a></li>
               <li><a class="" href="{{route('registro.export')}}">Exportar Registros</a></li>
             </ul>

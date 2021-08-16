@@ -14,6 +14,7 @@ Add Modal start -->
               <div class="row">
                 <div class="form-group col-md-12">
                <div id="lista2"></div>
+               <div id="agregarprov"></div>
                </div>
               </div>
 
@@ -26,6 +27,7 @@ Add Modal start -->
               {!! Form::close()!!}
           </div>
           <div class="modal-footer">
+             <button type="button" id="guardaprovedit" class="btn btn-primary">Guardar proveedores</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
           </div>
         </div>

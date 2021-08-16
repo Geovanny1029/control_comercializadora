@@ -11,6 +11,9 @@ class Proveedor_externo extends Model
 	protected $fillable= [
    		'id',
    		'nombre_proveedor',
+   		'tax_id',
+   		'estatus',
+   		'direccion_fiscal',
    		'created_at',
    		'updated_at',   
    	];
