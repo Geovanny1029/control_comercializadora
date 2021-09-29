@@ -256,7 +256,15 @@ Route::post('formapagou',[
 ]);
 
 
+/// condiciones de pago vencidos
+     Route::get('creditovencido',[
+	'uses' => 'RegistroController@condicionespago',
+	'as'   =>  'pruebas.credito']);
 
+/// operaciones temporales fechas
+     Route::get('OperacionesTemporales',[
+	'uses' => 'RegistroController@operaciontemporal',
+	'as'   =>  'pruebas.opetemporal']);
 
 
 //rutas razon_social

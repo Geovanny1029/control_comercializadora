@@ -181,9 +181,9 @@ function fun_editapro(id)
             $(":input").attr('readonly', true);
             $('#id_registro').attr('readonly', true);
             $('#folio').attr('readonly', true);
-            $('input[type=checkbox]').prop('checked', false);
+            $('#something').prop('checked', false);
 
-            $('input[type=checkbox]').click(function() {
+            $('#something').click(function() {
             if($(this).is(':checked')) {
               $(":input").attr('readonly', false);
               $('#id_registro').attr('readonly', true);
@@ -598,6 +598,66 @@ function fun_editapro(id)
             $("#obs").css("color", "gray");
           }
 
+
+
+          if(result.info.condicion_pago == "" || result.info.condicion_pago == null){
+            $('#condicion_pago_edit').val(result.info.condicion_pago);
+            $("#condpag").css("color", "red");
+          }else{
+            $('#condicion_pago_edit').val(result.info.condicion_pago);
+            $("#condpag").css("color", "gray");
+          }
+
+          if(result.info.fecha_condicionp == "" || result.info.fecha_condicionp == null){
+            $("#idfcp_edit").css('display','none');
+            $('#fecha_condicionp_edit').val(result.info.fecha_condicionp);
+          }else{
+            $("#idfcp_edit").css('display','inline-block');
+            $('#fecha_condicionp_edit').val(result.info.fecha_condicionp);
+          }
+
+          if(result.info.facturacionxconcepto == "" || result.info.facturacionxconcepto == null){
+            $('#facturacionxconcepto_edit').val(result.info.facturacionxconcepto);
+            $("#fxc").css("color", "red");
+          }else{
+            $('#facturacionxconcepto_edit').val(result.info.facturacionxconcepto);
+            $("#fxc").css("color", "gray");
+          }
+
+          if(result.info.importe_comision == "" || result.info.importe_comision == null){
+            $('#importe_comision_edit').val(result.info.importe_comision);
+            $("#importecomi").css("color", "red");
+          }else{
+            $('#importe_comision_edit').val(result.info.importe_comision);
+            $("#importecomi").css("color", "gray");
+          }
+
+          if(result.info.importe_devuelto == "" || result.info.importe_devuelto == null){
+            $('#importe_devuelto_edit').val(result.info.importe_devuelto);
+            $("#devuelto").css("color", "red");
+          }else{
+            $('#importe_devuelto_edit').val(result.info.importe_devuelto);
+            $("#devuelto").css("color", "gray");
+          }
+
+          if(result.info.tipo_importacion == "" || result.info.tipo_importacion == null){
+            $('#tipo_importacion_edit').val(result.info.tipo_importacion);
+            $("#tipoimp").css("color", "red");
+          }else{
+            $('#tipo_importacion_edit').val(result.info.tipo_importacion);
+            $("#tipoimp").css("color", "gray");
+          }
+
+          if(result.info.fecha_pedimento_importacion == "" || result.info.fecha_pedimento_importacion == null){
+            $("#timp_edit").css('display','none');
+            $('#fecha_pedimento_importacion_edit').val(result.info.fecha_pedimento_importacion);
+          }else{
+            $("#timp_edit").css('display','inline-block');
+            $('#fecha_pedimento_importacion_edit').val(result.info.fecha_pedimento_importacion);
+          }
+
+
+
           if(result.info.fecha_deposito_cliente == "" || result.info.fecha_deposito_cliente == null){
             $('#edit_fecha_deposito_cliente').val(result.info.fecha_deposito_cliente);
             $("#fecdep").css("color", "red");
@@ -732,6 +792,13 @@ function fun_editapro(id)
             $("#foliocg").css("color", "gray");
           }  
  
+          if(result.info.folio_cfdi == "" || result.info.folio_cfdi == null){
+            $('#folio_cfdi_edit').val(result.info.folio_cfdi);
+            $("#cfdi").css("color", "red");
+          }else{
+            $('#folio_cfdi_edit').val(result.info.folio_cfdi);
+            $("#cfdi").css("color", "gray");
+          } 
 
           if(result.info.importe_facturado_cliente == "" || result.info.importe_facturado_cliente == null){
             $('#edit_importe_facturado_cliente').val(result.info.importe_facturado_cliente);
@@ -767,6 +834,18 @@ function fun_editapro(id)
             $("#feccierre").css("color", "gray");
             $("#infadicional").html("<div class='btn btn-warning' onclick='adicional("+result.info.id+")'>INF ADICIONAL</div>");
           }    
+
+          if(result.info.check_pago == null || result.info.check_pago=="" ){
+            $('#checkpago_edit').prop('checked', false);
+          }else{
+            $('#checkpago_edit').prop('checked', true);
+          }
+
+          if(result.info.check_tipo_imp == null || result.info.check_tipo_imp=="" ){
+            $('#checktipoimpo_edit').prop('checked', false);
+          }else{
+            $('#checktipoimpo_edit').prop('checked', true);
+          }
 
           $('#edit_user').val(result.usuario.nombre);          
         }
@@ -1384,5 +1463,45 @@ $(document).on('keydown', function(event) {
         
       }
     }// fin metodo
+
+$('#condicion_pago').on('change', function() {
+     var condicion =$(this).find(":selected").val();
+     if(condicion == 1){
+        $("#idfcp").css("display",'inline-block');
+        $("#idchecp").css("display",'inline-block');
+     }else{
+        $("#idfcp").css("display",'none');
+        $("#idchecp").css("display",'none');
+     }
+
+});
+
+$('#condicion_pago_edit').on('change', function() {
+     var condicione =$(this).find(":selected").val();
+     if(condicione == 1){
+        $("#idfcp_edit").css("display",'inline-block');
+     }else{
+        $("#idfcp_edit").css("display",'none');
+     }
+
+});
+
+$('#tipo_importacion').on('change', function() {
+     var importacion =$(this).find(":selected").val();
+     if(importacion == 1){
+        $("#timp").css("display",'inline-block');
+     }else{
+        $("#timp").css("display",'none');
+     }
+});
+
+$('#tipo_importacion_edit').on('change', function() {
+     var importacione =$(this).find(":selected").val();
+     if(importacione == 1){
+        $("#timp_edit").css("display",'inline-block');
+     }else{
+        $("#timp_edit").css("display",'none');
+     }
+});
 
 

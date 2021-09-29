@@ -4,6 +4,8 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\RegistroController;
 
 class Kernel extends ConsoleKernel
 {
@@ -24,8 +26,17 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->call(function () {
+        $controller = new \App\Http\Controllers\RegistroController();
+        $controller->condicionespago();
+        })->weeklyOn(1, '8:00');
+
+
+        $schedule->call(function () {
+        $controller = new \App\Http\Controllers\RegistroController();
+        $controller->operaciontemporal();
+        })->weeklyOn(1, '8:05');
+
     }
 
     /**

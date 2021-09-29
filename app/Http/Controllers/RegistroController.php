@@ -21,6 +21,7 @@ use App\Razon_social_proveedor;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use DB;
+use Mail;
 
 
 class RegistroController extends Controller
@@ -276,11 +277,21 @@ class RegistroController extends Controller
       	$registro->fecha_cg = $request->fecha_cg;
       	$registro->folio_cg = strtoupper($request->folio_cg);
       	$registro->ruta_folio_cg = $name7;
+        $registro->folio_cfdi=$request->folio_cfdi;
       	$registro->importe_facturado_cliente = $request->importe_facturado_cliente;
       	$registro->ruta_facturado_cliente = $name8;
       	$registro->costeo_total = $request->costeo_total;
       	$registro->ruta_costeo = $name9;
+        $registro->condicion_pago=$request->condicion_pago;
+        $registro->fecha_condicionp=$request->fecha_condicionp;
+        $registro->facturacionxconcepto=$request->facturacionxconcepto;
+        $registro->importe_comision=$request->importe_comision;
+        $registro->importe_devuelto=$request->importe_devuelto;
+        $registro->tipo_importacion=$request->tipo_importacion;
+        $registro->fecha_pedimento_importacion=$request->fecha_pedimento_importacion;
       	$registro->cierre = $request->cierre;
+        $registro->check_pago=$request->checkpago;
+        $registro->check_tipo_imp=$request->checktipoimpo;
       	$registro->fecha_cierre = $request->fecha_cierre;
         $registro->id_user=Auth::User()->id;
 
@@ -584,12 +595,22 @@ class RegistroController extends Controller
         $data->fecha_cg = $request->edit_fecha_cg;
         $data->folio_cg = strtoupper($request->edit_folio_cg);
         $data->ruta_folio_cg = $name7;
+        $data->folio_cfdi=$request->folio_cfdi_edit;
         $data->importe_facturado_cliente = $request->edit_importe_facturado_cliente;
         $data->ruta_facturado_cliente = $name8;
         $data->costeo_total = $request->edit_costeo_total;
         $data->ruta_costeo = $name9;
+        $data->condicion_pago=$request->condicion_pago_edit;
+        $data->fecha_condicionp=$request->fecha_condicionp_edit;
+        $data->facturacionxconcepto=$request->facturacionxconcepto_edit;
+        $data->importe_comision=$request->importe_comision_edit;
+        $data->importe_devuelto=$request->importe_devuelto_edit;
+        $data->tipo_importacion=$request->tipo_importacion_edit;
+        $data->fecha_pedimento_importacion=$request->fecha_pedimento_importacion_edit;
         $data->cierre = $request->edit_cierre;
         $data->fecha_cierre = $request->edit_fecha_cierre;
+        $data->check_pago=$request->checkpago_edit;
+        $data->check_tipo_imp=$request->checktipoimpo_edit;
         $data->id_user=Auth::User()->id;
         $data->save();        
 
@@ -1070,6 +1091,65 @@ class RegistroController extends Controller
        $id = $request->id;
        $info = Registros_nimpo_depo_cli::destroy($id);
        return response()->json($info);
+    }
+  }
+
+  public function condicionespago(){
+    //creditos vencidos
+    
+    $date1 = Carbon::now('America/Mexico_City');
+    $date1 = $date1->format('Y-m-d');
+    $registros = Registro::whereRaw("`fecha_condicionp` < '".$date1."' and `check_pago` = 0 ")->get();
+    $registros->each(function($registros){
+      $registros->aduana;
+      $registros->cliente;
+      $registros->clienter;
+      $registros->ejecutivo;
+      $registros->estatus;
+      $registros->pago;
+      $registros->user;
+      $registros->proveedores;
+    });  
+    
+    if(sizeof($registros) != null or sizeof($registros) != ""){
+      $user = User::find($registros[0]->id_user)->email;
+      $date = "Creditos Vencidos";
+        Mail::send("correo",['date'=>$date,'registros'=>$registros], function($message) use ($date,$date1,$user){  $message->from("notificaciones@dombart.mx","Notificaciones Dombart");
+                    $message->to($user)->subject("Aviso vencimiento de crédito");
+                    $message->cc('trafico@dombart.mx');
+                    $message->cc('jorgedavidb@aavs.mx');
+                    $message->cc('gerencia@dombart.mx');
+
+        });
+    }
+
+  }
+
+  public function operaciontemporal(){
+    //operaciones temporales
+    $date1 = Carbon::now('America/Mexico_City');
+    $date1 = $date1->format('Y-m-d');
+    $registros = Registro::whereRaw("`fecha_pedimento_importacion` < '".$date1."' and `check_tipo_imp` = 0 ")->get();
+    $registros->each(function($registros){
+      $registros->aduana;
+      $registros->cliente;
+      $registros->clienter;
+      $registros->ejecutivo;
+      $registros->estatus;
+      $registros->pago;
+      $registros->user;
+      $registros->proveedores;
+    });  
+
+    
+    if(sizeof($registros) != null){
+      $user = User::find($registros[0]->id_user)->email;
+      $date = "Operaciones Temporales";
+          Mail::send("correo_impotemporal",['date'=>$date,'registros'=>$registros], function($message) use ($date,$date1,$user){  $message->from("notificaciones@dombart.mx");
+                      $message->to($user)->subject("Aviso vencimiento de Importacion Temporal");
+                      $message->cc('jorgedavidb@aavs.mx');
+                      $message->cc('gerencia@dombart.mx');                                                     
+          });
     }
   }
 }

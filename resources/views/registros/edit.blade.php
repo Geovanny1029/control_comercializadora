@@ -60,7 +60,7 @@
                         {!! Form::select('edit_tipo_operacion',["1"=>"IMPORTACION","2"=>"EXPORTACION"],null,['class' => 'form-control','id'=>'edit_tipo_operacion']) !!}
                     </div>
                </div>                                                           
-              </div>
+              </div><br>
 
               <div class="row">
                <div class="form-group col-md-3">
@@ -83,9 +83,41 @@
                         </div>
                     </div>
                </div> 
-                                            
-              </div>
-
+               <div class="form-group col-md-3">
+                    <div class="input-group">
+                       <span class="input-group-addon" id="fxc" >Facturacion por Concepto</span>
+                        {!! Form::select('facturacionxconcepto_edit',["1"=>"Servicio","2"=>"Mercancia"],null,['class' => 'form-control','id'=>'facturacionxconcepto_edit']) !!}
+                    </div>
+               </div>
+              </div><br>
+              <div class="row">
+               <div class="form-group col-md-3">
+                    <div class="input-group">
+                       <span class="input-group-addon" id="condpag" >Condiciones de Pago</span>
+                        {!! Form::select('condicion_pago_edit',[""=>"Selecciona","1"=>"Credito","2"=>"Anticipo","3"=>"Contado"],null,['class' => 'form-control','id'=>'condicion_pago_edit']) !!}
+                    </div>
+               </div>
+               <div class="form-group col-md-3" style="display: none;" id="idfcp_edit">
+                    <div class="input-group">
+                       <span class="input-group-addon" >Fecha Condicion</span>
+                        <input type="date" name="fecha_condicionp_edit" id="fecha_condicionp_edit" class="form-control" placeholder="Fecha">
+                    </div>
+                    <input type="checkbox" value="1" name="checkpago_edit" id="checkpago_edit" aria-label="Checkbox for following text input"> Desactivar notificaciones
+               </div>
+               <div class="form-group col-md-3">
+                    <div class="input-group">
+                       <span class="input-group-addon" id="tipoimp" >Tipo de Importacion</span>
+                        {!! Form::select('tipo_importacion_edit',[""=>"Selecciona","1"=>"Temporal","2"=>"Definitiva"],null,['class' => 'form-control','id'=>'tipo_importacion_edit']) !!}
+                    </div>
+               </div>
+               <div class="form-group col-md-3" style="display: none;" id="timp_edit">
+                    <div class="input-group">
+                       <span class="input-group-addon" >Fecha</span>
+                        <input type="date" name="fecha_pedimento_importacion_edit" class="form-control" id="fecha_pedimento_importacion_edit" placeholder="Fecha">
+                    </div>
+                    <input type="checkbox" value="1" name="checktipoimpo_edit" id="checktipoimpo_edit" aria-label="Checkbox for following text input"> Desactivar notificaciones
+               </div>
+              </div><br>
               <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
@@ -115,7 +147,7 @@
                         {!! Form::select('edit_se_emite_factura',["1"=>"Si","2"=>"No"],null,['class' => 'form-control','id'=>'edit_se_emite_factura']) !!}
                     </div>
                </div>                                           
-              </div>                             
+              </div> <br>                            
 
               <div class="row">
                <div class="form-group col-md-3">
@@ -142,7 +174,7 @@
                         {!! Form::select('edit_id_estatus',$estatus,null,['class' => 'form-control','id'=>'edit_estatus']) !!}
                     </div>
                </div>                                        
-              </div>
+              </div><br>
 
               <div class="row">
                <div class="form-group col-md-3">
@@ -218,6 +250,12 @@
                     <div class="input-group">
                        <span class="input-group-addon" id="obs" >Observaciones</span>
                         <input type="text" style="text-transform:uppercase;" name="edit_observaciones" id="edit_observaciones" class="form-control" placeholder="observaciones">
+                    </div>
+               </div>
+               <div class="form-group col-md-3">
+                    <div class="input-group">
+                       <span class="input-group-addon" id="importecomi" >Importe Comision $</span>
+                        <input type="number" step="any" name="importe_comision_edit" id="importe_comision_edit" class="form-control" placeholder="$">
                     </div>
                </div>                                           
             </div><br>  
@@ -350,7 +388,13 @@
               <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" id="imporfac">Importe Facturado Cliente $</span>
+                       <span class="input-group-addon" id="cfdi">Folio CFDI $</span>
+                        <input type="text" step="any" name="folio_cfdi_edit" id="folio_cfdi_edit" class="form-control" placeholder="cfdi">
+                    </div>
+               </div> 
+               <div class="form-group col-md-3">
+                    <div class="input-group">
+                       <span class="input-group-addon" id="imporfac">Importe Fac antes de IVA $</span>
                         <input type="number" step="any" name="edit_importe_facturado_cliente" id="edit_importe_facturado_cliente" class="form-control" placeholder="$">
                     </div>
                </div>                
@@ -368,7 +412,10 @@
                        <span class="input-group-addon" id="costotal">Costeo Total $</span>
                         <input type="number" step="any" name="edit_costeo_total" id="edit_costeo_total" class="form-control" placeholder="$">
                     </div>
-               </div>                 
+               </div>                                                        
+              </div>    
+
+              <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" id="rutcos" >Ruta costeo</span>
@@ -377,10 +424,13 @@
                          VER PDF
                         </div>
                     </div>
-               </div>                                        
-              </div>    
-
-              <div class="row">
+               </div> 
+               <div class="form-group col-md-3">
+                    <div class="input-group">
+                       <span class="input-group-addon" id="devuelto" >Importe Devuelto Cliente $</span>
+                        <input type="number" step="any" name="importe_devuelto_edit" id="importe_devuelto_edit" class="form-control" placeholder="$">
+                    </div>
+               </div>
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" id="cierr">Cierre $</span>

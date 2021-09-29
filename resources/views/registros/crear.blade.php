@@ -57,9 +57,43 @@
                        <span class="input-group-addon" >Proveedor Ext</span>
                         {!! Form::select('id_proveedor[]',$proveedores,null,['class' => 'form-control','id'=>'proveedores','multiple'=>'multiple']) !!}
                     </div>
+               </div>
+               <div class="form-group col-md-3">
+                    <div class="input-group">
+                       <span class="input-group-addon" >Facturacion por Concepto</span>
+                        {!! Form::select('facturacionxconcepto',["1"=>"Servicio","2"=>"Mercancia"],null,['class' => 'form-control','id'=>'facturacionxconcepto']) !!}
+                    </div>
                </div>                                           
               </div><br>
+              <div class="row">
+               <div class="form-group col-md-3">
+                    <div class="input-group">
+                       <span class="input-group-addon" >Condiciones Pago</span>
+                        {!! Form::select('condicion_pago',[""=>"Selecciona","1"=>"Credito","2"=>"Anticipo","3"=>"Contado"],null,['class' => 'form-control','id'=>'condicion_pago']) !!}
+                    </div>
+               </div>
+               <div class="form-group col-md-3" style="display: none;" id="idfcp">
+                    <div class="input-group">
+                       <span class="input-group-addon" >Fecha</span>
+                        <input type="date" name=" fecha_condicionp" class="form-control" placeholder="Fecha">
+                    </div>
+                    <input type="checkbox" value="1" name="checkpago" aria-label="Checkbox for following text input"> Desactivar notificaciones
+               </div>
 
+               <div class="form-group col-md-3">
+                    <div class="input-group">
+                       <span class="input-group-addon" >Tipo de Importacion</span>
+                        {!! Form::select('tipo_importacion',[""=>"Selecciona","1"=>"Temporal","2"=>"Definitiva"],null,['class' => 'form-control','id'=>'tipo_importacion']) !!}
+                    </div>
+               </div>
+               <div class="form-group col-md-3" style="display: none;" id="timp">
+                    <div class="input-group">
+                       <span class="input-group-addon" >Fecha </span>
+                        <input type="date" name="fecha_pedimento_importacion" class="form-control" placeholder="Fecha">
+                    </div>
+                     <input type="checkbox" value="1" name="checktipoimpo" aria-label="Checkbox for following text input"> Desactivar notificaciones
+               </div>
+              </div><br>
               <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
@@ -194,7 +228,12 @@
                         <input type="text" style="text-transform:uppercase;" name="observaciones" class="form-control" placeholder="observaciones">
                     </div>
                </div>                 
-                                          
+               <div class="form-group col-md-3">
+                    <div class="input-group">
+                       <span class="input-group-addon" >Importe Comision $</span>
+                        <input type="number" step="any" name="importe_comision" class="form-control" placeholder="$">
+                    </div>
+               </div>                    
               </div> <br> 
               <div class="row">
                <div class="form-group col-md-3">
@@ -304,7 +343,13 @@
               <div class="row">
                <div class="form-group col-md-3">
                     <div class="input-group">
-                       <span class="input-group-addon" >Importe Facturado Cliente $</span>
+                       <span class="input-group-addon" >Folio CFDI</span>
+                        <input type="text" step="any" name="folio_cfdi" class="form-control" placeholder="cfdi">
+                    </div>
+               </div> 
+               <div class="form-group col-md-3">
+                    <div class="input-group">
+                       <span class="input-group-addon" >Importe Fac antes de IVA $</span>
                         <input type="number" step="any" name="importe_facturado_cliente" class="form-control" placeholder="$">
                     </div>
                </div>                 
@@ -319,11 +364,16 @@
                        <span class="input-group-addon" >Costeo Total $</span>
                         <input type="number" step="any" name="costeo_total" class="form-control" placeholder="$">
                     </div>
-               </div>
-                                                         
+               </div>                                                         
               </div> <br>   
 
               <div class="row">
+               <div class="form-group col-md-3">
+                    <div class="input-group">
+                       <span class="input-group-addon" >Importe Devuelto Cliente $</span>
+                        <input type="number" step="any" name="importe_devuelto" class="form-control" placeholder="$">
+                    </div>
+               </div>
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Ruta costeo</span>
