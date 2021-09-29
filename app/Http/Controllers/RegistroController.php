@@ -1099,7 +1099,7 @@ class RegistroController extends Controller
     
     $date1 = Carbon::now('America/Mexico_City');
     $date1 = $date1->format('Y-m-d');
-    $registros = Registro::whereRaw("`fecha_condicionp` < '".$date1."' and `check_pago` = 0 ")->get();
+    $registros = Registro::whereRaw("`fecha_condicionp` < '".$date1."' and (`check_pago` = 0 or `check_pago` is null) ")->get();
     $registros->each(function($registros){
       $registros->aduana;
       $registros->cliente;
@@ -1129,7 +1129,7 @@ class RegistroController extends Controller
     //operaciones temporales
     $date1 = Carbon::now('America/Mexico_City');
     $date1 = $date1->format('Y-m-d');
-    $registros = Registro::whereRaw("`fecha_pedimento_importacion` < '".$date1."' and `check_tipo_imp` = 0 ")->get();
+    $registros = Registro::whereRaw("`fecha_pedimento_importacion` < '".$date1."' and (`check_tipo_imp` = 0 or `check_tipo_imp` is null )")->get();
     $registros->each(function($registros){
       $registros->aduana;
       $registros->cliente;
