@@ -57,10 +57,23 @@ class ClienteController extends Controller
 
     public function store(ClienteRequest $request)
     {
+
+        /// obtener nombre y archivos
+        if($request->hasFile('ruta_cliente')){
+            $file = $request->file('ruta_cliente');
+            $original = $file->getClientOriginalName();
+            $name = "Cliente"."_".$original;          
+            $file->move(public_path().'/ruta_clientes/',$name);
+        }else{
+            $name = $request->ruta_cliente;
+        }
+
+
         $user = new Cliente($request->all());
         $user->nombre_cliente=strtoupper($request->nombre_cliente);
         $user->rfc=strtoupper($request->rfc);
         $user->direccion_fiscal=strtoupper($request->direccion_fiscal);
+        $user->ruta_cliente=$name;
         $user->save();
 
         $notification = array(
@@ -75,9 +88,25 @@ class ClienteController extends Controller
 
         $id = $request->edit_idcliente;
         $data= Cliente::find($id);
+
+//// request archivos
+        if($data->ruta_cliente == null || $data->ruta_cliente == "" ){
+          if($request->hasFile('edit_ruta_cliente')){
+              $file = $request->file('edit_ruta_cliente');
+              $original = $file->getClientOriginalName();
+              $name = "Cliente"."_".$original;          
+              $file->move(public_path().'/ruta_clientes/',$name);
+          }else{
+            $name = $request->edit_ruta_cliente;
+          }
+        }else{
+            $name = $data->ruta_cliente;
+        }
+
         $data->nombre_cliente= strtoupper($request->edit_nombre_cliente);
         $data->rfc= strtoupper($request->edit_rfc);
         $data->direccion_fiscal= strtoupper($request->edit_direccion_fiscal);
+        $data->ruta_cliente= $name;
         $data->save();
 
         $notification = array(

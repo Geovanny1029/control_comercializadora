@@ -12,6 +12,7 @@ class Registros_nvalor_fac extends Model
    		'id',
    		'id_registro',
    		'valor_factura_ext',
+   		'moneda',
    		'created_at',
    		'updated_at',   
    	];

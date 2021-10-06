@@ -34,6 +34,13 @@
       <td> {{$cliente->rfc}} </td>
       <td> {{$cliente->direccion_fiscal}} </td>
       <td style="width: 20%;">
+        @if($cliente->ruta_cliente == null or $cliente->ruta_cliente == "" )
+          SIN ARCHIVO
+        @else
+          <div id="showrut" value="0" class="btn btn-primary" data-lity href="/ruta_clientes/{{$cliente->ruta_cliente}}" >
+                         VER PDF
+          </div>
+        @endif
 
       <button class="btn btn-warning"  data-toggle="modal" data-target="#editModalcli" onclick="fun_editcli('{{$cliente->id}}')" id="editacli" value="{{route('clientes.view')}}">Editar </button>
 

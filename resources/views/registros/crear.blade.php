@@ -25,18 +25,24 @@
                         {!! Form::select('id_razon_datos_fac',$clientes,null,['class' => 'form-control','id'=>'razon']) !!}
                     </div>
                </div> 
-               <div class="form-group col-md-3">
+<!--                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >+</span>
                         <input type="file" name="ruta_razonsocial" class="form-control" placeholder="Username">
                     </div>
-               </div> 
+               </div> --> 
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Tipo Operacion</span>
                         {!! Form::select('tipo_operacion',["1"=>"IMPORTACION","2"=>"EXPORTACION"],null,['class' => 'form-control','id'=>'Tipo operacion']) !!}
                     </div>
-               </div>                                                           
+               </div>
+               <div class="form-group col-md-3">
+                    <div class="input-group">
+                       <span class="input-group-addon" >Se Emite Factura?</span>
+                        {!! Form::select('se_emite_factura',["1"=>"Si","2"=>"No"],null,['class' => 'form-control','id'=>'se_emite_factura']) !!}
+                    </div>
+               </div>        
               </div><br>
 
               <div class="row">
@@ -55,7 +61,7 @@
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" >Proveedor Ext</span>
-                        {!! Form::select('id_proveedor[]',$proveedores,null,['class' => 'form-control','id'=>'proveedores','multiple'=>'multiple']) !!}
+                        {!! Form::select('id_proveedor[]',$proveedores,null,['class' => 'form-control','id'=>'proveedores','multiple'=>'multiple','required'=>'required']) !!}
                     </div>
                </div>
                <div class="form-group col-md-3">
@@ -112,19 +118,19 @@
                     <div id="addvalorfac">
                       
                     </div>
+               </div>
+               <div class="form-group col-md-2">
+                  <input type="text" style="text-transform:uppercase;" name="moneda_valorfac[]" class="form-control" placeholder="Moneda Valor Fac" required="required">
+                  <div id="addmonedavalorfac">
+                      
+                  </div>
                </div> 
-               <div class="form-group col-md-3">
+               <div class="form-group col-md-4">
                     <div class="input-group">
                        <span class="input-group-addon" >Ruta Fact</span>
                         <input type="file" name="ruta_factura_ext" class="form-control" placeholder="Ruta">
                     </div>
-               </div>                  
-               <div class="form-group col-md-3">
-                    <div class="input-group">
-                       <span class="input-group-addon" >Se Emite Factura?</span>
-                        {!! Form::select('se_emite_factura',["1"=>"Si","2"=>"No"],null,['class' => 'form-control','id'=>'se_emite_factura']) !!}
-                    </div>
-               </div>                                            
+               </div>                                                              
               </div> <br>                            
 
               <div class="row">

@@ -315,6 +315,7 @@ class RegistroController extends Controller
             $valorfac = new Registros_nvalor_fac();
             $valorfac->id_registro= $registro->id;
             $valorfac->valor_factura_ext= $valorf[$j];
+            $valorfac->moneda=strtoupper($request->moneda_valorfac[$j]);
             $valorfac->save();
           }          
         }
@@ -627,6 +628,7 @@ class RegistroController extends Controller
           for ($i=0; $i < $numReqval; $i++) { 
             $numer = Registros_nvalor_fac::find($dataRegval[$i]->id);
             $numer->valor_factura_ext=$request->edit_valor_factura_ext[$i];
+            $numer->moneda=strtoupper($request->edit_moneda_valorfac[$i]);
             $numer->save();
           }
         }else{
@@ -636,6 +638,7 @@ class RegistroController extends Controller
             $insert = new Registros_nvalor_fac();
             $insert->id_registro = $id;
             $insert->valor_factura_ext = $request->edit_valor_factura_ext[$j];
+            $insert->moneda = strtoupper($request->edit_moneda_valorfac[$j]);
             $insert->save();
           }
         }//fin actualiza valor fac ext

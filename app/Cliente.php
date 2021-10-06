@@ -14,6 +14,7 @@ class Cliente extends Model
    		'estatus',
    		'direccion_fiscal',
    		'rfc',
+      'ruta_cliente',
    		'created_at',
    		'updated_at',   
    	];

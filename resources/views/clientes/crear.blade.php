@@ -9,7 +9,7 @@
             <h4 class="modal-title">Agregar Nuevo Cliente</h4>
           </div>
           <div class="modal-body">
-              {!! Form::open(['route' => 'clientes.store', 'method' => 'POST']) !!}
+              {!! Form::open(['route' => 'clientes.store', 'method' => 'POST','files'=>true]) !!}
 
               <div class="row">
                 <div class="form-group col-md-12">
@@ -28,6 +28,14 @@
                  {!! Form::label('Direccion Fiscal', 'Direccion Fiscal') !!} 
                  {!! Form::text('direccion_fiscal',null,['class' => 'form-control','style' => 'text-transform:uppercase;' , 'placeholder' => 'Direccion Fiscal', 'required' ] ) !!}
                 </div>                             
+              </div>
+              <div class="row">
+                <div class="form-group col-md-12">
+                    <div class="input-group">
+                       <span class="input-group-addon" >+</span>
+                        <input type="file" name="ruta_cliente" class="form-control" placeholder="Username">
+                    </div>
+               </div>
               </div>
 
               <div class="row">

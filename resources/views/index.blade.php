@@ -55,7 +55,7 @@
       </div>
 
       <!--logo start-->
-      <a href="/" class="logo"><img src="/img/logo.jpg" alt=""/>Control <span class="lite">Dombart</span></a>
+      <a href="/registro" class="logo"><img src="/img/logo.jpg" alt=""/>Control <span class="lite">Dombart</span></a>
       <!--logo end-->
 
 {{--       <div class="nav search-row" id="top_menu">

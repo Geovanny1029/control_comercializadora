@@ -45,7 +45,7 @@
                         {!! Form::select('edit_id_razon_datos_fac',$clientes,null,['class' => 'form-control','id'=>'edit_id_razon_datos_fac']) !!}
                     </div>
                </div> 
-               <div class="form-group col-md-3">
+<!--                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" id="razz" >Ruta Razon</span>
                         <input type="file" name="edit_ruta_razonsocial" class="form-control btndisable" id="edit_ruta_razonsocial" placeholder="ruta razonsocial" style="display: inline-block;">
@@ -53,11 +53,17 @@
                          VER PDF
                         </div>
                     </div>
-               </div> 
+               </div> --> 
                <div class="form-group col-md-3">
                     <div class="input-group">
                        <span class="input-group-addon" id="forma">Tipo Operacion</span>
                         {!! Form::select('edit_tipo_operacion',["1"=>"IMPORTACION","2"=>"EXPORTACION"],null,['class' => 'form-control','id'=>'edit_tipo_operacion']) !!}
+                    </div>
+               </div>
+               <div class="form-group col-md-3">
+                    <div class="input-group">
+                       <span class="input-group-addon" >Se Emite Factura?</span>
+                        {!! Form::select('edit_se_emite_factura',["1"=>"Si","2"=>"No"],null,['class' => 'form-control','id'=>'edit_se_emite_factura']) !!}
                     </div>
                </div>                                                           
               </div><br>
@@ -131,8 +137,15 @@
                       <div id="addvalorfacedit">
                         
                       </div>
+               </div>
+               <div class="form-group col-md-2">
+                       <div id="edit_moneda_valorfac">
+                      </div>
+                      <div id="addmonedavalorfacedit">
+                        
+                      </div>
                </div> 
-               <div class="form-group col-md-3">
+               <div class="form-group col-md-4">
                     <div class="input-group">
                        <span class="input-group-addon" id="rutafact">Ruta Fact</span>
                         <input type="file" name="edit_ruta_factura_ext" id="edit_ruta_factura_ext" class="form-control btndisable" placeholder="Ruta" style="display: inline-block;">
@@ -140,13 +153,7 @@
                          VER PDF
                         </div>
                     </div>
-               </div>                  
-               <div class="form-group col-md-3">
-                    <div class="input-group">
-                       <span class="input-group-addon" >Se Emite Factura?</span>
-                        {!! Form::select('edit_se_emite_factura',["1"=>"Si","2"=>"No"],null,['class' => 'form-control','id'=>'edit_se_emite_factura']) !!}
-                    </div>
-               </div>                                           
+               </div>                                                             
               </div> <br>                            
 
               <div class="row">

@@ -78,6 +78,11 @@ function fun_editcli(id)
           $("#edit_idcliente").val(result.id);
           $("#edit_rfc").val(result.rfc);
           $("#edit_direccion_fiscal").val(result.direccion_fiscal);
+          if(result.ruta_cliente == null || result.ruta_cliente == ""){
+            $("#edit_ruta_cliente").css('display','inline-block');
+          }else{
+            $("#edit_ruta_cliente").css('display','none');
+          }
         }
       });
     }
@@ -431,7 +436,10 @@ function fun_editapro(id)
             ' <span class="input-group-addon" >Valor Fact Ext $</span>'+
             '<input type="number" step="any" name="edit_valor_factura_ext[]" class="form-control valorfacajax" placeholder="$">'+
             '</div>';
+            var valfamon = '<div id="brseditmon'+1+'"><br></div>'+ 
+             '<input type="text" style="text-transform:uppercase;" name="edit_moneda_valorfac[]" class="form-control valorfacajax" placeholder="Moneda Valor Fac">';
             var valfa2 = "";
+            var valfa2mon = "";
           }else if(tam == 1){
             var valfa= '<div id="brsedit'+1+'"><br></div>'+
             '<div class="input-group" id="divedit'+result.valfacext[0].id+'">'+
@@ -439,7 +447,12 @@ function fun_editapro(id)
             ' <span class="input-group-addon" >Valor Fact Ext $</span>'+
             '<input type="number" step="any" name="edit_valor_factura_ext[]" value="'+result.valfacext[0].valor_factura_ext+'" class="form-control valorfacajax" placeholder="$">'+
             '</div>';
+            var valfamon = '<div id="brseditmon'+1+'"><br></div>'+ 
+            '<div id="diveditmon'+result.valfacext[0].id+'">'+
+            '<input type="text" style="text-transform:uppercase;" name="edit_moneda_valorfac[]" value="'+result.valfacext[0].moneda+'" class="form-control valorfacajax" placeholder="Moneda Valor Fac">'+
+            '</div>';
             var valfa2 = "";
+            var valfa2mon = "";
           }else{
             var valfa= '<div id="brsedit'+1+'"><br></div>'+
             '<div class="input-group" id="divedit'+result.valfacext[0].id+'">'+
@@ -447,7 +460,13 @@ function fun_editapro(id)
             '<span class="input-group-addon" >Valor Fact Ext $</span>'+
             '<input type="number" step="any" name="edit_valor_factura_ext[]" value="'+result.valfacext[0].valor_factura_ext+'" class="form-control valorfacajax" placeholder="$">'+
             '</div>';
+            var valfamon = '<div id="brseditmon'+1+'"><br></div>'+ 
+            '<div id="diveditmon'+result.valfacext[0].id+'">'+
+            '<input type="text"  style="text-transform:uppercase;" name="edit_moneda_valorfac[]" value="'+result.valfacext[0].moneda+'" class="form-control valorfacajax" placeholder="Moneda Valor Fac">'+
+            '</div>';
             var valfa2 = "";
+            var valfa2mon = "";
+
             for (var i = 1; i<result.valfacext.length; i++) {
               valfa2+='<div id="brsedit'+(i+1)+'"><br></div>'+
               '<div class="input-group" id="divedit'+result.valfacext[i].id+'">'+
@@ -455,11 +474,17 @@ function fun_editapro(id)
               '<span class="input-group-addon" >Valor Fact Ext $</span>'+
               '<input type="number" step="any" name="edit_valor_factura_ext[]" value="'+result.valfacext[i].valor_factura_ext+'" class="form-control valorfacajax" placeholder="$">'+
               '</div>';
+               valfa2mon+= '<div id="brseditmon'+(i+1)+'"><br></div>'+
+              '<div id="diveditmon'+result.valfacext[i].id+'">'+
+              '<input type="text" style="text-transform:uppercase;" name="edit_moneda_valorfac[]" value="'+result.valfacext[i].moneda+'" class="form-control valorfacajax" placeholder="Moneda Valor Fac">'+
+              '</div>'
             }
 
           }
           $("#edit_valor_fa").html(valfa);
           $("#addvalorfacedit").html(valfa2);
+          $("#edit_moneda_valorfac").html(valfamon);
+          $("#addmonedavalorfacedit").html(valfa2mon);
           $(".valorfacajax").attr('readonly',true);
           $(".btndisable").attr('disabled',true);
           //fin n reg valor factura
@@ -1235,13 +1260,16 @@ $(document).on('keydown', function(event) {
       i++;
       $("#totaltipoc").attr("value",i);
       $('#addvalorfac').append('<div id="brs'+i+'"><br></div><div class="input-group" id="div'+i+'"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">-</button><span class="input-group-addon" >Valor Fact Ext $</span><input type="number" step="any" name="valor_factura_ext[]" class="form-control" placeholder="$"></div>');  
+      $('#addmonedavalorfac').append('<div id="brsm'+i+'"><br></div><div id="divm'+i+'"><input type="text" style="text-transform:uppercase;"  name="moneda_valorfac[]" class="form-control" placeholder="Moneda Valor Fac"></div>');  
     });
 
     $(document).on('click', '.btn_remove', function(){  
     var id = $(this).attr("id");
       var button_id = $(this).attr("id");
       $("#div"+button_id).remove(); 
-      $("#brs"+button_id).remove(); 
+      $("#brs"+button_id).remove();
+      $("#brsm"+button_id).remove();
+      $("#divm"+button_id).remove(); 
     });
 
 
@@ -1282,6 +1310,7 @@ $(document).on('keydown', function(event) {
     function addedit(){
       iedit++;
       $('#addvalorfacedit').append('<div id="brsedit'+iedit+'"><br></div><div class="input-group" id="divedit'+iedit+'"><button type="button" name="remove" id="'+iedit+'" class="btn btn-danger btn_remove">-</button><span class="input-group-addon" >Valor Fact Ext $</span><input type="number" step="any" name="edit_valor_factura_ext[]" class="form-control" placeholder="$"></div>');  
+      $('#addmonedavalorfacedit').append('<div id="brseditmon'+iedit+'"><br></div><div  id="diveditmon'+iedit+'"><input type="text" style="text-transform:uppercase;"  name="edit_moneda_valorfac[]" class="form-control" placeholder="Moneda Valor Fac"></div>');  
     }
 
     //funcion de agregago fecha deposito en edicion 
@@ -1417,8 +1446,10 @@ $(document).on('keydown', function(event) {
                   data: datastring, 
                   success: function(result){
                     alert("Registro Eliminado correctamente");
-                    $("#divedit"+$id).remove(); 
+                    $("#divedit"+$id).remove();
+                    $("#diveditmon"+$id).remove(); 
                     $("#brsedit"+$id).remove();
+                    $("#brseditmon"+$id).remove();
                   }
                 });
       } else {
