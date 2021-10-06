@@ -183,7 +183,17 @@
                 <li><a class="" href="{{route('ejecutivos.index')}}">Ejecutivos</a></li>
                 <li><a class="" href="{{route('estatus.index')}}">Estatus</a></li>
                 <li><a class="" href="{{route('formapago.index')}}">Formas de Pago</a></li>            
-                <li><a class="" href="{{route('proveedoresExt.index')}}">Proveedor Ext</a></li>
+              <li class="sub-menu">
+                <a href="javascript:;" class="">
+                          <span>Proveedores Ext</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+                  <ul class="sub"> 
+                    <li><a class="" href="{{route('proveedoresExt.index')}}">Activos</a></li>
+                    <li><a class="" href="{{route('proveedoresExtbaja.index')}}">Inactivos</a>
+                    </li>                  
+                  </ul>
+              </li>
               <li class="sub-menu">
                 <a href="javascript:;" class="">
                           <span>Clientes</span>
