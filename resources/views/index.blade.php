@@ -179,7 +179,7 @@
               <ul class="sub">
                 <li><a class="" href="{{route('user.index')}}">Usuarios</a></li>              
                 <li><a class="" href="{{route('aduanas.index')}}">Aduanas</a></li>             
-                <li><a class="" href="{{route('clientes.index')}}">Clientes</a></li>              
+              
                 <li><a class="" href="{{route('ejecutivos.index')}}">Ejecutivos</a></li>
                 <li><a class="" href="{{route('estatus.index')}}">Estatus</a></li>
                 <li><a class="" href="{{route('formapago.index')}}">Formas de Pago</a></li>            
