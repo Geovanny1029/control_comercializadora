@@ -33,7 +33,7 @@
       <td> {{$cliente->nombre_cliente}} </td>
       <td> {{$cliente->rfc}} </td>
       <td> {{$cliente->direccion_fiscal}} </td>
-      <td style="width: 20%;">
+      <td style="width: 30%;">
         @if($cliente->ruta_cliente == null or $cliente->ruta_cliente == "" )
           SIN ARCHIVO
         @else
