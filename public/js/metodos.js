@@ -541,7 +541,7 @@ function fun_editapro(id)
             '<div class="input-group" id="">'+
             '<button type="button" name="add" id="" onclick="addidcedit()" class="btn btn-primary btndisable">+</button>'+
             ' <span class="input-group-addon" >Importe Deposito Cliente</span>'+
-            '<input type="number"  name="edit_importe_deposito_cliente[]" class="form-control importedepcliajax" placeholder="$">'+
+            '<input type="number" step="any"  name="edit_importe_deposito_cliente[]" class="form-control importedepcliajax" placeholder="$">'+
             '</div>';
             var impdepcli2 = "";
           }else if(tamidc == 1){
@@ -549,7 +549,7 @@ function fun_editapro(id)
             '<div class="input-group" id="diveditidc'+result.impdepcli[0].id+'">'+
             '<button type="button" name="add" id="idc'+result.impdepcli[0].id+'" onclick="addidcedit()" class="btn btn-primary btndisable">+</button>'+
             ' <span class="input-group-addon" >Importe Deposito Cliente</span>'+
-            '<input type="number"  name="edit_importe_deposito_cliente[]" value="'+result.impdepcli[0].importe_deposito_cliente+'" class="form-control importedepcliajax" placeholder="$">'+
+            '<input type="number" step="any"  name="edit_importe_deposito_cliente[]" value="'+result.impdepcli[0].importe_deposito_cliente+'" class="form-control importedepcliajax" placeholder="$">'+
             '</div>';
             var impdepcli2 = "";
           }else{
@@ -557,7 +557,7 @@ function fun_editapro(id)
             '<div class="input-group" id="diveditidc'+result.impdepcli[0].id+'">'+
             '<button type="button" name="vfe" id="idc'+result.impdepcli[0].id+'" onclick="addidcedit()" class="btn btn-primary btndisable">+</button>'+
             '<span class="input-group-addon" >Importe Deposito Cliente</span>'+
-            '<input type="number"  name="edit_importe_deposito_cliente[]" value="'+result.impdepcli[0].importe_deposito_cliente+'" class="form-control importedepcliajax" placeholder="$">'+
+            '<input type="number" step="any"  name="edit_importe_deposito_cliente[]" value="'+result.impdepcli[0].importe_deposito_cliente+'" class="form-control importedepcliajax" placeholder="$">'+
             '</div>';
             var impdepcli2 = "";
             for (var impdc = 1; impdc<result.impdepcli.length; impdc++) {
@@ -565,7 +565,7 @@ function fun_editapro(id)
               '<div class="input-group" id="diveditidc'+result.impdepcli[impdc].id+'">'+
               '<button type="button" name="remove" id="idc'+result.impdepcli[impdc].id+'" onclick="eliminabtnidc('+result.impdepcli[impdc].id+')" class="btn btn-danger removebtneditidc btndisable">-</button>'+
               '<span class="input-group-addon" >Importe Deposito Cliente</span>'+
-              '<input type="number"  name="edit_importe_deposito_cliente[]" value="'+result.impdepcli[impdc].importe_deposito_cliente+'" class="form-control importedepcliajax" placeholder="$">'+
+              '<input type="number" step="any"  name="edit_importe_deposito_cliente[]" value="'+result.impdepcli[impdc].importe_deposito_cliente+'" class="form-control importedepcliajax" placeholder="$">'+
               '</div>';
             }
 
