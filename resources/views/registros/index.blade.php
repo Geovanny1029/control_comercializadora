@@ -84,7 +84,11 @@
       </td>
       <td>{{$registro->aduana->nombre_aduana}}</td>
       <td>{{$registro->ejecutivo->nombre_ejecutivo}}</td>
-      <td>{{$registro->estatus->nombre_estatus}}</td>
+      @if($registro->id_estatus == 3)
+         <td style="background-color: red; color: yellow">{{$registro->estatus->nombre_estatus}}</td>
+      @else
+        <td>{{$registro->estatus->nombre_estatus}}</td>
+      @endif
       <td>{{$registro->descripcion_operacion}}</td>
       <td>{{$registro->eta}}</td>
       <td>{{$registro->fecha_despacho}}</td>
