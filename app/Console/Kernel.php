@@ -29,13 +29,13 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () {
         $controller = new \App\Http\Controllers\RegistroController();
         $controller->condicionespago();
-        })->weeklyOn(1, '8:00');
+        })->cron('52 11 * * *');
 
 
         $schedule->call(function () {
         $controller = new \App\Http\Controllers\RegistroController();
         $controller->operaciontemporal();
-        })->weeklyOn(1, '8:05');
+        })->cron('52 11 * * *');
 
     }
 
