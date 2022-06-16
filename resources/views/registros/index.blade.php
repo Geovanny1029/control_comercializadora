@@ -17,7 +17,7 @@
     <th>Contacto facturas</th>
     <th>Forma de Pago</th>
     <th>Pagamos Mercancia?</th>
-    <th>Proveedor</th>
+    <th>No factura</th>
     <th>Valor de Factura Ext (USD)</th>
     <th>Se emite Factura?</th>
     <th>Se Factura valor Mercancia?</th>
@@ -66,7 +66,7 @@
           NO
         @endif
       </td>
-      <td>Cambio</td>
+      <td>{{$registro->no_factura}}</td>
       <td>{{$registro->valor_factura_ext}}</td>
       <td>
         @if($registro->se_emite_factura == 1)

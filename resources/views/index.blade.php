@@ -34,7 +34,7 @@
   <link href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet">
 
   <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/buttons/1.5.0/css/buttons.dataTables.min.css">
-
+  <link rel="stylesheet" href="{{asset('css/multiple-select.css')}}">
  
   <!-- =======================================================
     Theme Name: NiceAdmin
@@ -132,7 +132,7 @@
           @if(Auth::User()->nivel == 1)
           <li class="sub-menu">
             <a href="javascript:;" class="">
-                          <i class="icon_document_alt"></i>
+                          <i class="icon_menu"></i>
                           <span>Altas</span>
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
@@ -167,6 +167,17 @@
               </li>             
               <li><a class="" href="{{route('registro.cerrados')}}">Registros Cerrados</a></li>
               <li><a class="" href="{{route('registro.export')}}">Exportar Registros</a></li>
+            </ul>
+          </li>
+          <li class="sub-menu">
+            <a href="javascript:;" class="">
+                          <i class="icon_document_alt"></i>
+                          <span>Reportes</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+            <ul class="sub">
+              <li><a class="" href="{{route('reporte.contabilidad')}}">Reporte Contabilidad</a></li>
+              <li><a class="" href="{{route('reporte.operaciones')}}">Reporte Operaciones</a></li>
             </ul>
           </li>
           @elseif(Auth::User()->id == 5)
@@ -269,7 +280,7 @@
   <script src="{{ URL::asset('js/jquery.scrollTo.min.js')}}"></script>
   <script src="{{ URL::asset('js/jquery.nicescroll.js')}}" type="text/javascript"></script>
   <script src="{{ URL::asset('js/lity.js')}}"></script>
- 
+  <script src="{{URL::asset('js/multiple-select.js')}}"></script>
     <!--custome script for all page-->
     <script src="js/scripts.js"></script>
     <!-- custom script for this page-->
@@ -435,11 +446,20 @@
   
         });
 
+        $("#estatus_c").multipleSelect();
+        $("#ejecutivo_d").multipleSelect();
+        $("#select_clientes").multipleSelect();
+        $("#select_aduanas").multipleSelect();
+        
 </script>
 
 <script>
   $(document).ready( function () {
     $('#tablaregistroscerrados').DataTable();
+    $('#tablausuarios').DataTable();
+    $('#tabla_clientes_activos').DataTable();
+    $('#tablaejecutivos').DataTable();
+    $("#tabla_clientes_baja").DataTable();
    var table =  $('#tablaregistros').DataTable({
   "language": {
   "sProcessing":     "Procesando...",
@@ -471,7 +491,7 @@
             {
               text: 'Crear Nuevo Registro',
               action: function () {
-              $("#addModalr").modal("show");
+                registron();
                $(":input").attr('readonly', false);
               },
             },

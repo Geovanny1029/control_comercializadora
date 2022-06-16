@@ -138,14 +138,28 @@
                         
                       </div>
                </div>
-               <div class="form-group col-md-2">
+               <div class="form-group col-md-1">
                        <div id="edit_moneda_valorfac">
                       </div>
                       <div id="addmonedavalorfacedit">
                         
                       </div>
-               </div> 
-               <div class="form-group col-md-4">
+               </div>
+               <div class="form-group col-md-2">
+                       <div id="edit_no_factura_div">
+                      </div>
+                      <div id="addnofacturaedit">
+                        
+                      </div>
+               </div>
+               <div class="form-group col-md-2">
+                       <div id="edit_rutafac_div">
+                      </div>
+                      <div id="addrutafacturaextedit">
+                        
+                      </div>
+               </div>                
+<!--                <div class="form-group col-md-4">
                     <div class="input-group">
                        <span class="input-group-addon" id="rutafact">Ruta Fact</span>
                         <input type="file" name="edit_ruta_factura_ext" id="edit_ruta_factura_ext" class="form-control btndisable" placeholder="Ruta" style="display: inline-block;">
@@ -153,7 +167,7 @@
                          VER PDF
                         </div>
                     </div>
-               </div>                                                             
+               </div> -->                                                             
               </div> <br>                            
 
               <div class="row">
@@ -459,7 +473,72 @@
                   <div id="infadicional">
                   </div>
               </div>                               
-              </div>                                                           
+              </div>                                                        
+              <div id="edit_form_contabilidad" style="display: none">
+                <br>
+              <center>Datos Contabilidad</center><hr> 
+                <div class="row" >
+                   <div class="form-group col-md-3">
+                        <div class="input-group">
+                           <span class="input-group-addon" id="span_fecha_factura_fiscal" >Fecha factura Fiscal</span>
+                            <input type="text" style="text-transform:uppercase;" name="edit_fecha_factura_fiscal" id="edit_fecha_factura_fiscal" class="form-control" placeholder="fecha factura">
+                        </div>
+                   </div> 
+                   <div class="form-group col-md-3">
+                        <div class="input-group">
+                           <span class="input-group-addon" id="span_estatus_contabilidad" >Estatus Contabilidad</span>
+                            {!! Form::select('edit_estatus_contabilidad',["1"=>"Pagada","2"=>"Pagada a satisfaccion del acreedor","3"=>"Saldo pendiente"],null,['class' => 'form-control','id'=>'edit_estatus_contabilidad']) !!}
+                        </div>
+                   </div>
+                   <div class="form-group col-md-3">
+                        <div class="input-group">
+                           <span class="input-group-addon" id="span_saldo_pendiente_cobro" >Saldo Pendiente Cobro $</span>
+                            <input type="number" step="any" name="edit_saldo_pendiente_cobro" id="edit_saldo_pendiente_cobro" class="form-control" placeholder="$">
+                        </div>
+                   </div> 
+                   <div class="form-group col-md-3">
+                        <div class="input-group">
+                           <span class="input-group-addon" id="span_moneda_facturacion" >Moneda Facturacion</span>
+                            <input type="text" style="text-transform:uppercase;" name="edit_moneda_facturacion" id="edit_moneda_facturacion" class="form-control" placeholder="$">
+                        </div>
+                   </div> 
+                </div>
+                <div class="row">
+                   <div class="form-group col-md-3">
+                        <div class="input-group">
+                           <span class="input-group-addon" id="span_tc_contable" >TC Contable</span>
+                            <input type="number" step="any" name="edit_tc_contable" id="edit_tc_contable" class="form-control" placeholder="$">
+                        </div>
+                   </div>
+                   <div class="form-group col-md-3">
+                        <div class="input-group">
+                           <span class="input-group-addon" id="span_ingreso_real_contable" >Ingreso real/Contable</span>
+                            <input type="number" step="any" name="edit_ingreso_real_contable" id="edit_ingreso_real_contable" class="form-control" placeholder="$">
+                        </div>
+                   </div>
+                   <div class="form-group col-md-3">
+                        <div class="input-group">
+                           <span class="input-group-addon" id="span_costo_real_contable" >Costo real/ Contable </span>
+                            <input type="number" step="any" name="edit_costo_real_contable" id="edit_costo_real_contable" class="form-control" placeholder="$">
+                        </div>
+                   </div>
+                   <div class="form-group col-md-3">
+                        <div class="input-group">
+                           <span class="input-group-addon" id="span_ganancia_real_contable" >Ganancia real/ Contable</span>
+                            <input type="number" step="any" name="edit_ganancia_real_contable" id="edit_ganancia_real_contable" class="form-control" placeholder="$">
+                        </div>
+                   </div>                                                         
+                </div>
+                <div class="row">
+                   <div class="form-group col-md-4">
+                        <div class="input-group">
+                           <span class="input-group-addon" id="span_ejecutivo_dombart" >Ejecutivo Dombart</span>
+                            {!! Form::select('edit_ejecutivo_dombart',$ejecutivos_dombart,null,['class' => 'form-control','id'=>'edit_ejecutivo_dombart']) !!}
+                        </div>
+                   </div>
+                </div>
+              </div>               
+
               <div class="row">
                 <div class="form-group col-md-2">
                  {!! Form::submit('Actualizar',[ 'class' => 'btn btn-primary btndisable','id' =>'buttonreg','style' => 'display: inline-block;']) !!} 

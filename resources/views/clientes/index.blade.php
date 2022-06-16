@@ -17,7 +17,7 @@
 @include('clientes.crear')
 @include('clientes.edit')
 
-<table class="table table-striped" id="tablaejecutivos">
+<table class="table table-striped" id="tabla_clientes_activos">
   <thead>
     <th>ID</th>
     <th>Nombre Cliente</th>

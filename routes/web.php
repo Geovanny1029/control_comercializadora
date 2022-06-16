@@ -79,6 +79,27 @@ Route::get('registrosexport',[
 			'as'   => 'registro.export'
 		]);
 
+Route::get('reportecontabilidad',[
+			'uses' => 'RegistroController@reporte_contabilidad',
+			'as'   => 'reporte.contabilidad'
+		]);
+
+Route::post('reporte_generacontabilidad-xls',[
+			'uses' => 'RegistroController@genera_reporte_contabilidad',
+			'as'   => 'reporte.genera_contabilidad'
+		]);
+
+Route::post('reporte_generacontabilidad',[
+			'uses' => 'RegistroController@genera_reporte_operaciones',
+			'as'   => 'reporte.genera_operaciones'
+		]);
+
+Route::get('reporteoperaciones',[
+			'uses' => 'RegistroController@reporte_operaciones',
+			'as'   => 'reporte.operaciones'
+		]);
+
+
 
 Route::get('registroexportarpendientes',[
 			'uses' => 'RegistroController@registroexportarpendientes',
@@ -283,3 +304,5 @@ Route::post('razon_socialu',[
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/get_usuario', 'RegistroController@get_usuario')->name('home');

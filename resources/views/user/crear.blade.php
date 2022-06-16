@@ -43,6 +43,12 @@
                 {!! Form::select('estatus',['1' => 'Activo', '2' => 'Inactivo'],"Selecciona",['class' => 'form-control']) !!}
                </div>
               </div>
+              <div class="row">
+               <div class="form-group col-md-6">
+                {!! Form::label('tipo usuario', 'Tipo Usuario') !!} 
+                {!! Form::select('tipo_usuario',['1' => 'Usuario', '2' => 'Contabilidad'],"Selecciona",['class' => 'form-control']) !!}
+               </div>
+              </div>
 
               <div class="row">
                 <div class="form-group col-md-2">

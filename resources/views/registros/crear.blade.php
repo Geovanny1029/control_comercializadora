@@ -119,17 +119,26 @@
                       
                     </div>
                </div>
-               <div class="form-group col-md-2">
+               <div class="form-group col-md-1">
                   <input type="text" style="text-transform:uppercase;" name="moneda_valorfac[]" class="form-control" placeholder="Moneda Valor Fac" required="required">
                   <div id="addmonedavalorfac">
                       
                   </div>
                </div> 
-               <div class="form-group col-md-4">
+               <div class="form-group col-md-2">
+                  <input type="text" style="text-transform:uppercase;" name="no_factura[]" class="form-control" placeholder="# Factura" >
+                  <div id="addnofactura">
+                      
+                  </div>
+               </div> 
+               <div class="form-group col-md-2">
                     <div class="input-group">
-                       <span class="input-group-addon" >Ruta Fact</span>
-                        <input type="file" name="ruta_factura_ext" class="form-control" placeholder="Ruta">
+                       <span class="input-group-addon" >Ruta fac</span>
+                        <input type="file" name="ruta_factura_ext[]" value="NA" class="form-control" placeholder="Ruta" >
                     </div>
+                  <div id="addrutafacext">
+                      
+                  </div>
                </div>                                                              
               </div> <br>                            
 
@@ -398,6 +407,70 @@
                         <input type="date" name="fecha_cierre" class="form-control" placeholder="Fecha Cierre">
                     </div>
                </div>                                                               
+              </div>             
+              <div id="form_contabilidad" style="display: none">
+                <br>
+              <center>Datos Contabilidad</center><hr> 
+                <div class="row" >
+                   <div class="form-group col-md-3">
+                        <div class="input-group">
+                           <span class="input-group-addon" >Fecha factura Fiscal</span>
+                            <input type="text" style="text-transform:uppercase;" name="fecha_factura_fiscal" class="form-control" placeholder="fecha factura">
+                        </div>
+                   </div> 
+                   <div class="form-group col-md-3">
+                        <div class="input-group">
+                           <span class="input-group-addon" >Estatus Contabilidad</span>
+                            {!! Form::select('estatus_contabilidad',["1"=>"Pagada","2"=>"Pagada a satisfaccion del acreedor","3"=>"Saldo pendiente"],null,['class' => 'form-control','id'=>'estatus_contabilidad']) !!}
+                        </div>
+                   </div>
+                   <div class="form-group col-md-3">
+                        <div class="input-group">
+                           <span class="input-group-addon" >Saldo Pendiente Cobro $</span>
+                            <input type="number" step="any" name="saldo_pendiente_cobro" class="form-control" placeholder="$">
+                        </div>
+                   </div> 
+                   <div class="form-group col-md-3">
+                        <div class="input-group">
+                           <span class="input-group-addon" >Moneda Facturacion </span>
+                            <input type="text" style="text-transform:uppercase;" name="moneda_facturacion" class="form-control" placeholder="$">
+                        </div>
+                   </div> 
+                </div>
+                <div class="row">
+                   <div class="form-group col-md-3">
+                        <div class="input-group">
+                           <span class="input-group-addon" >TC Contable</span>
+                            <input type="number" step="any" name="tc_contable" class="form-control" placeholder="$">
+                        </div>
+                   </div>
+                   <div class="form-group col-md-3">
+                        <div class="input-group">
+                           <span class="input-group-addon" >Ingreso real/Contable</span>
+                            <input type="number" step="any" name="ingreso_real_contable" class="form-control" placeholder="$">
+                        </div>
+                   </div>
+                   <div class="form-group col-md-3">
+                        <div class="input-group">
+                           <span class="input-group-addon" >Costo real/ Contable </span>
+                            <input type="number" step="any" name="costo_real_contable" class="form-control" placeholder="$">
+                        </div>
+                   </div>
+                   <div class="form-group col-md-3">
+                        <div class="input-group">
+                           <span class="input-group-addon" >Ganancia real/ Contable</span>
+                            <input type="number" step="any" name="ganancia_real_contable" class="form-control" placeholder="$">
+                        </div>
+                   </div>                                                         
+                </div>
+                <div class="row">
+                   <div class="form-group col-md-4">
+                        <div class="input-group">
+                           <span class="input-group-addon" >Ejecutivo Dombart</span>
+                            {!! Form::select('ejecutivo_dombart',$ejecutivos_dombart,null,['class' => 'form-control','id'=>'ejecutivo_dombart']) !!}
+                        </div>
+                   </div>
+                </div>
               </div>                                                           
               <div class="row">
                 <div class="form-group col-md-2">

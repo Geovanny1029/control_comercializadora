@@ -35,6 +35,7 @@ class UserController extends Controller
         $user->nivel=$request->nivel; 
         $user->email=$request->email;
         $user->estatus=$request->estatus;
+        $user->tipo_usuario=$request->tipo_usuario;
         $user->backup_password=$request->password;
         $user->password=bcrypt($request->password);
         $user->save();
@@ -58,6 +59,7 @@ class UserController extends Controller
         $data->password=bcrypt($request->edit_password);
         $data->email=$request->edit_email;
         $data->estatus=$request->edit_estatus;
+        $data->tipo_usuario=$request->edit_tipo_usuario;
         $data->save();
 
         $notification = array(

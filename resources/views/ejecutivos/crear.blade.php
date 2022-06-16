@@ -6,7 +6,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Agregar Nueva Ejecutivo</h4>
+            <h4 class="modal-title">Agregar Nuevo Usuario</h4>
           </div>
           <div class="modal-body">
               {!! Form::open(['route' => 'ejecutivos.store', 'method' => 'POST']) !!}

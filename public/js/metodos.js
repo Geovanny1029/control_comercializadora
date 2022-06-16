@@ -43,6 +43,7 @@ function fun_editu(id)
           $("#edit_email").val(result.email);
           $("#edit_nivel").val(result.nivel);
           $("#edit_estatus").val(result.estatus);
+          $("#edit_tipo_usuario").val(result.tipo_usuario);
           $("#edit_idu").val(result.id);
         }
       });
@@ -438,8 +439,14 @@ function fun_editapro(id)
             '</div>';
             var valfamon = '<div id="brseditmon'+1+'"><br></div>'+ 
              '<input type="text" style="text-transform:uppercase;" name="edit_moneda_valorfac[]" class="form-control valorfacajax" placeholder="Moneda Valor Fac">';
+            var valfa_nofac = '<div id="brseditnf'+1+'"><br></div>'+ 
+             '<input type="text" style="text-transform:uppercase;" name="edit_no_factura[]" class="form-control valorfacajax" placeholder="# Factura">';
+            var valfa_rutafac = '<div id="brseditrf'+1+'"><br></div>'+ 
+             '<input type="file" name="edit_ruta_factura_ext[]" class="form-control valorfacajax" placeholder="archivo">';
             var valfa2 = "";
             var valfa2mon = "";
+            var valfa2_nofac = "";
+            var valfa2_rutafac = "";
           }else if(tam == 1){
             var valfa= '<div id="brsedit'+1+'"><br></div>'+
             '<div class="input-group" id="divedit'+result.valfacext[0].id+'">'+
@@ -451,8 +458,25 @@ function fun_editapro(id)
             '<div id="diveditmon'+result.valfacext[0].id+'">'+
             '<input type="text" style="text-transform:uppercase;" name="edit_moneda_valorfac[]" value="'+result.valfacext[0].moneda+'" class="form-control valorfacajax" placeholder="Moneda Valor Fac">'+
             '</div>';
+            var valfa_nofac = '<div id="brseditnf'+result.valfacext[0].id+'"><br></div>'+ 
+             '<div id="diveditnf'+result.valfacext[0].id+'">'+
+             '<input type="text" style="text-transform:uppercase;" name="edit_no_factura[]" value="'+result.valfacext[0].no_factura+'" class="form-control valorfacajax" placeholder="# Factura">'+
+             '</div>';
+             //archivo factura ext
+             if(result.valfacext[0].ruta_archivo == null || result.valfacext[0].ruta_archivo == ""){
+              var valfa_rutafac = '<div id="brseditrf'+result.valfacext[0].id+'"><br></div>'+ 
+               '<div id="diveditrf'+result.valfacext[0].id+'">'+
+               '<input type="file" name="edit_ruta_factura_ext[]" class="form-control valorfacajax" placeholder="archivo">';
+             }else{
+              var valfa_rutafac = '<div id="brseditrf'+result.valfacext[0].id+'"><br></div>'+ 
+               '<div id="diveditrf'+result.valfacext[0].id+'">'+
+               '<div value="0" class="btn btn-primary valorfacajax" data-lity  href="/facturasext/'+result.valfacext[0].ruta_archivo+'">VER PDF </div>';
+             }
+            
             var valfa2 = "";
             var valfa2mon = "";
+            var valfa2_nofac = "";
+            var valfa2_rutafac = "";
           }else{
             var valfa= '<div id="brsedit'+1+'"><br></div>'+
             '<div class="input-group" id="divedit'+result.valfacext[0].id+'">'+
@@ -464,8 +488,25 @@ function fun_editapro(id)
             '<div id="diveditmon'+result.valfacext[0].id+'">'+
             '<input type="text"  style="text-transform:uppercase;" name="edit_moneda_valorfac[]" value="'+result.valfacext[0].moneda+'" class="form-control valorfacajax" placeholder="Moneda Valor Fac">'+
             '</div>';
+            var valfa_nofac = '<div id="brseditnf'+result.valfacext[0].id+'"><br></div>'+ 
+             '<div id="diveditnf'+result.valfacext[0].id+'">'+
+             '<input type="text" style="text-transform:uppercase;" name="edit_no_factura[]" value="'+result.valfacext[0].no_factura+'" class="form-control valorfacajax" placeholder="# Factura">'+
+             '</div>';
+
+            //archivo factura ext
+             if(result.valfacext[0].ruta_archivo == null || result.valfacext[0].ruta_archivo == ""){
+              var valfa_rutafac = '<div id="brseditrf'+result.valfacext[0].id+'"><br></div>'+ 
+               '<div id="diveditrf'+result.valfacext[0].id+'">'+
+               '<input type="file" name="edit_ruta_factura_ext[]"  class="form-control valorfacajax" placeholder="archivo">';
+             }else{
+              var valfa_rutafac = '<div id="brseditrf'+result.valfacext[0].id+'"><br></div>'+ 
+               '<div id="diveditrf'+result.valfacext[0].id+'">'+
+               '<div value="0" class="btn btn-primary valorfacajax" data-lity  href="/facturasext/'+result.valfacext[0].ruta_archivo+'">VER PDF </div>';
+             }
             var valfa2 = "";
             var valfa2mon = "";
+            var valfa2_nofac = "";
+            var valfa2_rutafac = "";
 
             for (var i = 1; i<result.valfacext.length; i++) {
               valfa2+='<div id="brsedit'+(i+1)+'"><br></div>'+
@@ -477,7 +518,21 @@ function fun_editapro(id)
                valfa2mon+= '<div id="brseditmon'+(i+1)+'"><br></div>'+
               '<div id="diveditmon'+result.valfacext[i].id+'">'+
               '<input type="text" style="text-transform:uppercase;" name="edit_moneda_valorfac[]" value="'+result.valfacext[i].moneda+'" class="form-control valorfacajax" placeholder="Moneda Valor Fac">'+
-              '</div>'
+              '</div>';
+               valfa2_nofac+= '<div id="brseditnf'+(i+1)+'"><br></div>'+
+              '<div id="diveditnf'+result.valfacext[i].id+'">'+
+              '<input type="text" style="text-transform:uppercase;" name="edit_no_factura[]" value="'+result.valfacext[i].no_factura+'" class="form-control valorfacajax" placeholder="Moneda Valor Fac">'+
+              '</div>'; 
+              //despliegue de archivos
+              if(result.valfacext[i].ruta_archivo == null || result.valfacext[i].ruta_archivo == ""){
+                 valfa2_rutafac += '<div id="brseditrf'+(i+1)+'"><br></div>'+ 
+               '<div id="diveditrf'+result.valfacext[i].id+'">'+
+               '<input type="file" name="edit_ruta_factura_ext[]" class="form-control valorfacajax" placeholder="archivo">';
+              }else{
+                 valfa2_rutafac += '<div id="brseditrf'+result.valfacext[i].id+'"><br></div>'+ 
+               '<div id="diveditrf'+result.valfacext[i].id+'">'+
+               '<div value="0" class="btn btn-primary valorfacajax" data-lity  href="/facturasext/'+result.valfacext[i].ruta_archivo+'">VER PDF </div>';
+              }            
             }
 
           }
@@ -485,6 +540,10 @@ function fun_editapro(id)
           $("#addvalorfacedit").html(valfa2);
           $("#edit_moneda_valorfac").html(valfamon);
           $("#addmonedavalorfacedit").html(valfa2mon);
+          $("#edit_no_factura_div").html(valfa_nofac);
+          $("#addnofacturaedit").html(valfa2_nofac);
+          $("#edit_rutafac_div").html(valfa_rutafac);
+          $("#addrutafacturaextedit").html(valfa2_rutafac);
           $(".valorfacajax").attr('readonly',true);
           $(".btndisable").attr('disabled',true);
           //fin n reg valor factura
@@ -872,12 +931,89 @@ function fun_editapro(id)
             $('#checktipoimpo_edit').prop('checked', true);
           }
 
-          $('#edit_user').val(result.usuario.nombre);          
-        }
-      });
+          $('#edit_user').val(result.usuario.nombre);  
 
+          ///usuario contabilidad formulario
+          if(result.tipo_usuario == "2"){
+            $("#edit_form_contabilidad").show();
 
-      
+            if(result.info.fecha_factura_fiscal == "" || result.info.fecha_factura_fiscal == null){
+              $('#edit_fecha_factura_fiscal').val(result.info.fecha_factura_fiscal );
+              $("#span_fecha_factura_fiscal").css("color", "red");
+            }else{
+              $('#edit_fecha_factura_fiscal').val(result.info.fecha_factura_fiscal);
+              $("#span_fecha_factura_fiscal").css("color", "gray");
+            } 
+
+            if(result.info.estatus_contabilidad == 0){
+              $('#edit_estatus_contabilidad').val(result.info.estatus_contabilidad );
+              $("#span_estatus_contabilidad").css("color", "red");
+            }else{
+              $('#edit_estatus_contabilidad').val(result.info.estatus_contabilidad);
+              $("#span_estatus_contabilidad").css("color", "gray");
+            } 
+
+            if(result.info.saldo_pendiente_cobro == 0){
+              $('#edit_saldo_pendiente_cobro').val(result.info.saldo_pendiente_cobro );
+              $("#span_saldo_pendiente_cobro").css("color", "red");
+            }else{
+              $('#edit_saldo_pendiente_cobro').val(result.info.saldo_pendiente_cobro);
+              $("#span_saldo_pendiente_cobro").css("color", "gray");
+            }
+
+            if(result.info.moneda_facturacion == 0){
+              $('#edit_moneda_facturacion').val(result.info.moneda_facturacion );
+              $("#span_moneda_facturacion").css("color", "red");
+            }else{
+              $('#edit_moneda_facturacion').val(result.info.moneda_facturacion);
+              $("#span_moneda_facturacion").css("color", "gray");
+            } 
+
+            if(result.info.tc_contable == 0){
+              $('#edit_tc_contable').val(result.info.tc_contable );
+              $("#span_tc_contable").css("color", "red");
+            }else{
+              $('#edit_tc_contable').val(result.info.tc_contable);
+              $("#span_tc_contable").css("color", "gray");
+            } 
+
+            if(result.info.ingreso_real_contable == 0){
+              $('#edit_ingreso_real_contable').val(result.info.ingreso_real_contable );
+              $("#span_ingreso_real_contable").css("color", "red");
+            }else{
+              $('#edit_ingreso_real_contable').val(result.info.ingreso_real_contable);
+              $("#span_ingreso_real_contable").css("color", "gray");
+            }
+
+            if(result.info.costo_real_contable == 0){
+              $('#edit_costo_real_contable').val(result.info.costo_real_contable );
+              $("#span_costo_real_contable").css("color", "red");
+            }else{
+              $('#edit_costo_real_contable').val(result.info.costo_real_contable);
+              $("#span_costo_real_contable").css("color", "gray");
+            } 
+
+            if(result.info.ganancia_real_contable == 0){
+              $('#edit_ganancia_real_contable').val(result.info.ganancia_real_contable );
+              $("#span_ganancia_real_contable").css("color", "red");
+            }else{
+              $('#edit_ganancia_real_contable').val(result.info.ganancia_real_contable);
+              $("#span_ganancia_real_contable").css("color", "gray");
+            } 
+
+            if(result.info.ejecutivo_dombart == 0){
+              $('#edit_ejecutivo_dombart').val(result.info.ejecutivo_dombart );
+              $("#span_ejecutivo_dombart").css("color", "red");
+            }else{
+              $('#edit_ejecutivo_dombart').val(result.info.ejecutivo_dombart);
+              $("#span_ejecutivo_dombart").css("color", "gray");
+            }
+            
+          }else{
+            $("#edit_form_contabilidad").hide();
+          }        
+        }//fin del success
+      });//fin del ajax
 
 
        $("#edit_fecha_cierre").on("change",function(){
@@ -1261,6 +1397,8 @@ $(document).on('keydown', function(event) {
       $("#totaltipoc").attr("value",i);
       $('#addvalorfac').append('<div id="brs'+i+'"><br></div><div class="input-group" id="div'+i+'"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">-</button><span class="input-group-addon" >Valor Fact Ext $</span><input type="number" step="any" name="valor_factura_ext[]" class="form-control" placeholder="$"></div>');  
       $('#addmonedavalorfac').append('<div id="brsm'+i+'"><br></div><div id="divm'+i+'"><input type="text" style="text-transform:uppercase;"  name="moneda_valorfac[]" class="form-control" placeholder="Moneda Valor Fac"></div>');  
+      $('#addnofactura').append('<div id="brsn'+i+'"><br></div><div id="divn'+i+'"><input type="text" style="text-transform:uppercase;"  name="no_factura[]" class="form-control" placeholder="# Factura"></div>');  
+      $('#addrutafacext').append('<div id="brsf'+i+'"><br></div><div id="divf'+i+'"> <div class="input-group"> <span class="input-group-addon" >Ruta fac</span><input type="file"   name="ruta_factura_ext[]" required="required" class="form-control" placeholder="ruta"></div></div>');  
     });
 
     $(document).on('click', '.btn_remove', function(){  
@@ -1269,7 +1407,11 @@ $(document).on('keydown', function(event) {
       $("#div"+button_id).remove(); 
       $("#brs"+button_id).remove();
       $("#brsm"+button_id).remove();
+      $("#brsn"+button_id).remove();
+      $("#brsf"+button_id).remove();
       $("#divm"+button_id).remove(); 
+      $("#divn"+button_id).remove();
+      $("#divf"+button_id).remove();
     });
 
 
@@ -1309,9 +1451,26 @@ $(document).on('keydown', function(event) {
     var iedit = 1;
     function addedit(){
       iedit++;
-      $('#addvalorfacedit').append('<div id="brsedit'+iedit+'"><br></div><div class="input-group" id="divedit'+iedit+'"><button type="button" name="remove" id="'+iedit+'" class="btn btn-danger btn_remove">-</button><span class="input-group-addon" >Valor Fact Ext $</span><input type="number" step="any" name="edit_valor_factura_ext[]" class="form-control" placeholder="$"></div>');  
-      $('#addmonedavalorfacedit').append('<div id="brseditmon'+iedit+'"><br></div><div  id="diveditmon'+iedit+'"><input type="text" style="text-transform:uppercase;"  name="edit_moneda_valorfac[]" class="form-control" placeholder="Moneda Valor Fac"></div>');  
+      $('#addvalorfacedit').append('<div id="brsedit'+iedit+'"><br></div><div class="input-group" id="divedit'+iedit+'"><button type="button" name="remove" id="'+iedit+'" class="btn btn-danger btn_remove_edit">-</button><span class="input-group-addon" >Valor Fact Ext $</span><input type="number" step="any" name="edit_valor_factura_ext[]" class="form-control" placeholder="$"></div>');  
+      $('#addmonedavalorfacedit').append('<div id="brseditmon'+iedit+'"><br></div><div  id="diveditmon'+iedit+'"><input type="text" style="text-transform:uppercase;"  name="edit_moneda_valorfac[]" class="form-control" placeholder="Moneda Valor Fac"></div>'); 
+      $('#addnofacturaedit').append('<div id="brseditnf'+iedit+'"><br></div><div  id="diveditnf'+iedit+'"><input type="text" style="text-transform:uppercase;"  name="edit_no_factura[]" class="form-control" placeholder="# factura"></div>');   
+      $('#addrutafacturaextedit').append('<div id="brseditrf'+iedit+'"><br></div><div  id="diveditrf'+iedit+'"><input type="file"  name="edit_ruta_factura_ext[]" class="form-control" placeholder="archivo" required="required"></div>');   
     }
+
+    //funcion de remover en valor factura en edicion
+    $(document).on('click', '.btn_remove_edit', function(){  
+    var id = $(this).attr("id");
+      var button_id = $(this).attr("id");
+      $("#brsedit"+button_id).remove();
+      $("#divedit"+button_id).remove();
+      $("#brseditmon"+button_id).remove();
+      $("#diveditmon"+button_id).remove();
+      $("#brseditnf"+button_id).remove(); 
+      $("#diveditnf"+button_id).remove(); 
+      $("#brseditrf"+button_id).remove();
+      $("#diveditrf"+button_id).remove();
+    });      
+
 
     //funcion de agregago fecha deposito en edicion 
     var ieditfdc = 1;
@@ -1447,9 +1606,13 @@ $(document).on('keydown', function(event) {
                   success: function(result){
                     alert("Registro Eliminado correctamente");
                     $("#divedit"+$id).remove();
-                    $("#diveditmon"+$id).remove(); 
+                    $("#diveditmon"+$id).remove();
+                    $("#diveditnf"+$id).remove();
+                    $("#diveditrf"+$id).remove(); 
                     $("#brsedit"+$id).remove();
                     $("#brseditmon"+$id).remove();
+                    $("#brseditnf"+$id).remove();
+                    $("#brseditrf"+$id).remove();
                   }
                 });
       } else {
@@ -1534,5 +1697,21 @@ $('#tipo_importacion_edit').on('change', function() {
         $("#timp_edit").css("display",'none');
      }
 });
+
+function registron(){
+  $("#addModalr").modal("show");
+  $.ajax({
+    url: "/get_usuario",
+    type:"GET", 
+    success: function(result){
+      if(result == "2"){
+        $("#form_contabilidad").show();
+      }else{
+        $("#form_contabilidad").hide();
+      }
+    }
+  });
+  
+}
 
 

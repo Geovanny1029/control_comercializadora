@@ -45,7 +45,8 @@ class RegistroController extends Controller
         }
 
 
-    	$registros = Registro::whereraw('`fecha_cierre` is null')->get();
+    	$registros = Registro::from('registros')->leftjoin('registros_nvalor_fac','registros.id','=','registros_nvalor_fac.id_registro')->groupBy('id')->whereraw('`fecha_cierre` is null')->select(DB::raw('registros.*,group_concat(distinct registros_nvalor_fac.no_factura) as no_factura'))->get();
+    
       $registros->each(function($registros){
           $registros->aduana;
           $registros->cliente;
@@ -63,9 +64,10 @@ class RegistroController extends Controller
     	$estatus = Estatus::orderBY('nombre_estatus','ASC')->pluck('nombre_estatus','id');
       $pagos = Forma_pago::orderBY('nombre_pago','ASC')->pluck('nombre_pago','id');
     	$proveedores = Proveedor_externo::orderBY('nombre_proveedor','ASC')->pluck('nombre_proveedor','id');
+      $ejecutivos_dombart = User::orderBY('nombre','ASC')->pluck('nombre','id');
 
 
-        return view('registros.index')->with('registros',$registros)->with('clientes',$clientes)->with('aduanas',$aduanas)->with('ejecutivos',$ejecutivos)->with('estatus',$estatus)->with('proveedores',$proveedores)->with('pagos',$pagos);
+        return view('registros.index')->with('registros',$registros)->with('clientes',$clientes)->with('aduanas',$aduanas)->with('ejecutivos',$ejecutivos)->with('estatus',$estatus)->with('proveedores',$proveedores)->with('pagos',$pagos)->with('ejecutivos_dombart',$ejecutivos_dombart);
     }
 
     public function view(Request $request){
@@ -77,7 +79,8 @@ class RegistroController extends Controller
                 $valfacext = Registros_nvalor_fac::where('id_registro',$id)->get();
                 $fecdepcli = Registros_nfecha_dep_cli::where('id_registro',$id)->get();
                 $impdepcli = Registros_nimpo_depo_cli::where('id_registro',$id)->get();
-                return response()->json(array('info'=>$info,'usuario'=>$usuario,'cliente'=>$cliente,'valfacext'=>$valfacext,'fecdepcli'=>$fecdepcli,'impdepcli'=>$impdepcli));
+                $tipo_usuario = $usuario->tipo_usuario;
+                return response()->json(array('info'=>$info,'usuario'=>$usuario,'cliente'=>$cliente,'valfacext'=>$valfacext,'fecdepcli'=>$fecdepcli,'impdepcli'=>$impdepcli,'tipo_usuario'=>$tipo_usuario));
 
             }
     }
@@ -89,14 +92,12 @@ class RegistroController extends Controller
       $today = $hoy->format('Y-m-d');
       $monthactual = $hoy->format('m');
       $yearactual = $hoy->format('y'); 
-      $dayactual = $hoy->format('d');     
+      $dayactual = $hoy->format('d');
+
     	$id = DB::table('registros')->orderBy('id', 'DESC')->first();
-      $consecutivo = DB::table('registros')->orderBy('id', 'DESC')->first();
+      $consecutivo = DB::table('registros')->orderBy('id', 'DESC')->first()->no_operacion;
 
-      if($consecutivo == null){$numeroc = 1;}else{$numeroc = $consecutivo->id+1;}
-    	if($id == null){$numero = 1;}else{if($dayactual == '01'){$numero = 1;}else{$numero = $id->id+1;}}
-      if($numero == 1 || $numero == 2 || $numero == 3 || $numero == 4 || $numero == 5 || $numero == 6 || $numero == 7 || $numero == 8 || $numero == 9){$numero = '0'.$numero;}
-
+      $numero = $this->consecutivo_ref($consecutivo);
 /// obtener nombre y archivos
         if($request->hasFile('ruta_razonsocial')){
             $file = $request->file('ruta_razonsocial');
@@ -116,14 +117,15 @@ class RegistroController extends Controller
             $name2 = $request->ruta_proveedor;
         }
 
-        if($request->hasFile('ruta_factura_ext')){
-            $file = $request->file('ruta_factura_ext');
-            $original = $file->getClientOriginalName();
-            $name3 = "facturaext_D".$numero."_".$original;          
-            $file->move(public_path().'/facturasext/',$name3);
-        }else{
-            $name3 = $request->ruta_factura_ext;
-        }
+
+        // if($request->hasFile('ruta_factura_ext')){
+        //     $file = $request->file('ruta_factura_ext');
+        //     $original = $file->getClientOriginalName();
+        //     $name3 = "facturaext_D".$numero."_".$original;          
+        //     $file->move(public_path().'/facturasext/',$name3);
+        // }else{
+        //     $name3 = $request->ruta_factura_ext;
+        // }
 
         if($request->hasFile('ruta_cotizacion_cliente')){
             $file = $request->file('ruta_cotizacion_cliente');
@@ -231,7 +233,7 @@ class RegistroController extends Controller
 
 
         $registro = new Registro();
-     	  $registro->id =$numeroc;
+     	  $registro->id =$numero;
       	$registro->no_operacion = "D".$yearactual. $monthactual.$numero;
       	$registro->id_cliente = $request->id_cliente;
       	$registro->id_razon_datos_fac = $request->id_razon_datos_fac; 
@@ -241,7 +243,7 @@ class RegistroController extends Controller
       	$registro->pagamos_mercancia = $request->pagamos_mercancia;
         $registro->tipo_operacion = $request->tipo_operacion;
       	$registro->ruta_proveedor = $name2;
-      	$registro->ruta_factura_ext = $name3;
+      	// $registro->ruta_factura_ext = $name3;
       	$registro->se_emite_factura = $request->se_emite_factura;
       	$registro->se_factura_valor_mercancia = $request->se_factura_valor_mercancia;
       	$registro->id_aduana = $request->id_aduana;
@@ -295,6 +297,19 @@ class RegistroController extends Controller
       	$registro->fecha_cierre = $request->fecha_cierre;
         $registro->id_user=Auth::User()->id;
 
+
+        //guardado informacion de contabilidad
+        $registro->fecha_factura_fiscal = $request->fecha_factura_fiscal;
+        $registro->estatus_contabilidad = $request->estatus_contabilidad;
+        $registro->saldo_pendiente_cobro = $request->saldo_pendiente_cobro;
+        $registro->moneda_facturacion = $request->moneda_facturacion;
+        $registro->tc_contable = $request->tc_contable;
+        $registro->ingreso_real_contable = $request->ingreso_real_contable;
+        $registro->costo_real_contable = $request->costo_real_contable;
+        $registro->ganancia_real_contable = $request->ganancia_real_contable;
+        $registro->ejecutivo_dombart = $request->ejecutivo_dombart;
+
+
         //guardado de proveedores mas de 1
         $total = sizeof($request->id_proveedor);
         $prov = $request->id_proveedor;
@@ -311,11 +326,26 @@ class RegistroController extends Controller
         }else{
           $totalvalor_fac = sizeof($request->valor_factura_ext);
           $valorf = $request->valor_factura_ext;
+
           for($j=0;$j<$totalvalor_fac;$j++){
+            //guardado de archivos
+            $fil = $request->ruta_factura_ext[$j];
+            if(is_file($fil)){
+              //guardado de archivos
+              // $file = $request->file('ruta_factura_ext['.$j.']');
+              $original = $fil->getClientOriginalName();
+              $namerfe = "facturaext_".$numero."_".$original;          
+              $fil->move(public_path().'/facturasext/',$namerfe);
+            }else{
+              $namerfe = $request->ruta_factura_ext[$j];
+            }
+
             $valorfac = new Registros_nvalor_fac();
             $valorfac->id_registro= $registro->id;
             $valorfac->valor_factura_ext= $valorf[$j];
+            $valorfac->ruta_archivo = $namerfe;
             $valorfac->moneda=strtoupper($request->moneda_valorfac[$j]);
+            $valorfac->no_factura= strtoupper($request->no_factura[$j]);
             $valorfac->save();
           }          
         }
@@ -390,18 +420,18 @@ class RegistroController extends Controller
             $name2 = $data->ruta_proveedor;
         }
 
-        if($data->ruta_factura_ext == null || $data->ruta_factura_ext == "" ){
-          if($request->hasFile('edit_ruta_factura_ext')){
-              $file = $request->file('edit_ruta_factura_ext');
-              $original = $file->getClientOriginalName();
-              $name3 = "facturaext_D".$data->id."_".$original;          
-              $file->move(public_path().'/facturasext/',$name3);
-          }else{
-            $name3 = $request->edit_ruta_factura_ext;
-          }
-        }else{
-            $name3 = $data->ruta_factura_ext;
-        }
+        // if($data->ruta_factura_ext == null || $data->ruta_factura_ext == "" ){
+        //   if($request->hasFile('edit_ruta_factura_ext')){
+        //       $file = $request->file('edit_ruta_factura_ext');
+        //       $original = $file->getClientOriginalName();
+        //       $name3 = "facturaext_D".$data->id."_".$original;          
+        //       $file->move(public_path().'/facturasext/',$name3);
+        //   }else{
+        //     $name3 = $request->edit_ruta_factura_ext;
+        //   }
+        // }else{
+        //     $name3 = $data->ruta_factura_ext;
+        // }
 
         if($data->ruta_cotizacion_cliente == null || $data->ruta_cotizacion_cliente == "" ){
           if($request->hasFile('edit_ruta_cotizacion_cliente')){
@@ -560,7 +590,7 @@ class RegistroController extends Controller
         $data->pagamos_mercancia = $request->edit_pagamos_mercancia;
         $data->tipo_operacion = $request->edit_tipo_operacion;
         $data->ruta_proveedor = $name2;
-        $data->ruta_factura_ext = $name3;
+        // $data->ruta_factura_ext = $name3;
         $data->se_emite_factura = $request->edit_se_emite_factura;
         $data->se_factura_valor_mercancia = $request->edit_se_factura_valor_mercancia;
         $data->id_aduana = $request->edit_id_aduana;
@@ -613,6 +643,17 @@ class RegistroController extends Controller
         $data->check_pago=$request->checkpago_edit;
         $data->check_tipo_imp=$request->checktipoimpo_edit;
         $data->id_user=Auth::User()->id;
+
+        $data->fecha_factura_fiscal = $request->edit_fecha_factura_fiscal;
+        $data->estatus_contabilidad = $request->edit_estatus_contabilidad;
+        $data->saldo_pendiente_cobro = $request->edit_saldo_pendiente_cobro;
+        $data->moneda_facturacion = $request->edit_moneda_facturacion;
+        $data->tc_contable = $request->edit_tc_contable;
+        $data->ingreso_real_contable = $request->edit_ingreso_real_contable;
+        $data->costo_real_contable = $request->edit_costo_real_contable;
+        $data->ganancia_real_contable = $request->edit_ganancia_real_contable;
+        $data->ejecutivo_dombart = $request->edit_ejecutivo_dombart;
+
         $data->save();        
 
         /// valor factura ext
@@ -620,25 +661,57 @@ class RegistroController extends Controller
 
         $numReqval = sizeof($request->edit_valor_factura_ext);
         $dataRegval = Registros_nvalor_fac::where('id_registro',$id)->get();
-
+        $requestarchivo = sizeof($request->edit_ruta_factura_ext);
         //si el numero de registros de la BD es igual al numero de arreglo del request soo actualiza valores
       if($request->edit_valor_factura_ext[0] == null || $request->edit_valor_factura_ext[0] == ""){
       }else{
         if($numRegval == $numReqval){
           for ($i=0; $i < $numReqval; $i++) { 
+
             $numer = Registros_nvalor_fac::find($dataRegval[$i]->id);
             $numer->valor_factura_ext=$request->edit_valor_factura_ext[$i];
             $numer->moneda=strtoupper($request->edit_moneda_valorfac[$i]);
-            $numer->save();
+            $numer->no_factura=strtoupper($request->edit_no_factura[$i]);
+            
+            if($numer->ruta_archivo == null || $numer->ruta_archivo == ""){
+              $fil = $request->edit_ruta_factura_ext[$i];
+              if(is_file($fil)){
+                  //guardado de archivos
+                  // $file = $request->file('ruta_factura_ext['.$j.']');
+                  $original = $fil->getClientOriginalName();
+                  $namerfe = "facturaext_".$data->id."_".$original;          
+                  $fil->move(public_path().'/facturasext/',$namerfe);
+              }else{
+                  $namerfe = $numer->ruta_archivo;
+              }
+                  $numer->ruta_archivo = $namerfe;
+                $numer->save();
+            }
           }
         }else{
           // de lo contrario si son mas valores inserta
           // $diferencia = $numReqval - $numRegval;
+          $contador = 0;
           for ($j=$numRegval; $j < $numReqval ; $j++) { 
+            if($contador < $requestarchivo){
+              $fil = $request->edit_ruta_factura_ext[$contador];
+              if(is_file($fil)){
+                //guardado de archivos
+                // $file = $request->file('ruta_factura_ext['.$j.']');
+                $original = $fil->getClientOriginalName();
+                $namerfe = "facturaext_".$data->id."_".$original;          
+                $fil->move(public_path().'/facturasext/',$namerfe);
+              }else{
+                $name = $request->ruta_factura_ext[$contador];
+              } 
+            } 
+              $contador++;
             $insert = new Registros_nvalor_fac();
             $insert->id_registro = $id;
             $insert->valor_factura_ext = $request->edit_valor_factura_ext[$j];
             $insert->moneda = strtoupper($request->edit_moneda_valorfac[$j]);
+            $insert->no_factura = strtoupper($request->edit_no_factura[$j]);
+            $insert->ruta_archivo = $namerfe;
             $insert->save();
           }
         }//fin actualiza valor fac ext
@@ -913,20 +986,34 @@ class RegistroController extends Controller
       $estatus = Estatus::orderBY('nombre_estatus','ASC')->pluck('nombre_estatus','id');
       $pagos = Forma_pago::orderBY('nombre_pago','ASC')->pluck('nombre_pago','id');
       $proveedores = Proveedor_externo::orderBY('nombre_proveedor','ASC')->pluck('nombre_proveedor','id');
+      $ejecutivos_dombart = User::orderBY('nombre','ASC')->pluck('nombre','id');
 
 
-        return view('registros.cerrados')->with('registros',$registros)->with('clientes',$clientes)->with('aduanas',$aduanas)->with('ejecutivos',$ejecutivos)->with('estatus',$estatus)->with('proveedores',$proveedores)->with('pagos',$pagos);
+        return view('registros.cerrados')->with('registros',$registros)->with('clientes',$clientes)->with('aduanas',$aduanas)->with('ejecutivos',$ejecutivos)->with('estatus',$estatus)->with('proveedores',$proveedores)->with('pagos',$pagos)->with('ejecutivos_dombart',$ejecutivos_dombart);
     }
 
   public function vistareportes(){
     return view('registros.reportes');
   }
 
+  public function reporte_contabilidad(){
+   
+    $ejecutivos = User::pluck('nombre','id');
+    $clientes = Cliente::pluck('nombre_cliente','id');
+    return view('registros.reporte_contabilidad')->with('ejecutivos',$ejecutivos)->with('clientes',$clientes);
+  }
+
+  public function reporte_operaciones(){
+    $clientes = Cliente::pluck('nombre_cliente','id');
+    $aduanas = Aduana::pluck('nombre_aduana','id');
+    return view('registros.reporte_operaciones')->with('clientes',$clientes)->with('aduanas',$aduanas);
+  }
+
   public function registroexportarpendientes(){
     Excel::create('Registros Pendientes', function($excel) {
             $excel->sheet('Registros Pendientes', function($sheet) {
                 //otra opción -> $products = Product::select('name')->get();
-                $products = Registro::from('registros')->leftjoin('aduanas','aduanas.id','=','registros.id_aduana')->leftjoin('clientes','clientes.id','=','registros.id_cliente')->leftjoin('clientes as clientes2','clientes2.id','=','registros.id_razon_datos_fac')->leftjoin('forma_pago','forma_pago.id','=','registros.forma_pago')->leftjoin('proveedor_externo','proveedor_externo.id','=','registros.id_proveedor')->leftjoin('ejecutivos','ejecutivos.id','=','registros.id_ejecutivo')->leftjoin('users','users.id','=','registros.id_user')->leftjoin('estatus','estatus.id','=','registros.id_estatus')->whereraw('`fecha_cierre` is null')->select(DB::raw('`registros`.id,
+                $products = Registro::from('registros')->leftjoin('aduanas','aduanas.id','=','registros.id_aduana')->leftjoin('clientes','clientes.id','=','registros.id_cliente')->leftjoin('clientes as clientes2','clientes2.id','=','registros.id_razon_datos_fac')->leftjoin('forma_pago','forma_pago.id','=','registros.forma_pago')->leftjoin('ejecutivos','ejecutivos.id','=','registros.id_ejecutivo')->leftjoin('users','users.id','=','registros.id_user')->leftjoin('estatus','estatus.id','=','registros.id_estatus')->whereraw('`fecha_cierre` is null')->select(DB::raw('`registros`.id,
                   `registros`.no_operacion as Folio,
                   `clientes`.nombre_cliente as Cliente,
                   `clientes2`.nombre_cliente as Razon_social,
@@ -937,7 +1024,6 @@ class RegistroController extends Controller
                   CASE WHEN `registros`.tipo_operacion = 1 THEN "IMPORTACION"
                   ELSE "EXPORTACION" 
                   END AS tipo_operacion,
-                  `proveedor_externo`.nombre_proveedor as Proveedor,
                   `registros`.valor_factura_ext as Valor_Factura,
                   CASE WHEN `registros`.se_emite_factura = 1 THEN "SI"
                   ELSE "NO" 
@@ -989,7 +1075,7 @@ class RegistroController extends Controller
     Excel::create('Registros Cerrados', function($excel) {
             $excel->sheet('Registros Cerrados', function($sheet) {
                 //otra opción -> $products = Product::select('name')->get();
-                $products = Registro::from('registros')->leftjoin('aduanas','aduanas.id','=','registros.id_aduana')->leftjoin('clientes','clientes.id','=','registros.id_cliente')->leftjoin('clientes as clientes2','clientes2.id','=','registros.id_razon_datos_fac')->leftjoin('forma_pago','forma_pago.id','=','registros.forma_pago')->leftjoin('proveedor_externo','proveedor_externo.id','=','registros.id_proveedor')->leftjoin('ejecutivos','ejecutivos.id','=','registros.id_ejecutivo')->leftjoin('users','users.id','=','registros.id_user')->leftjoin('estatus','estatus.id','=','registros.id_estatus')->whereraw('`fecha_cierre` is not null')->select(DB::raw('`registros`.id,
+                $products = Registro::from('registros')->leftjoin('aduanas','aduanas.id','=','registros.id_aduana')->leftjoin('clientes','clientes.id','=','registros.id_cliente')->leftjoin('clientes as clientes2','clientes2.id','=','registros.id_razon_datos_fac')->leftjoin('forma_pago','forma_pago.id','=','registros.forma_pago')->leftjoin('ejecutivos','ejecutivos.id','=','registros.id_ejecutivo')->leftjoin('users','users.id','=','registros.id_user')->leftjoin('estatus','estatus.id','=','registros.id_estatus')->whereraw('`fecha_cierre` is not null')->select(DB::raw('`registros`.id,
                   `registros`.no_operacion as Folio,
                   `clientes`.nombre_cliente as Cliente,
                   `clientes2`.nombre_cliente as Razon_social,
@@ -1000,7 +1086,6 @@ class RegistroController extends Controller
                   CASE WHEN `registros`.tipo_operacion = 1 THEN "IMPORTACION"
                   ELSE "EXPORTACION" 
                   END AS tipo_operacion,
-                  `proveedor_externo`.nombre_proveedor as Proveedor,
                   `registros`.valor_factura_ext as Valor_Factura,
                   CASE WHEN `registros`.se_emite_factura = 1 THEN "SI"
                   ELSE "NO" 
@@ -1155,4 +1240,185 @@ class RegistroController extends Controller
           });
     }
   }
+
+  public function consecutivo_ref($id){
+    $hoy = Carbon::now();
+    $today = $hoy->format('Y-m-d');
+    $monthactual = $hoy->format('m');
+    $yearactual = $hoy->format('y'); 
+    $dayactual = $hoy->format('d');
+    $sub = substr($id, 5);
+
+
+    if($dayactual == '01'){
+      $dia = 1;
+    }else{
+      $dia = intval($sub)+1;
+    }
+
+    $numero = $this->day_cero($dia);
+    return $numero;
+  }
+
+  public function day_cero($dia){
+    if($dia<10){
+      return "0".$dia;
+    }else{
+      return $dia;
+    }
+  }
+
+    public function get_usuario(){
+
+        $usuario = Auth::User()->tipo_usuario;
+
+        return response()->json($usuario);
+    }
+
+
+    public function genera_reporte_contabilidad(request $request){
+
+    $clientes = $request->select_clientes;
+    $estatus = $request->estatus_contabilidad;
+    $ejecutivos = $request->ejecutivo_dombart;
+    $fecha_inicio = $request->fecha_inicio_cierre;
+    $fecha_fin = $request->fecha_fin_cierre;
+    $filename = "Reporte_Contabilidad";
+     Excel::create($filename, function($excel) use($ejecutivos,$estatus,$clientes,$fecha_inicio,$fecha_fin){
+
+      //primera pestaña
+      $excel->sheet('Reporte_contabilidad', function($sheet) use($ejecutivos,$estatus,$clientes,$fecha_inicio,$fecha_fin) {  
+      
+      //registros
+      $contabilidad = Registro::from('registros')->join('clientes','clientes.id','=','registros.id_cliente')->join('aduanas','aduanas.id','=','registros.id_aduana')->join('forma_pago','forma_pago.id','=','registros.forma_pago')->join('users','users.id','=','registros.ejecutivo_dombart')->whereIn('id_cliente',$clientes)->whereIn('estatus_contabilidad',$estatus)->whereIn('ejecutivo_dombart',$ejecutivos)->whereBetween('registros.fecha_cierre', [$fecha_inicio,$fecha_fin])->select(DB::raw('
+        `registros`.no_operacion,
+        `clientes`.nombre_cliente,
+        `registros`.saldo_pendiente_cobro,
+        `registros`.contacto_facturas_pagos,
+        `forma_pago`.nombre_pago as forma_pago,
+        CASE WHEN `registros`.pagamos_mercancia = 1 then "SI"
+        WHEN `registros`.pagamos_mercancia = 2 THEN "NO" END as pagamos_mercancia,
+         CASE WHEN `registros`.tipo_operacion = 1 then "IMPORTACION"
+        WHEN `registros`.tipo_operacion = 2 THEN "EXPORTACION" END as tipo_operacion,
+        `registros`.valor_factura_ext,
+        CASE WHEN `registros`.se_emite_factura  = 1 then "SI"
+        WHEN `registros`.se_emite_factura  = 2 THEN "NO" END as se_emite_factura,
+        `aduanas`.nombre_aduana,
+        `registros`.descripcion_operacion,
+        `registros`.cotizacion_cliente_mxp,
+        `registros`.fecha_deposito_cliente,
+        `registros`.importe_deposito_cliente,
+        `registros`.referencia,
+        `registros`.no_pedimento,
+        `registros`.no_pedimento2,
+        `registros`.no_pedimento3,
+        `registros`.importe_cg,
+        `registros`.fecha_cg,
+        `registros`.folio_cg,
+        `registros`.importe_facturado_cliente,
+        `registros`.costeo_total,
+        `registros`.condicion_pago,
+        CASE WHEN `registros`.condicion_pago  = 1 then "CREDITO"
+        WHEN `registros`.condicion_pago  = 2 THEN "ANTICIPO"
+        WHEN `registros`.condicion_pago  = 3 THEN "CONTADO" END as condicion_pago,
+        CASE WHEN `registros`.Facturacionxconcepto = 1 then "SERVICIO"
+        WHEN `registros`.Facturacionxconcepto = 2 THEN "MERCANCIA" END as facturacion_x_concepto,
+        `registros`.importe_comision,
+        `registros`.importe_devuelto,
+        CASE WHEN `registros`.tipo_importacion = 1 then "TEMPORAL"
+        WHEN `registros`.tipo_importacion = 2 THEN "DEFINITIVA" END as tipo_importacion,
+        `registros`.cierre,
+        `registros`.fecha_cierre, 
+        `registros`.fecha_factura_fiscal,
+        CASE WHEN `registros`.estatus_contabilidad = 1 THEN "PAGADA"
+        WHEN `registros`.estatus_contabilidad = 2 THEN "PAGADA A SATISFACCION DEL ACREEDOR"
+        WHEN `registros`.estatus_contabilidad = 3 THEN "SALDO PENDIENTE" END as estatus_contabilidad,
+        `registros`.saldo_pendiente_cobro,
+        `registros`.moneda_facturacion,
+        `registros`.tc_contable,
+        `registros`.ingreso_real_contable,
+        `registros`.costo_real_contable,
+        `registros`.ganancia_real_contable,
+        `users`.nombre as ejecutivo_dombart
+
+        '))->get();
+
+      $sheet->fromArray($contabilidad);
+      $sheet->row(1, function($row) {
+
+      // call cell manipulation methods
+      $row->setBackground('#3F3F49');
+      $row->setFontColor('#ffffff');
+      $row->setValignment('center');
+
+      });
+   
+
+      });
+
+    })->export('xls');    
+    }
+
+public function genera_reporte_operaciones(request $request){
+
+    $clientes = $request->select_cliente;
+    $aduanas =  $request->select_aduanas;
+
+    $filename = "Reporte_Operaciones";
+     Excel::create($filename, function($excel) use($clientes,$aduanas){
+
+      //primera pestaña
+      $excel->sheet('Reporte_operaciones', function($sheet) use($clientes,$aduanas) {  
+      
+      //Registros
+      $operaciones = Registro::from('registros')->join('clientes','clientes.id','=','registros.id_razon_datos_fac')->join('aduanas','aduanas.id','=','registros.id_aduana')->join('estatus','estatus.id','=','registros.id_estatus')->join('ejecutivos','ejecutivos.id','=','registros.id_ejecutivo')->leftjoin('registros_nvalor_fac','registros.id','=','registros_nvalor_fac.id_registro')->groupBy('registros.id')->whereIn('id_razon_datos_fac',$clientes)->whereIn('id_aduana',$aduanas)->select(DB::raw('
+        `registros`.no_operacion,
+        `clientes`.nombre_cliente as Razon_social,
+        `registros`.saldo_pendiente_cobro,
+        `registros`.contacto_facturas_pagos,
+        CASE WHEN `registros`.pagamos_mercancia = 1 then "SI"
+        WHEN `registros`.pagamos_mercancia = 2 THEN "NO" END as pagamos_mercancia,
+        `registros`.tipo_operacion,
+        group_concat(distinct registros_nvalor_fac.no_factura) as no_factura,
+        `registros`.valor_factura_ext,
+        `aduanas`.nombre_aduana,
+        `ejecutivos`.nombre_ejecutivo,
+        `estatus`.nombre_estatus,
+        `registros`.descripcion_operacion,
+        `registros`.eta,
+        `registros`.fecha_despacho,
+        `registros`.cotizacion_cliente_mxp,
+        `registros`.observaciones,
+        `registros`.fecha_deposito_cliente,
+        `registros`.importe_deposito_cliente,
+        `registros`.no_pedimento,
+        `registros`.no_pedimento2,
+        `registros`.no_pedimento3,
+        `registros`.no_pedimento4,
+        `registros`.no_pedimento5,
+        `registros`.no_pedimento6,
+        `registros`.importe_cg,
+        `registros`.fecha_cg,
+        `registros`.folio_cg,
+        `registros`.importe_facturado_cliente,
+        `registros`.costeo_total,
+        `registros`.importe_comision,
+        `registros`.fecha_cierre 
+
+        '))->get();
+
+      $sheet->fromArray($operaciones);
+      $sheet->row(1, function($row) {
+
+      // call cell manipulation methods
+      $row->setBackground('#3F3F49');
+      $row->setFontColor('#ffffff');
+      $row->setValignment('center');
+
+      });
+   
+      });
+
+    })->export('xls');    
+    }
 }

@@ -12,7 +12,7 @@
         @endif 
 
 
-<table class="table table-striped" id="tablaejecutivos">
+<table class="table table-striped" id="tabla_clientes_baja">
   <thead>
     <th>ID</th>
     <th>Nombre Cliente</th>

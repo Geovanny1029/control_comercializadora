@@ -42,6 +42,13 @@
                 {!! Form::select('edit_estatus',['1' => 'Activo', '2' => 'Inactivo'],"Selecciona",['class' => 'form-control','id' => 'edit_estatus']) !!}
                </div>
               </div>
+              <div class="row">
+
+               <div class="form-group col-md-6">
+                {!! Form::label('Tipo usuario', 'Tipo usuario') !!} 
+                {!! Form::select('edit_tipo_usuario',['1' => 'Usuario', '2' => 'Contabilidad'],"Selecciona",['class' => 'form-control','id' => 'edit_tipo_usuario']) !!}
+               </div>
+              </div>
 
               <div class="row">
                 <div class="form-group col-md-2">
